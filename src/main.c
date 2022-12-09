@@ -6,14 +6,14 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2022/11/15 06:35:38 by matcardo         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:54:42 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "minishell.h"
 
 int main()
 {
-    printf("Hello World");
+    ft_putstr_fd("Hello World!", 1);
     return 0;
 }
