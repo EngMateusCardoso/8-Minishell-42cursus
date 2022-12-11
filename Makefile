@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2022/11/15 06:37:28 by matcardo         ###   ########.fr        #
+#    Updated: 2022/12/10 18:40:22 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,16 @@ RM				= rm -fr
 CC				= gcc
 FLAGS			= -Wall -Wextra -Werror
 
+LEAKS 		= valgrind
+LEAKS_FILE	= valgrind-out.txt
+LF 			= --leak-check=full \
+        		--show-leak-kinds=all \
+        		--track-origins=yes \
+        		--verbose \
+        		--log-file=$(LEAKS_FILE)
+
 LIBFT			= ./libraries/libft/libft.a
+LIBS			= $(LIBFT) -lreadline
 
 GR	= \033[32;1m
 RE	= \033[31;1m
@@ -33,7 +42,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS_DIR) $(OBJS) $(LIBFT)
 			@printf "\n$(CY)Generating minishell executable...$(RC)\n"
-			$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+			$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBS)
 			@printf "$(GR)Done!$(RC)\n\n"
 
 $(OBJS_DIR):
@@ -46,11 +55,14 @@ objs/%.o: src/%.c
 
 $(LIBFT):
 			@printf "\n$(CY)Generating libft...$(RC)\n"
-			make -C ./libraries/libft
+			make bonus -C ./libraries/libft
 			@printf "$(GR)libft ready!$(RC)"
 
 norm:
 			norminette ${SRCS} ${HEADER}
+
+leaks: 
+			$(LEAKS) $(LF) ./$(NAME)
 
 clean:
 			make -C ./libraries/libft clean
