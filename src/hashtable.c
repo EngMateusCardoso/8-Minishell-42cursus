@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 09:27:29 by matcardo          #+#    #+#             */
-/*   Updated: 2022/12/10 18:52:18 by matcardo         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:28:10 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,25 @@ void    store_env_variables(char **envp)
     }
 }
 
+void    free_hash_table()
+{
+    int i;
+    t_list *temp;
+    t_list *temp2;
 
+    i = 0;
+    while (i < TABLE_SIZE)
+    {
+        temp = g_data.hash_table[i];
+        while (temp)
+        {
+            temp2 = temp->next;
+            free(((t_env_var *)temp->content)->key);
+            free(((t_env_var *)temp->content)->value);
+            free(temp->content);
+            free(temp);
+            temp = temp2;
+        }
+        i++;
+    }    
+}

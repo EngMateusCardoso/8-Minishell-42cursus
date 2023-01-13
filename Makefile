@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2022/12/10 18:40:22 by matcardo         ###   ########.fr        #
+#    Updated: 2022/12/13 18:25:54 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,15 @@ OBJS_DIR		= objs/
 
 RM				= rm -fr
 CC				= gcc
-FLAGS			= -Wall -Wextra -Werror
+FLAGS			= -Wall -Wextra -Werror -g
 
 LEAKS 		= valgrind
 LEAKS_FILE	= valgrind-out.txt
-LF 			= --leak-check=full \
-        		--show-leak-kinds=all \
-        		--track-origins=yes \
-        		--verbose \
-        		--log-file=$(LEAKS_FILE)
+LF 			= --suppressions=readline.supp \
+			--leak-check=full \
+        	--track-origins=yes \
+			--show-leak-kinds=all \
+        	--log-file=$(LEAKS_FILE)
 
 LIBFT			= ./libraries/libft/libft.a
 LIBS			= $(LIBFT) -lreadline

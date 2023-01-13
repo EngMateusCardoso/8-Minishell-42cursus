@@ -6,25 +6,60 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2022/12/10 20:40:27 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:22:30 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char    *get_prompt(void)
+{
+    char    *prompt;
+    char    *path;
+    char    *tmp;
+    char    *temp2;
+
+    tmp = ft_strjoin(getenv("USER"), ":");
+    path = getcwd(NULL, 0);
+    prompt = ft_strjoin(tmp, path);
+    temp2 = prompt;
+    prompt = ft_strjoin(prompt, "$ ");
+    free(tmp);
+    free(temp2);
+    free(path);
+    return (prompt);
+}
+
+void    execute_command(char *command)
+{
+    char    **command_tokens;
+    char    ***command_table;
+
+    // add_history(command);
+    command_tokens = lexer(command);
+    free(command);
+    // print_command_tokens(command_tokens);
+    command_table = parser(command_tokens);
+    free_command_tokens(command_tokens);
+    // print_command_table(command_table);
+    // free_command_tokens(command_tokens);
+    if (is_builtin(command_table[0][0]))
+        execute_builtin(command_table);
+    free_command_table(command_table);
+    // else
+    //     execute_executable(command_tokens);
+}
+
 void    start_minishell(void)
 {
-    char *prompt_input;
+    char    *prompt;
+    char    *prompt_input;
 
-    prompt_input = "teste";
-    ft_putstr_fd("Hello minishell!\n", 1);
-    while (ft_strncmp(prompt_input, "exit", 5))
+    while (1)
     {
-        prompt_input = readline("minishell$ ");
-        if (!ft_strncmp(prompt_input, "show", 5))
-            ft_putstr_fd("showing\n", 1);
-        else if (is_builtin(prompt_input))
-            execute_builtin(prompt_input);
+        prompt = get_prompt();
+        prompt_input = readline(prompt);
+        free(prompt);
+        execute_command(prompt_input);
     }
-    ft_putstr_fd("Bye minishell \n", 1);
 }
