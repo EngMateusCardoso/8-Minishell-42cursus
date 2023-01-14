@@ -6,102 +6,117 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:51:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/13 17:52:09 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/14 15:58:21 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-char	*put_slices(char const *command, int str_index)
+unsigned int redirection_and_pipe_size(char const *command, unsigned int i)
 {
-	int		count_str;
-	int		start;
-	int		end;
-	char	*str;
-
-	end = 0;
-	count_str = 0;
-	while (command[end] && count_str <= str_index)
-	{
-		if (command[end] != ' ' && command[end])
-		{
-			start = end;
-            if (command[end] == '"')
-            {
-                end++;
-                while (command[end] != '"' && command[end])
-                    end++;
-            }
-            if (command[end] == '\'')
-            {
-                end++;
-                while (command[end] != '\'' && command[end])
-                    end++;
-            }
-			count_str++;
-			while (command[end] != ' ' && command[end])
-				end++;
-		}
-		else
-			end++;
-	}
-	str = (char *)malloc((end - start + 1) * sizeof(char));
-	// str = ft_strdup((char *)(command + start));
-	ft_strlcpy((char *)str, (char *)(command + start), (size_t)(end - start + 1));
-	return (str);
+	if ((command[i] == '>' && command[i + 1] == '>') || \
+	 (command[i] == '<' && command[i + 1] == '<') || 
+	 (command[i] == '|' && command[i + 1] == '|'))
+		return (2);
+	else if (command[i] == '>' || command[i] == '<' || command[i] == '|')
+		return (1);
+	return (0);
 }
 
-unsigned int	countwords(char const *command)
+unsigned int	quote_token_size(char const *command, unsigned int i, const char quote_type)
+{
+	unsigned int	size;
+
+	size = 1;
+	i++;
+	while (command[i] && command[i] != quote_type)
+	{
+		size++;
+		i++;
+	}
+	if (command[i] == quote_type)
+		size++;
+	return (size);
+}
+
+unsigned int	token_size(char const *command, unsigned int i)
+{
+	unsigned int	size;
+
+	size = 0;
+	if (command[i] && (command[i] == '"' || command[i] == '\''))
+		return (quote_token_size(command, i, command[i]));
+	if (redirection_and_pipe_size(command, i) > 0)
+		return (redirection_and_pipe_size(command, i));
+	while (command[i] && command[i] != ' ' && \
+		redirection_and_pipe_size(command, i) == 0 && command[i] != '"' \
+		&& command[i] != '\'')
+	{
+		size++;
+		i++;
+	}
+	return (size);
+}
+
+char	*put_slices(char const *command, unsigned int token_index)
 {
 	unsigned int	i;
-	unsigned int	count_strs;
+	unsigned int	count_tokens;
 
 	i = 0;
-	count_strs = 0;
+	count_tokens = 0;
+	while (command[i] && count_tokens < token_index)
+	{
+		while (command[i] && command[i] == ' ')
+			i++;
+		if (token_size(command, i) > 0)
+			count_tokens++;
+		i += token_size(command, i);
+	}
+	while (command[i] && command[i] == ' ')
+		i++;
+	return (ft_substr(command, i, token_size(command, i)));
+
+}
+
+unsigned int	to_count_tokens(char const *command)
+{
+	unsigned int	i;
+	unsigned int	count_tokens;
+
+	i = 0;
+	count_tokens = 0;
 	while (command[i])
 	{
-		if (command[i] != ' ' && command[i])
-		{
-            if (command[i] == '"')
-            {
-                i++;
-                while (command[i] != '"' && command[i])
-                    i++;
-            }
-            if (command[i] == '\'')
-            {
-                i++;
-                while (command[i] != '\'' && command[i])
-                    i++;
-            }
-			while (command[i] != ' ' && command[i])
-				i++;
-			count_strs++;
-		}
-		else
+		while (command[i] && command[i] == ' ')
 			i++;
+		if (token_size(command, i) > 0)
+			count_tokens++;
+		i += token_size(command, i);
 	}
-	return (count_strs);
+	return (count_tokens);
 }
 
 char    **lexer(char *command)
 {
-	unsigned int	count_strs;
-	unsigned int	count_str;
+	unsigned int	count_tokens;
+	unsigned int	count_token;
 	char			**split;
 
 	if (!command)
 		return (NULL);
-	count_strs = countwords(command);
-	split = (char **)malloc((count_strs + 1) * sizeof(char *));
+	count_tokens = to_count_tokens(command);
+	split = (char **)malloc((count_tokens + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
-	count_str = 0;
-	while (count_str < count_strs)
+	count_token = 0;
+	ft_putnbr_fd(count_tokens, 1);
+	ft_putstr_fd("\n", 1);
+	while (count_token < count_tokens)
 	{
-		split[count_str] = put_slices(command, count_str);
-		count_str++;
+		split[count_token] = put_slices(command, count_token);
+		count_token++;
 	}
-	split[count_str] = NULL;
+	split[count_token] = NULL;
 	return (split);
 }

@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/13 18:22:30 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/14 11:08:12 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void    execute_command(char *command)
     // add_history(command);
     command_tokens = lexer(command);
     free(command);
-    // print_command_tokens(command_tokens);
+    print_command_tokens(command_tokens);
     command_table = parser(command_tokens);
     free_command_tokens(command_tokens);
     // print_command_table(command_table);
