@@ -18,4 +18,10 @@ Working in progress
 
  - Changes must be in branchs
  - PR must have not leaks
- - 
+ - One accept the PR from another
+
+ - Tasks
+    -- make
+    -- norm
+    -- Neat
+    -- builtins

@@ -6,11 +6,20 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:30:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/13 16:28:48 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/15 00:41:34 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+short int  is_redirection_or_pipe(char *token)
+{
+    if (ft_strncmp(token, ">", 1) == 0 || ft_strncmp(token, "<", 1) == 0 || \
+        ft_strncmp(token, "|", 1) == 0 || ft_strncmp(token, ">>", 2) == 0 || \
+        ft_strncmp(token, "<<", 2) == 0 || ft_strncmp(token, "||", 2) == 0)
+        return (1);
+    return (0);
+}
 
 char    **put_args(char **command_tokens, int index_table)
 {
@@ -23,13 +32,13 @@ char    **put_args(char **command_tokens, int index_table)
     start_index = 0;
     while (i < index_table)
     {
-        while (ft_strncmp(command_tokens[start_index], "|", 1) != 0)
+        while (!is_redirection_or_pipe(command_tokens[start_index]))
             start_index++;
         start_index++;
         i++;
     }
     end_index = start_index;
-    while (command_tokens[end_index] && ft_strncmp(command_tokens[end_index], "|", 1) != 0)
+    while (command_tokens[end_index] && !is_redirection_or_pipe(command_tokens[end_index]))
         end_index++;
     args = (char **)malloc(sizeof(char *) * (end_index - start_index + 1));
     i = 0;
@@ -51,7 +60,7 @@ size_t  get_command_table_size(char   **command_tokens)
     i = 0;
     while (command_tokens[i])
     {
-        if (ft_strncmp(command_tokens[i], "|", 1) == 0)
+        if (is_redirection_or_pipe(command_tokens[i]))
             size++;
         i++;
     }

@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 17:47:14 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/13 17:29:36 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/15 00:16:11 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    print_command_table(char    ***command_table)
     {
         while (command_table[i][j])
         {
-            ft_putstr_fd(" - ", 1);
+            ft_putstr_fd("-", 1);
             ft_putstr_fd(command_table[i][j], 1);
             j++;
         }

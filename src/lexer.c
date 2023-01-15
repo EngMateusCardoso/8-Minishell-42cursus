@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:51:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/14 15:58:21 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/15 00:22:41 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,6 @@ char    **lexer(char *command)
 	if (!split)
 		return (NULL);
 	count_token = 0;
-	ft_putnbr_fd(count_tokens, 1);
-	ft_putstr_fd("\n", 1);
 	while (count_token < count_tokens)
 	{
 		split[count_token] = put_slices(command, count_token);
