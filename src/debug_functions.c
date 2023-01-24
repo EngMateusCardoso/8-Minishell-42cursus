@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 17:47:14 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/15 00:16:11 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:09:12 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void    print_command_tokens(char **command_tokens)
     int i;
 
     i = 0;
+    ft_putstr_fd("command_tokens test:\n", 1);
     while (command_tokens[i])
     {
         ft_putstr_fd(command_tokens[i], 1);
@@ -32,6 +33,7 @@ void    print_command_table(char    ***command_table)
 
     i = 0;
     j = 0;
+    ft_putstr_fd("command_table test:\n", 1);
     while (command_table[i])
     {
         while (command_table[i][j])

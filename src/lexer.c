@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:51:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/15 00:22:41 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/21 22:02:06 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 unsigned int redirection_and_pipe_size(char const *command, unsigned int i)
 {
 	if ((command[i] == '>' && command[i + 1] == '>') || \
-	 (command[i] == '<' && command[i + 1] == '<') || 
-	 (command[i] == '|' && command[i + 1] == '|'))
+	 (command[i] == '<' && command[i + 1] == '<'))
 		return (2);
 	else if (command[i] == '>' || command[i] == '<' || command[i] == '|')
 		return (1);

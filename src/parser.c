@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:30:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/15 00:41:34 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/24 20:29:43 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 short int  is_redirection_or_pipe(char *token)
 {
+    if (token == NULL)
+        return (0);
     if (ft_strncmp(token, ">", 1) == 0 || ft_strncmp(token, "<", 1) == 0 || \
         ft_strncmp(token, "|", 1) == 0 || ft_strncmp(token, ">>", 2) == 0 || \
         ft_strncmp(token, "<<", 2) == 0 || ft_strncmp(token, "||", 2) == 0)
