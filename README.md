@@ -25,7 +25,9 @@ Working in progress
     -- norm
     -- Neat
     -- builtins
+    -- expanser 
 
 Testes e lembretes
  - Lembrar de terminar o lance de colocar o comand table na variavel global para da free aparir de qualquer lugar
   - commandtable ta tratando | como > dai pode dar errado pq algumas linhas ficam  nulas
+  - Lembrar de testar cat | cat | ls

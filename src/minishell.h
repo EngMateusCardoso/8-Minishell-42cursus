@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/24 19:52:55 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:52:54 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ extern t_data   g_data;
 void    store_env_variables(char **envp);
 void    start_minishell(void);
 int     is_builtin(char *command);
-void    execute_builtin(char ***command);
+void    execute_builtin(char **command);
 void    free_hash_table(void);
 void    finish_minishell(void);
 void    print_command_tokens(char **command_tokens);
 void    free_command_tokens(char **command_tokens);
 char    **lexer(char *command);
-char    ***parser(char   **command_tokens);
-void    print_command_table(char    ***command_table);
+char    ***parser(char **command_tokens);
+void    print_command_table(char ***command_table);
 void    free_command_table(char ***command_table);
 char    ***expand_command_table(char ***command_table);
 short int    check_syntax(char   **command_tokens);

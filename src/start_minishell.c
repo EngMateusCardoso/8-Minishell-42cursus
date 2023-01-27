@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/24 20:45:28 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:01:12 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ void    execute_command(char *command)
         g_data.command_table_expanded = expand_command_table(command_table);
         free_command_table(command_table);
         // print_command_table(g_data.command_table_expanded);
+
+        // executar -------------
         if (is_builtin(g_data.command_table_expanded[0][0]))
-            execute_builtin(g_data.command_table_expanded);
-        free_command_table(g_data.command_table_expanded);
+            execute_builtin(g_data.command_table_expanded[0]);
         // else
         //     execute_executable(command_tokens);
+        // executar -------------
+        
+        free_command_table(g_data.command_table_expanded);
     }
 }
 

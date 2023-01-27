@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/13 17:18:27 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:00:40 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@
 *   --help para descrição dos cmd
 */
 
-void    exec_exit(char ***command)
+void    exec_exit(char **command)
 {
-    free_command_table(command);
+    int exit_status;
+
+    exit_status = 0;
+    if (command[1])
+        exit_status = ft_atoi(command[1]);
+    else
+        exit_status = 0;    
+    free_command_table(g_data.command_table_expanded);
     finish_minishell();
-    //verificar se esse atoi serve para o exit
-    // if (command[1])
-    //     exit(ft_atoi(command[1]));
-    // exit status is that of the last command executed
-    exit(0);
+    exit(exit_status);
 }
 
 void    exec_env(void)
@@ -63,20 +66,20 @@ int     is_builtin(char *command)
     return (0);
 }
 
-void    execute_builtin(char ***command)
+void    execute_builtin(char **command)
 {
-    if (!ft_strncmp(command[0][0], "echo", 5))
+    if (!ft_strncmp(command[0], "echo", 5))
         ft_putstr_fd("echoing\n", 1);
-    else if (!ft_strncmp(command[0][0], "cd", 3))
+    else if (!ft_strncmp(command[0], "cd", 3))
         ft_putstr_fd("changing directory\n", 1);
-    else if (!ft_strncmp(command[0][0], "pwd", 4))
+    else if (!ft_strncmp(command[0], "pwd", 4))
         ft_putstr_fd("printing working directory\n", 1);
-    else if (!ft_strncmp(command[0][0], "export", 7))
+    else if (!ft_strncmp(command[0], "export", 7))
         ft_putstr_fd("exporting\n", 1);
-    else if (!ft_strncmp(command[0][0], "unset", 6))
+    else if (!ft_strncmp(command[0], "unset", 6))
         ft_putstr_fd("unsetting\n", 1);
-    else if (!ft_strncmp(command[0][0], "env", 4))
+    else if (!ft_strncmp(command[0], "env", 4))
         exec_env();
-    else if (!ft_strncmp(command[0][0], "exit", 5))
+    else if (!ft_strncmp(command[0], "exit", 5))
         exec_exit(command);
 }
