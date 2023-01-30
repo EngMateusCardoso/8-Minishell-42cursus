@@ -17,6 +17,8 @@
 # include <readline/history.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <signal.h>
+# include <fcntl.h>
 # include "../libraries/libft/libft.h"
 
 # define TABLE_SIZE 50

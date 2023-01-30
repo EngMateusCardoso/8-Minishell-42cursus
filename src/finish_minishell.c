@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+void	print_closing(void)
+{
+	int		fd;
+	char	buff[1];
+
+	fd = open("./src/closing.txt", O_RDONLY);
+	if (fd == -1)
+		return ;
+    printf("\n");
+	while (read(fd, buff, 1))
+	    printf("%c", buff[0]);
+    printf("\n");
+	close(fd);
+	return ;
+}
+
 void    finish_free(void)
 {
     free_hash_table();
@@ -20,5 +36,5 @@ void    finish_free(void)
 void    finish_minishell(void)
 {
     finish_free();
-    ft_putstr_fd("Bye cadet :( \n", 1);
+    print_closing();
 }
