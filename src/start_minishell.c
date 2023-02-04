@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/25 22:01:12 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:38:22 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,27 @@ char    *get_prompt(void)
     return (prompt);
 }
 
-void    execute_command(char *command)
+void    execute_line(char *command)
 {
     char    **command_tokens;
-    char    ***command_table;
+    t_cmd   *command_table;
 
     // add_history(command);
     command_tokens = lexer(command);
     free(command);
-    // print_command_tokens(command_tokens);
+    print_command_tokens(command_tokens);
     if (check_syntax(command_tokens))
     {
         command_table = parser(command_tokens);
         free_command_tokens(command_tokens);
-        // print_command_table(command_table);
+        print_command_table(command_table);
         g_data.command_table_expanded = expand_command_table(command_table);
         free_command_table(command_table);
         // print_command_table(g_data.command_table_expanded);
-
+    
         // executar -------------
-        if (is_builtin(g_data.command_table_expanded[0][0]))
-            execute_builtin(g_data.command_table_expanded[0]);
+        if (is_builtin(g_data.command_table_expanded[0].cmd_and_args[0]))
+            execute_builtin(g_data.command_table_expanded[0].cmd_and_args);
         // else
         //     execute_executable(command_tokens);
         // executar -------------
@@ -69,6 +69,6 @@ void    start_minishell(void)
         prompt = get_prompt();
         prompt_input = readline(prompt);
         free(prompt);
-        execute_command(prompt_input);
+        execute_line(prompt_input);
     }
 }

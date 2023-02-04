@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/26 09:52:54 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:42:48 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,16 @@ typedef struct s_env_var
     char        *value;
 }               t_env_var;
 
+typedef struct s_cmd
+{
+    char   **cmd_and_args;
+    char   **redirections_and_files;
+}               t_cmd;
+
 typedef struct s_data
 {
     t_list      *(hash_table[TABLE_SIZE]);
-    char        ***command_table_expanded;
+    t_cmd       *command_table_expanded;
 }               t_data;
 
 extern t_data   g_data;
@@ -46,11 +52,11 @@ void    finish_minishell(void);
 void    print_command_tokens(char **command_tokens);
 void    free_command_tokens(char **command_tokens);
 char    **lexer(char *command);
-char    ***parser(char **command_tokens);
-void    print_command_table(char ***command_table);
-void    free_command_table(char ***command_table);
-char    ***expand_command_table(char ***command_table);
+t_cmd   *parser(char **command_tokens);
+void    print_command_table(t_cmd *command_table);
+void    free_command_table(t_cmd *command_table);
+t_cmd   *expand_command_table(t_cmd *command_table);
 short int    check_syntax(char   **command_tokens);
-short int  is_redirection_or_pipe(char *token);
+short int    is_redirection(char *token);
 
 #endif
