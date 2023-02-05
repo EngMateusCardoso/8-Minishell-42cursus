@@ -6,45 +6,62 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:17:37 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/21 20:31:47 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:10:53 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int  table_size(char ***table)
+int     count_args(char **args)
 {
-    int  size;
+    int i;
 
-    size = 0;
-    while (table[size])
-        size++;
-    return (size);
+    i = 0;
+    while (args[i])
+        i++;
+    return (i);
 }
 
-char    ***expand_command_table(char ***command_table)
+int     count_commands(t_cmd *command_table)
 {
-    char    ***expanded_command_table;
+    int i;
+
+    i = 0;
+    while (command_table[i].cmd_and_args || command_table[i].redirections_and_files)
+        i++;
+    return (i);
+}
+
+t_cmd   *expand_command_table(t_cmd *command_table)
+{
+    t_cmd   *new_command_table;
     int     i;
     int     j;
 
-    expanded_command_table = (char ***)malloc(sizeof(char **) * (table_size(command_table) + 1));
     i = 0;
-    while (command_table[i])
+    j = 0;
+    new_command_table = (t_cmd *)malloc(sizeof(t_cmd) * (count_commands(command_table) + 1));
+    while (command_table[i].cmd_and_args || command_table[i].redirections_and_files)
     {
-        j = 0;
-        while (command_table[i][j])
-            j++;
-        expanded_command_table[i] = (char **)malloc(sizeof(char *) * (j + 1));
-        j = 0;
-        while (command_table[i][j])
+        new_command_table[i].cmd_and_args = (char **)malloc(sizeof(char *) * (count_args(command_table[i].cmd_and_args) + 1));
+        while (command_table[i].cmd_and_args[j])
         {
-            expanded_command_table[i][j] = ft_strdup(command_table[i][j]);
+            new_command_table[i].cmd_and_args[j] = ft_strdup(command_table[i].cmd_and_args[j]);
             j++;
         }
-        expanded_command_table[i][j] = NULL;
+        new_command_table[i].cmd_and_args[j] = NULL;
+        j = 0;
+        new_command_table[i].redirections_and_files = (char **)malloc(sizeof(char *) * (count_args(command_table[i].redirections_and_files) + 1));
+        while (command_table[i].redirections_and_files[j])
+        {
+            new_command_table[i].redirections_and_files[j] = ft_strdup(command_table[i].redirections_and_files[j]);
+            j++;
+        }
+        new_command_table[i].redirections_and_files[j] = NULL;
+        j = 0;
         i++;
     }
-    expanded_command_table[i] = NULL;
-    return (expanded_command_table);
+    new_command_table[i].cmd_and_args = NULL;
+    new_command_table[i].redirections_and_files = NULL;
+    return (new_command_table);
 }

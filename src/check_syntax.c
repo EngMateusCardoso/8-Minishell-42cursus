@@ -6,11 +6,22 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:59:39 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/24 20:51:28 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/03 10:28:25 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+short int  is_redirection_or_pipe(char *token)
+{
+    if (token == NULL)
+        return (0);
+    if (ft_strncmp(token, ">", 1) == 0 || ft_strncmp(token, "<", 1) == 0 || \
+        ft_strncmp(token, "|", 1) == 0 || ft_strncmp(token, ">>", 2) == 0 || \
+        ft_strncmp(token, "<<", 2) == 0 || ft_strncmp(token, "||", 2) == 0)
+        return (1);
+    return (0);
+}
 
 short int    syntax_error(char **command_tokens, char *token)
 {
@@ -19,14 +30,6 @@ short int    syntax_error(char **command_tokens, char *token)
     ft_putchar_fd('\'', 2);
     ft_putstr_fd("\n", 2);
     free_command_tokens(command_tokens);
-    return (0);
-}
-
-short int    is_redirection(char *token)
-{
-    if (ft_strncmp(token, ">", 1) == 0 || ft_strncmp(token, "<", 1) == 0 || \
-        ft_strncmp(token, ">>", 2) == 0 || ft_strncmp(token, "<<", 2) == 0)
-        return (1);
     return (0);
 }
 
