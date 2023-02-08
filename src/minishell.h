@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/03 15:42:48 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:01:46 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,9 @@ void    free_command_table(t_cmd *command_table);
 t_cmd   *expand_command_table(t_cmd *command_table);
 short int    check_syntax(char   **command_tokens);
 short int    is_redirection(char *token);
+void    print_color_char(int idx, char c);
+char    *get_prompt(void);
+void    execute_line(char *command);
+void	capture_signals(struct sigaction *sint, struct sigaction *squit);
 
 #endif
