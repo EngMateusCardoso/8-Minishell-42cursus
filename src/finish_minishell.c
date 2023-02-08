@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/26 09:57:29 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:04:42 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,24 @@ void	print_closing(void)
 {
 	int		fd;
 	char	buff[1];
+	int		idx;
 
 	fd = open("./src/closing.txt", O_RDONLY);
 	if (fd == -1)
 		return ;
     printf("\n");
+	idx = 0;
 	while (read(fd, buff, 1))
-	    printf("%c", buff[0]);
+	{
+		if (idx < 74)
+			print_color_char(idx, buff[0]);
+		else
+		{
+			idx = 0;
+			print_color_char(idx, buff[0]);
+		}
+		idx++;
+	}
     printf("\n");
 	close(fd);
 	return ;
