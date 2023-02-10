@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:59:39 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/03 10:28:25 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/10 00:32:50 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ short int    check_syntax(char   **command_tokens)
 {
     int    i;
 
+    if (command_tokens == NULL)
+        return (0);
     if (ft_strncmp(command_tokens[0], "|", 1) == 0)
         return (syntax_error(command_tokens, command_tokens[0]));
     i = 0;

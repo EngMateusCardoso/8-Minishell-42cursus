@@ -3,14 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/07 11:58:02 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/10 00:42:13 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int     count_pipes(char **command_tokens)
+{
+    int i;
+    int count;
+
+    i = 0;
+    count = 0;
+    while (command_tokens[i])
+    {
+        if (ft_strncmp(command_tokens[i], "|", 1) == 0)
+            count++;
+        i++;
+    }
+    return (count);
+}
+
+void    init_pipes_and_pids(int n_pipes)
+{
+    int i;
+
+    g_data.pipes_pids = malloc(sizeof(t_pipes_pids));
+    g_data.pipes_pids->pipes = malloc(sizeof(int *) * (n_pipes + 2));
+    g_data.pipes_pids->pids = malloc(sizeof(pid_t) * (n_pipes + 1));
+    g_data.pipes_pids->total_cmd = n_pipes + 1;
+    i = 0;
+    while (i <= n_pipes)
+    {
+        g_data.pipes_pids->pipes[i] = malloc(sizeof(int) * 2);
+        if (pipe(g_data.pipes_pids->pipes[i]) == -1)
+            ft_putstr_fd("Error creating pipe", 2);
+        i++;
+    }
+    // Não entendi pq tive que comentar isso para não ter leaks
+    // g_data.pipes_pids->pipes[i] = malloc(sizeof(int) * 2);
+    g_data.pipes_pids->pipes[i] = NULL;
+    g_data.pipes_pids->total_cmd = n_pipes + 1;
+}
 
 char    *get_prompt(void)
 {
@@ -41,6 +79,7 @@ void    execute_line(char *command)
     //print_command_tokens(command_tokens);
     if (check_syntax(command_tokens))
     {
+        init_pipes_and_pids(count_pipes(command_tokens));
         command_table = parser(command_tokens);
         free_command_tokens(command_tokens);
         //print_command_table(command_table);
@@ -56,6 +95,7 @@ void    execute_line(char *command)
         // executar -------------
 
         free_command_table(g_data.command_table_expanded);
+        free_pipes_and_pids();
     }
 }
 

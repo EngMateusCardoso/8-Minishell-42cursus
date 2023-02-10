@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/03 15:41:22 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/10 00:10:50 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void    exec_exit(char **command)
     else
         exit_status = 0;    
     free_command_table(g_data.command_table_expanded);
+    free_pipes_and_pids();
     finish_minishell();
     exit(exit_status);
 }

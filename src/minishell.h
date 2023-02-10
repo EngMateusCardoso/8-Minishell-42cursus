@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/07 12:01:46 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/10 00:06:08 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,42 +25,51 @@
 
 typedef struct s_env_var
 {
-    char        *key;
-    char        *value;
-}               t_env_var;
+	char		*key;
+	char		*value;
+}				t_env_var;
 
 typedef struct s_cmd
 {
-    char   **cmd_and_args;
-    char   **redirections_and_files;
-}               t_cmd;
+	char		**cmd_and_args;
+	char		**redirections_and_files;
+}				t_cmd;
+
+typedef struct s_pipes_pids
+{
+	int			**pipes;
+	pid_t		*pids;
+	int			total_cmd;
+}				t_pipes_pids;
 
 typedef struct s_data
 {
-    t_list      *(hash_table[TABLE_SIZE]);
-    t_cmd       *command_table_expanded;
-}               t_data;
+	t_list			*(hash_table[TABLE_SIZE]);
+	t_cmd			*command_table_expanded;
+	t_pipes_pids	*pipes_pids;
+}					t_data;
 
-extern t_data   g_data;
+extern t_data	g_data;
 
-void    store_env_variables(char **envp);
-void    start_minishell(void);
-int     is_builtin(char *command);
-void    execute_builtin(char **command);
-void    free_hash_table(void);
-void    finish_minishell(void);
-void    print_command_tokens(char **command_tokens);
-void    free_command_tokens(char **command_tokens);
-char    **lexer(char *command);
-t_cmd   *parser(char **command_tokens);
-void    print_command_table(t_cmd *command_table);
-void    free_command_table(t_cmd *command_table);
-t_cmd   *expand_command_table(t_cmd *command_table);
-short int    check_syntax(char   **command_tokens);
-short int    is_redirection(char *token);
-void    print_color_char(int idx, char c);
-char    *get_prompt(void);
-void    execute_line(char *command);
-void	capture_signals(struct sigaction *sint, struct sigaction *squit);
+void		store_env_variables(char **envp);
+void		start_minishell(void);
+int			is_builtin(char *command);
+void		execute_builtin(char **command);
+void		free_hash_table(void);
+void		finish_minishell(void);
+void		print_command_tokens(char **command_tokens);
+void		free_command_tokens(char **command_tokens);
+char		**lexer(char *command);
+t_cmd		*parser(char **command_tokens);
+void		print_command_table(t_cmd *command_table);
+void		free_command_table(t_cmd *command_table);
+t_cmd		*expand_command_table(t_cmd *command_table);
+short int	check_syntax(char **command_tokens);
+short int	is_redirection(char *token);
+void		print_color_char(int idx, char c);
+char		*get_prompt(void);
+void		execute_line(char *command);
+void		capture_signals(struct sigaction *sint, struct sigaction *squit);
+void		free_pipes_and_pids(void);
 
 #endif
