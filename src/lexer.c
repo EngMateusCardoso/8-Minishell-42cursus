@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:51:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/21 22:02:06 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/10 00:48:00 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,11 @@ char    **lexer(char *command)
 	unsigned int	count_token;
 	char			**split;
 
-	if (!command)
+	if (!command || !*command)
 		return (NULL);
 	count_tokens = to_count_tokens(command);
+	if (count_tokens == 0)
+		return (NULL);
 	split = (char **)malloc((count_tokens + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
