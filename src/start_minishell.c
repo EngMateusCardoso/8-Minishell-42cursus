@@ -6,11 +6,38 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/10 00:42:13 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:37:45 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void    execute_with_fork(t_cmd *command_table)
+{
+    ft_putstr_fd("Executing with fork", 1);
+    ft_putstr_fd(command_table[0].cmd_and_args[0], 1);
+}
+
+void        execute_no_fork(t_cmd *command_table)
+{
+    execute_builtin(command_table->cmd_and_args);
+}
+
+short int   is_forked(t_cmd *command_table)
+{
+    
+    if (command_table[0].cmd_and_args && \
+        !(command_table[1].cmd_and_args) && \
+        !(command_table[1].redirections_and_files) && \
+        command_table[0].cmd_and_args && \
+        command_table[0].cmd_and_args[0] && \
+        (ft_strncmp(command_table[0].cmd_and_args[0], "exit", 4) == 0 || \
+        ft_strncmp(command_table[0].cmd_and_args[0], "cd", 2) == 0 || \
+        ft_strncmp(command_table[0].cmd_and_args[0], "export", 6) == 0 || \
+        ft_strncmp(command_table[0].cmd_and_args[0], "unset", 5) == 0))
+        return (0);
+    return (1);
+}
 
 int     count_pipes(char **command_tokens)
 {
@@ -88,8 +115,12 @@ void    execute_line(char *command)
         // print_command_table(g_data.command_table_expanded);
 
         // executar -------------
-        if (is_builtin(g_data.command_table_expanded[0].cmd_and_args[0]))
-            execute_builtin(g_data.command_table_expanded[0].cmd_and_args);
+        if (is_forked(g_data.command_table_expanded))
+            execute_with_fork(g_data.command_table_expanded);
+        else
+            execute_no_fork(g_data.command_table_expanded);
+        // if (is_builtin(g_data.command_table_expanded[0].cmd_and_args[0]))
+        //     execute_builtin(g_data.command_table_expanded[0].cmd_and_args);
         // else
         //     execute_executable(command_tokens);
         // executar -------------
