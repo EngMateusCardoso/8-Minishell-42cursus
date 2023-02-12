@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/12 17:45:27 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:50:15 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_str_prompt(void)
 	char	*prompt;
 	char	*tmp;
 
-	tmp = ft_strjoin(getenv("USER"), "@minislell:");
+	tmp = ft_strjoin(getenv("USER"), "@minishell:");
 	prompt = ft_strjoin("\001\033[1;92m\002", tmp);
 	free(tmp);
 	return (prompt);
