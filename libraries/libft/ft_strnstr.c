@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 13:52:07 by matcardo          #+#    #+#             */
-/*   Updated: 2022/04/22 05:56:13 by matcardo         ###   ########.fr       */
+/*   Created: 2022/04/05 23:26:35 by thabeck-          #+#    #+#             */
+/*   Updated: 2022/04/25 00:55:04 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char	*big, const char *little, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t	count_big;
-	size_t	count_little;
+	size_t	i;
+	size_t	j;
+	char	*needle;
 
-	count_big = 0;
-	count_little = 0;
-	if (!(*little))
+	if (little[0] == '\0')
 		return ((char *)big);
-	while (big[count_big] && count_big < len)
+	i = 0;
+	while (big[i] && i < len)
 	{
-		while (big[count_big + count_little] == little[count_little]
-			&& little[count_little] && count_big + count_little < len)
+		j = 0;
+		while (((i + j) < len) && (big[i + j] == little[j]))
 		{
-			count_little++;
-			if (!(little[count_little]))
-				return ((char *)&big[count_big]);
+			if (little[j + 1] == '\0')
+			{
+				needle = (char *)(&big[i]);
+				return (needle);
+			}
+			j++;
 		}
-		count_little = 0;
-		count_big++;
+		i++;
 	}
 	return (NULL);
 }

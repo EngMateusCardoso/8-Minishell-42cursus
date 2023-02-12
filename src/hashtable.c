@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   hashtable.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 09:27:29 by matcardo          #+#    #+#             */
-/*   Updated: 2023/01/25 22:04:47 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/08 20:57:51 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int    hash_function(char *key)
+unsigned int hash_function(char *key)
 {
     if (*key)
         return (*key + hash_function(key + 1));
     return (0);
 }
 
-void    insert_in_hashtable(char *envp)
+void insert_in_hashtable(char *envp)
 {
     char *key;
     char *value;
@@ -35,7 +35,7 @@ void    insert_in_hashtable(char *envp)
     ft_lstadd_back(&(g_data.hash_table[hash_index]), ft_lstnew((void *)env_var));
 }
 
-void    store_env_variables(char **envp)
+void store_env_variables(char **envp)
 {
     if (*envp)
     {
@@ -44,7 +44,7 @@ void    store_env_variables(char **envp)
     }
 }
 
-void    free_hash_table()
+void free_hash_table()
 {
     int i;
     t_list *temp;
@@ -64,5 +64,21 @@ void    free_hash_table()
             temp = temp2;
         }
         i++;
-    }    
+    }
+}
+
+char *find_hash_var(t_list *head, char *key)
+{
+    t_list *pivot;
+    int len;
+
+    len = ft_strlen(key);
+    pivot = head;
+    while (pivot != NULL)
+    {
+        if (ft_strncmp(((t_env_var *)pivot->content)->key, key, len) == 0)
+            return (((t_env_var *)pivot->content)->value);
+        pivot = pivot->next;
+    }
+    return (NULL);
 }

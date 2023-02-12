@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/07 12:01:46 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/09 09:10:19 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <dirent.h>
 # include "../libraries/libft/libft.h"
 
 # define TABLE_SIZE 50
@@ -39,6 +40,7 @@ typedef struct s_data
 {
     t_list      *(hash_table[TABLE_SIZE]);
     t_cmd       *command_table_expanded;
+    int         exit_code;
 }               t_data;
 
 extern t_data   g_data;
@@ -62,5 +64,7 @@ void    print_color_char(int idx, char c);
 char    *get_prompt(void);
 void    execute_line(char *command);
 void	capture_signals(struct sigaction *sint, struct sigaction *squit);
+char    *find_hash_var(t_list *head, char *key);
+unsigned int hash_function(char *key);
 
 #endif
