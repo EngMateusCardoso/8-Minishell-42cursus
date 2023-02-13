@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:16:54 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:21:36 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,11 +219,6 @@ void    execute_line(char *command)
             execute_with_fork(g_data.command_table_expanded);
         else
             execute_no_fork(g_data.command_table_expanded);
-        // if (is_builtin(g_data.command_table_expanded[0].cmd_and_args[0]))
-        //     execute_builtin(g_data.command_table_expanded[0].cmd_and_args);
-        // else
-        //     execute_executable(command_tokens);
-        // executar -------------
         free_command_table(g_data.command_table_expanded);
         free_pipes_and_pids();
     }
