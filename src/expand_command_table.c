@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:17:37 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/12 13:38:53 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:21:23 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -494,17 +494,12 @@ t_cmd *expand_command_table(t_cmd *command_table)
 {
 	t_cmd *new_command_table;
 	int i;
-	int len;
 
 	i = 0;
-	len = 0;
 	new_command_table = (t_cmd *)malloc(sizeof(t_cmd) * (count_commands(command_table) + 1));
 	while (command_table[i].cmd_and_args || command_table[i].redirections_and_files)
 	{
-		len = count_args(command_table[i].cmd_and_args) + 1;
-		ft_putnbr_fd(len, 1);
-		ft_putstr_fd("\n", 1);
-		new_command_table[i].cmd_and_args = (char **)malloc(sizeof(char *) * (len));
+		new_command_table[i].cmd_and_args = (char **)malloc(sizeof(char *) * (count_args(command_table[i].cmd_and_args) + 1));
 		expand_cmd_and_args(new_command_table[i].cmd_and_args, command_table[i].cmd_and_args);
 		new_command_table[i].redirections_and_files = (char **)malloc(sizeof(char *) * (count_args(command_table[i].redirections_and_files) + 1));
 		expand_redirections_and_files(new_command_table[i].redirections_and_files, command_table[i].redirections_and_files);
