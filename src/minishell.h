@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/12 22:12:32 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:16:36 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <dirent.h>
 # include "../libraries/libft/libft.h"
 
@@ -46,6 +48,7 @@ typedef struct s_pipes_pids
 typedef struct s_data
 {
 	t_list			*(hash_table[TABLE_SIZE]);
+	char			**envp;
 	t_cmd			*command_table_expanded;
     int         exit_code;
 	t_pipes_pids	*pipes_pids;
@@ -75,5 +78,6 @@ void		capture_signals(struct sigaction *sint, struct sigaction *squit);
 char    *find_hash_var(t_list *head, char *key);
 unsigned int hash_function(char *key);
 void		free_pipes_and_pids(void);
+void		run_single_command(char **cmd_and_args);
 
 #endif
