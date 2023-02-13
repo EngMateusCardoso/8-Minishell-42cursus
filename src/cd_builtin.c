@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:11 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/13 17:07:17 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:18:23 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void change_env(char *key, char *value)
 	{
 		if (ft_strncmp(((t_env_var *)pivot->content)->key, key, len) == 0)
 		{
-			ft_free_pointer((void *)(&(((t_env_var *)pivot->content)->value)));
-			((t_env_var *)pivot->content)->value = value;
+			ft_free_pointer((void *)&(((t_env_var *)pivot->content)->value));
+			((t_env_var *)pivot->content)->value = ft_strdup(value);
 			return;
 		}
 		pivot = pivot->next;
@@ -40,8 +40,9 @@ void change_env(char *key, char *value)
 
 void cd_builtin(char *folder)
 {
-	char *pwd;
-	char *path;
+	char	*pwd;
+	char	*path;
+	char	*cwd;
 
 	if (folder && !(ft_strncmp(folder, "~", 2) == 0))
 	{
@@ -49,6 +50,7 @@ void cd_builtin(char *folder)
 		{
 			path = find_hash_var(g_data.hash_table[hash_function("OLDPWD") % TABLE_SIZE], "OLDPWD");
 			ft_putstr_fd(path, 1);
+			ft_putstr_fd("\n", 1);
 		}
 		else
 			path = folder;
@@ -65,6 +67,8 @@ void cd_builtin(char *folder)
 	}
 	pwd = find_hash_var(g_data.hash_table[hash_function("PWD") % TABLE_SIZE], "PWD");
 	change_env("OLDPWD", pwd);
-	change_env("PWD", getcwd(NULL, 0));
+	cwd = getcwd(NULL, 0);
+	change_env("PWD", cwd);
+	ft_free_pointer((void *)&cwd);
 	g_data.exit_code = 0;
 }
