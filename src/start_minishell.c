@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:21:36 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:51:10 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void    execute_with_fork(t_cmd *command_table)
     }
     close_pipes_in_parent();
     wait_all_pids();
-    close(g_data.pipes_pids->pipes[0][1]);    
+    close(g_data.pipes_pids->pipes[0][1]);
     close(g_data.pipes_pids->pipes[g_data.pipes_pids->total_cmd][0]);
 }
 
 void        execute_no_fork(t_cmd *command_table)
 {
-    execute_builtin(command_table->cmd_and_args);
+    execute_builtin(command_table->cmd_and_args, 0);
 }
 
 short int   is_forked(t_cmd *command_table)
