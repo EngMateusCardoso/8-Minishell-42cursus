@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/10 00:06:08 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:29:23 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include "../libraries/libft/libft.h"
 
 # define TABLE_SIZE 50
@@ -45,6 +47,7 @@ typedef struct s_pipes_pids
 typedef struct s_data
 {
 	t_list			*(hash_table[TABLE_SIZE]);
+	char			**envp;
 	t_cmd			*command_table_expanded;
 	t_pipes_pids	*pipes_pids;
 }					t_data;
@@ -71,5 +74,6 @@ char		*get_prompt(void);
 void		execute_line(char *command);
 void		capture_signals(struct sigaction *sint, struct sigaction *squit);
 void		free_pipes_and_pids(void);
+void		run_single_command(char **cmd_and_args);
 
 #endif

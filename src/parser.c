@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:30:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/03 20:10:03 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:33:01 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ char    **put_cmd_and_args(char **command_tokens, int start_index, int end_index
     int     i;
 
     n_cmd = count_tokens_for(command_tokens, start_index, end_index, "cmd");
-    ft_putstr_fd("n_cmd: ", 1);
-    ft_putnbr_fd(n_cmd, 1);
-    ft_putchar_fd('\n', 1);
     cmd_and_args = (char **)malloc(sizeof(char *) * (n_cmd + 1));
     i = 0;
     while (start_index < end_index)
@@ -73,9 +70,6 @@ char    **put_redirections(char **command_tokens, int start_index, int end_index
     int     i;
 
     n_redir = count_tokens_for(command_tokens, start_index, end_index, "redir");
-    ft_putstr_fd("n_redir: ", 1);
-    ft_putnbr_fd(n_redir, 1);
-    ft_putchar_fd('\n', 1);
     redir = (char **)malloc(sizeof(char *) * (n_redir + 1));
     i = 0;
     while (start_index < end_index)
@@ -111,16 +105,6 @@ t_cmd   put_complete_cmd(char **command_tokens, int index_table)
     end_index = start_index;
     while (command_tokens[end_index] && ft_strncmp(command_tokens[end_index], "|", 1) != 0)
         end_index++;
-    ft_putstr_fd("-----------\n", 1);
-    ft_putstr_fd("Index_table: ", 1);
-    ft_putnbr_fd(index_table, 1);
-    ft_putchar_fd('\n', 1);
-    ft_putstr_fd("start_index: ", 1);
-    ft_putnbr_fd(start_index, 1);
-    ft_putchar_fd('\n', 1);
-    ft_putstr_fd("end_index: ", 1);
-    ft_putnbr_fd(end_index, 1);
-    ft_putchar_fd('\n', 1);
     i = 0;
     complete_cmd.cmd_and_args = put_cmd_and_args(command_tokens, start_index, end_index);
     complete_cmd.redirections_and_files = put_redirections(command_tokens, start_index, end_index);
