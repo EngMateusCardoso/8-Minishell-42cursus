@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:51:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/10 00:48:00 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:30:27 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ unsigned int	token_size(char const *command, unsigned int i)
 	return (size);
 }
 
-char	*put_slices(char const *command, unsigned int token_index)
+char	*put_slices_lexer(char const *command, unsigned int token_index)
 {
 	unsigned int	i;
 	unsigned int	count_tokens;
@@ -113,7 +113,7 @@ char    **lexer(char *command)
 	count_token = 0;
 	while (count_token < count_tokens)
 	{
-		split[count_token] = put_slices(command, count_token);
+		split[count_token] = put_slices_lexer(command, count_token);
 		count_token++;
 	}
 	split[count_token] = NULL;

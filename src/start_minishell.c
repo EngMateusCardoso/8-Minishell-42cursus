@@ -6,16 +6,80 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 11:28:15 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:51:10 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void    close_pipes_in_child(int i)
+{
+    int j;
+
+    j = 0;
+    while (j <= g_data.pipes_pids->total_cmd)
+    {
+        if (j != i)
+            close(g_data.pipes_pids->pipes[j][0]);
+        if (j != i + 1)
+            close(g_data.pipes_pids->pipes[j][1]);
+        j++;
+    }
+}
+
+void    close_pipes_in_parent(void)
+{
+    int i;
+
+    i = 0;
+    while (i <= g_data.pipes_pids->total_cmd)
+    {
+        if (i != 0)
+            close(g_data.pipes_pids->pipes[i][1]);
+        if (i != g_data.pipes_pids->total_cmd)
+            close(g_data.pipes_pids->pipes[i][0]);
+        i++;
+    }
+}
+
+void    wait_all_pids(void)
+{
+    int i;
+
+    i = 0;
+    while (i < g_data.pipes_pids->total_cmd)
+    {
+        waitpid(g_data.pipes_pids->pids[i], NULL, 0);
+        i++;
+    }
+}
+
+
 void    execute_with_fork(t_cmd *command_table)
 {
-    ft_putstr_fd("Executing with fork", 1);
-    ft_putstr_fd(command_table[0].cmd_and_args[0], 1);
+    int i;
+
+    i = 0;
+    while (command_table[i].cmd_and_args)
+    {
+        g_data.pipes_pids->pids[i] = fork();
+        if (g_data.pipes_pids->pids[i] == 0)
+        {
+            close_pipes_in_child(i);
+		    if (i != 0)
+				dup2(g_data.pipes_pids->pipes[i][0], STDIN_FILENO);
+		    if (i != (g_data.pipes_pids->total_cmd - 1))
+				dup2(g_data.pipes_pids->pipes[i + 1][1], STDOUT_FILENO);
+            close(g_data.pipes_pids->pipes[i][0]);
+            close(g_data.pipes_pids->pipes[i + 1][1]);
+            run_single_command(command_table[i].cmd_and_args);
+        }
+        i++;
+    }
+    close_pipes_in_parent();
+    wait_all_pids();
+    close(g_data.pipes_pids->pipes[0][1]);
+    close(g_data.pipes_pids->pipes[g_data.pipes_pids->total_cmd][0]);
 }
 
 void        execute_no_fork(t_cmd *command_table)
@@ -60,19 +124,19 @@ void    init_pipes_and_pids(int n_pipes)
     int i;
 
     g_data.pipes_pids = malloc(sizeof(t_pipes_pids));
-    g_data.pipes_pids->pipes = malloc(sizeof(int *) * (n_pipes + 2));
+    g_data.pipes_pids->pipes = malloc(sizeof(int *) * (n_pipes + 3));
     g_data.pipes_pids->pids = malloc(sizeof(pid_t) * (n_pipes + 1));
     g_data.pipes_pids->total_cmd = n_pipes + 1;
     i = 0;
-    while (i <= n_pipes)
+    while (i <= n_pipes + 1)
     {
         g_data.pipes_pids->pipes[i] = malloc(sizeof(int) * 2);
         if (pipe(g_data.pipes_pids->pipes[i]) == -1)
-            ft_putstr_fd("Error creating pipe", 2);
+            ft_putstr_fd("Error creating pipe\n", 2);
+        if (i != n_pipes + 1)
+            g_data.pipes_pids->pids[i] = 0;
         i++;
     }
-    // Não entendi pq tive que comentar isso para não ter leaks
-    // g_data.pipes_pids->pipes[i] = malloc(sizeof(int) * 2);
     g_data.pipes_pids->pipes[i] = NULL;
     g_data.pipes_pids->total_cmd = n_pipes + 1;
 }
@@ -155,12 +219,6 @@ void    execute_line(char *command)
             execute_with_fork(g_data.command_table_expanded);
         else
             execute_no_fork(g_data.command_table_expanded);
-        // if (is_builtin(g_data.command_table_expanded[0].cmd_and_args[0]))
-        //     execute_builtin(g_data.command_table_expanded[0].cmd_and_args);
-        // else
-        //     execute_executable(command_tokens);
-        // executar -------------
-
         free_command_table(g_data.command_table_expanded);
         free_pipes_and_pids();
     }

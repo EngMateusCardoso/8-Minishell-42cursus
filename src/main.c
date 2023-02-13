@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:01:49 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:51:01 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void print_startup(void)
 void init_minishell(char **envp)
 {
 	print_startup();
+	g_data.envp = envp;
 	store_env_variables(envp);
 	g_data.exit_code = 0;
 }
