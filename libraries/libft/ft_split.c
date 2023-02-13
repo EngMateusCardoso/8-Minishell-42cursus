@@ -3,30 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/22 00:48:52 by matcardo          #+#    #+#             */
-/*   Updated: 2022/04/23 06:21:28 by matcardo         ###   ########.fr       */
+/*   Created: 2022/04/22 07:25:47 by thabeck-          #+#    #+#             */
+/*   Updated: 2022/04/24 19:38:42 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*put_slices(char const *s, char c, int n_str)
+char	*ft_fillcpy(char *dest, const char *src, size_t size)
 {
-	int		count_str;
+	size_t	i;
+
+	i = 0;
+	if (size != 0)
+	{
+		while (src[i] && i < (size - 1))
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (dest);
+}
+
+char	*ft_makesplit(char const *s, char c, int n)
+{
 	int		start;
 	int		end;
+	int		count;
 	char	*str;
 
+	count = 0;
 	end = 0;
-	count_str = 0;
-	while (s[end] && count_str <= n_str)
+	while (s[end] && count <= n)
 	{
 		if (s[end] != c && s[end])
 		{
 			start = end;
-			count_str++;
+			count++;
 			while (s[end] != c && s[end])
 				end++;
 		}
@@ -34,47 +51,47 @@ char	*put_slices(char const *s, char c, int n_str)
 			end++;
 	}
 	str = (char *)malloc((end - start + 1) * sizeof(char));
-	ft_strlcpy((char *)str, (char *)(s + start), (size_t)(end - start + 1));
+	str = ft_fillcpy(str, s + start, (end - start + 1));
 	return (str);
 }
 
-unsigned int	ft_countwords(char const *s, char c)
+int	counter(char const *s, char c)
 {
-	unsigned int	i;
-	unsigned int	count_strs;
+	int		count_index;
+	int		i;
 
 	i = 0;
-	count_strs = 0;
+	count_index = 0;
 	while (s[i])
 	{
 		if (s[i] != c && s[i])
 		{
-			count_strs++;
+			count_index++;
 			while (s[i] != c && s[i])
 				i++;
 		}
 		else
 			i++;
 	}
-	return (count_strs);
+	return (count_index);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	unsigned int	count_strs;
-	unsigned int	count_str;
-	char			**split;
+	char	**split;
+	int		count_index;
+	int		count_str;
 
 	if (!s)
 		return (NULL);
-	count_strs = ft_countwords(s, c);
-	split = (char **)malloc(++count_strs * sizeof(char *));
+	count_index = counter(s, c);
+	split = (char **)malloc(++count_index * sizeof(char *));
 	if (!split)
 		return (NULL);
 	count_str = 0;
-	while (count_str < count_strs - 1)
+	while (count_str < count_index - 1)
 	{
-		split[count_str] = put_slices(s, c, count_str);
+		split[count_str] = ft_makesplit(s, c, count_str);
 		count_str++;
 	}
 	split[count_str] = NULL;

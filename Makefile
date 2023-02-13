@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2022/12/13 18:25:54 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/12 15:36:18 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(LIBFT):
 norm:
 			norminette ${SRCS} ${HEADER}
 
-leaks: 
+leaks:
 			$(LEAKS) $(LF) ./$(NAME)
 
 clean:
@@ -70,7 +70,7 @@ clean:
 			@printf "$(RE)minishell objects removed!$(RC)\n\n"
 
 fclean:		clean
-			make -C ./libraries/libft fclean
+			make -C ./libraries/libft clean
 			$(RM) $(NAME)
 			@printf "$(RE)minishell executables removed!$(RC)\n\n"
 

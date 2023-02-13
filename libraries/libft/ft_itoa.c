@@ -3,58 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 06:24:18 by matcardo          #+#    #+#             */
-/*   Updated: 2022/04/27 08:02:43 by matcardo         ###   ########.fr       */
+/*   Created: 2022/04/23 18:06:26 by thabeck-          #+#    #+#             */
+/*   Updated: 2022/04/23 19:35:12 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_countbase(int n)
+int	ft_count_size(int nbr)
 {
-	if (n <= 9 && n >= -9)
-		return (1);
-	return (ft_countbase(n / 10) * 10);
+	int	exp;
+
+	exp = 1;
+	if (nbr < 0)
+		exp++;
+	while (nbr > 9 || nbr < -9)
+	{
+		nbr = nbr / 10;
+		exp++;
+	}
+	return (exp);
 }
 
-size_t	ft_intlen(int n)
+int	ft_count_base(int nbr)
 {
-	if (n <= 9 && n >= -9)
+	int	base;
+
+	base = 1;
+	while (nbr > 9 || nbr < -9)
 	{
-		if (n < 0)
-			return (2);
-		return (1);
+		base = base * 10;
+		nbr = nbr / 10;
 	}
-	return (ft_intlen(n / 10) + 1);
+	return (base);
+}
+
+char	*ft_fillnbr(char *out, int base, int nbr)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	if (nbr < 0)
+	{
+		out[i++] = '-';
+		n = nbr / base;
+		n *= (-1);
+		out[i++] = n + '0';
+		nbr = nbr % base;
+		nbr *= (-1);
+		base = base / 10;
+	}
+	while (base >= 1)
+	{
+		n = nbr / base;
+		out[i++] = n + '0';
+		nbr = nbr % base;
+		base = base / 10;
+	}
+	return (out);
 }
 
 char	*ft_itoa(int n)
 {
-	char		*str;
-	size_t		len;
-	int			base;
-	long int	n_iter;
+	int		nbr;
+	int		base;
+	char	*out;
 
-	len = ft_intlen(n);
-	base = ft_countbase(n);
-	str = (char *)ft_calloc((len + 1), sizeof(char));
-	if (!str)
+	nbr = n;
+	base = ft_count_size(nbr);
+	out = (char *)ft_calloc((base + 1), sizeof(char));
+	if (!out)
 		return (NULL);
-	n_iter = n;
-	if (n < 0)
-	{
-		str[ft_strlen(str)] = (char) '-';
-		n_iter *= -1;
-	}
-	while (base >= 1)
-	{
-		n = n_iter / base;
-		str[ft_strlen(str)] = (char)(n + '0');
-		n_iter -= base * n;
-		base /= 10;
-	}
-	str[ft_strlen(str)] = '\0';
-	return (str);
+	base = ft_count_base(nbr);
+	out = ft_fillnbr(out, base, nbr);
+	return (out);
 }

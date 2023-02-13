@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/11 13:37:45 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:06:36 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void        execute_no_fork(t_cmd *command_table)
 
 short int   is_forked(t_cmd *command_table)
 {
-    
+
     if (command_table[0].cmd_and_args && \
         !(command_table[1].cmd_and_args) && \
         !(command_table[1].redirections_and_files) && \
@@ -77,22 +77,59 @@ void    init_pipes_and_pids(int n_pipes)
     g_data.pipes_pids->total_cmd = n_pipes + 1;
 }
 
+char	*get_str_prompt(void)
+{
+	char	*prompt;
+	char	*tmp;
+
+	tmp = ft_strjoin(getenv("USER"), "@minishell:");
+	prompt = ft_strjoin("\001\033[1;92m\002", tmp);
+	free(tmp);
+	return (prompt);
+}
+
+char	*get_str_path(void)
+{
+	char	*path;
+	char	*home;
+	char	*tmp;
+	char	*tmp2;
+
+	path = getcwd(NULL, 0);
+	home = ft_strdup(getenv("HOME"));
+	if (ft_strncmp(path, home, ft_strlen(home)) == 0)
+	{
+		tmp = ft_strjoin("~", &path[ft_strlen(home)]);
+		tmp2 = ft_strjoin("\001\033[1;34m\002", tmp);
+		free(path);
+		free(home);
+		free(tmp);
+		return (tmp2);
+	}
+	else
+	{
+		tmp = ft_strjoin("\001\033[1;34m\002", path);
+		free(path);
+		free(home);
+		return (tmp);
+	}
+}
+
 char    *get_prompt(void)
 {
     char    *prompt;
     char    *path;
     char    *tmp;
-    char    *temp2;
+    char    *tmp2;
 
-    tmp = ft_strjoin(getenv("USER"), ":");
-    path = getcwd(NULL, 0);
-    prompt = ft_strjoin(tmp, path);
-    temp2 = prompt;
-    prompt = ft_strjoin(prompt, "$ ");
-    free(tmp);
-    free(temp2);
+    prompt = get_str_prompt();
+    path = get_str_path();
+    tmp = ft_strjoin(prompt, path);
+    tmp2 = ft_strjoin(tmp, "\001\033[0m\002$ ");
     free(path);
-    return (prompt);
+    free(prompt);
+    free(tmp);
+    return (tmp2);
 }
 
 void    execute_line(char *command)
@@ -100,7 +137,6 @@ void    execute_line(char *command)
     char    **command_tokens;
     t_cmd   *command_table;
 
-    // add_history(command);
     command_tokens = lexer(command);
     free(command);
     //print_command_tokens(command_tokens);
@@ -112,7 +148,7 @@ void    execute_line(char *command)
         //print_command_table(command_table);
         g_data.command_table_expanded = expand_command_table(command_table);
         free_command_table(command_table);
-        // print_command_table(g_data.command_table_expanded);
+        //print_command_table(g_data.command_table_expanded);
 
         // executar -------------
         if (is_forked(g_data.command_table_expanded))
@@ -143,6 +179,8 @@ void    start_minishell(void)
         prompt = get_prompt();
         prompt_input = readline(prompt);
         free(prompt);
+        if (prompt_input && *prompt_input)
+		    add_history(prompt_input);
         execute_line(prompt_input);
     }
 }

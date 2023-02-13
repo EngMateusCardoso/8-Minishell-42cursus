@@ -3,39 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 23:52:55 by matcardo          #+#    #+#             */
-/*   Updated: 2022/04/27 05:20:28 by matcardo         ###   ########.fr       */
+/*   Created: 2022/04/23 20:52:59 by thabeck-          #+#    #+#             */
+/*   Updated: 2022/04/24 07:32:15 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_base(int n)
+int	ft_countbase(int nbr)
 {
-	if (n <= 9 && n >= -9)
-		return (1);
-	return (ft_count_base(n / 10) * 10);
+	int	base;
+
+	base = 1;
+	while (nbr > 9 || nbr < -9)
+	{
+		base = base * 10;
+		nbr = nbr / 10;
+	}
+	return (base);
 }
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	long int	n_iter;
-	int			base;
+	int		nbr;
+	int		base;
+	char	out_nbr;
 
-	n_iter = n;
-	base = ft_count_base(n);
+	nbr = n;
+	base = ft_countbase(nbr);
 	if (n < 0)
 	{
 		ft_putchar_fd('-', fd);
-		n_iter *= -1;
+		nbr = n / base;
+		nbr *= (-1);
+		out_nbr = nbr + '0';
+		ft_putchar_fd(out_nbr, fd);
+		n = n % base;
+		n *= (-1);
+		base = base / 10;
 	}
 	while (base >= 1)
 	{
-		n = n_iter / base;
-		ft_putchar_fd(n + '0', fd);
-		n_iter -= base * n;
+		nbr = n / base;
+		out_nbr = nbr + '0';
+		ft_putchar_fd(out_nbr, fd);
+		n = n % base;
 		base = base / 10;
 	}
 }
