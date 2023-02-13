@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/24 18:37:05 by matcardo          #+#    #+#             */
-/*   Updated: 2022/04/26 05:26:39 by matcardo         ###   ########.fr       */
+/*   Created: 2022/04/24 01:53:39 by thabeck-          #+#    #+#             */
+/*   Updated: 2022/04/24 04:32:07 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	t_list	*node;
+
 	if (!lst)
 		return (NULL);
-	else if (!lst->next)
-		return (lst);
-	return (ft_lstlast(lst->next));
+	node = lst;
+	while (node->next != NULL)
+		node = node->next;
+	return (node);
 }

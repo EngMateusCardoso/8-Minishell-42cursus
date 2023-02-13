@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/24 19:57:22 by matcardo          #+#    #+#             */
-/*   Updated: 2022/04/24 20:20:59 by matcardo         ###   ########.fr       */
+/*   Created: 2022/04/24 04:10:13 by thabeck-          #+#    #+#             */
+/*   Updated: 2022/04/24 04:33:12 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*target;
-	t_list	*elem;
+	t_list	*new_lst;
+	t_list	*node;
 
-	target = NULL;
-	while (lst)
+	if (lst == NULL)
+		return (NULL);
+	new_lst = NULL;
+	while (lst != NULL)
 	{
-		elem = ft_lstnew(f(lst->content));
-		if (!elem)
-			ft_lstclear(&elem, del);
+		node = ft_lstnew((*f)(lst->content));
+		if (node == NULL)
+			ft_lstclear(&node, (*del));
 		else
-			ft_lstadd_back(&target, elem);
+			ft_lstadd_back(&new_lst, node);
 		lst = lst->next;
 	}
-	return (target);
+	return (new_lst);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:59:39 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/10 00:32:50 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:12:55 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ short int    syntax_error(char **command_tokens, char *token)
     ft_putchar_fd('\'', 2);
     ft_putstr_fd("\n", 2);
     free_command_tokens(command_tokens);
+    g_data.exit_code = 127;
     return (0);
 }
 

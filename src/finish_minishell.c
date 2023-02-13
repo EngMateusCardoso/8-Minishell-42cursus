@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/07 12:04:42 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/09 08:52:51 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void    finish_free(void)
 void    finish_minishell(void)
 {
     finish_free();
+	rl_clear_history();
     print_closing();
 }

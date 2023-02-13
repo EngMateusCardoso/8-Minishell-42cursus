@@ -1,33 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_straddchar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 19:51:20 by thabeck-          #+#    #+#             */
-/*   Updated: 2022/04/23 20:08:54 by thabeck-         ###   ########.fr       */
+/*   Created: 2022/10/10 00:23:57 by thabeck-          #+#    #+#             */
+/*   Updated: 2022/10/10 00:51:08 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_straddchar_first(char c)
 {
-	char			*str;
-	unsigned int	i;
+	char	*add;
 
-	i = 0;
-	if (!s || !f)
+	add = (char *)malloc(sizeof(char) * 2);
+	if (!add)
 		return (NULL);
-	str = (char *)malloc((ft_strlen((char *)s) + 1) * sizeof(char));
+	add[0] = c;
+	add[1] = '\0';
+	return (add);
+}
+
+char	*ft_straddchar(char *str, char c)
+{
+	char	*add;
+	int		i;
+
+	if (!c)
+		return (NULL);
 	if (!str)
-		return (NULL);
-	while (s[i])
+		return (ft_straddchar_first(c));
+	add = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2));
+	if (!add)
 	{
-		str[i] = (*f)(i, s[i]);
-		i++;
+		free(str);
+		return (NULL);
 	}
-	str[i] = '\0';
-	return (str);
+	i = -1;
+	while (str[++i])
+		add[i] = str[i];
+	free(str);
+	add[i++] = c;
+	add[i] = '\0';
+	return (add);
 }
