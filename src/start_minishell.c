@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/12 22:06:36 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:28:15 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    execute_with_fork(t_cmd *command_table)
 
 void        execute_no_fork(t_cmd *command_table)
 {
-    execute_builtin(command_table->cmd_and_args);
+    execute_builtin(command_table->cmd_and_args, 0);
 }
 
 short int   is_forked(t_cmd *command_table)
