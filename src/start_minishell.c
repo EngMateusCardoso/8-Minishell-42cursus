@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/14 00:43:25 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/14 02:29:49 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,114 @@ void    wait_all_pids(void)
     }
 }
 
+char    *file_absolute_path(char *file)
+{
+    char *tmp;
+    char *tmp2;
+    char *tmp3;
+
+    if (file[0] == '~')
+    {
+        tmp = ft_strjoin(getenv("HOME"), file + 1);
+        tmp2 = ft_strjoin(tmp, "/");
+        tmp3 = ft_strjoin(tmp2, file);
+        free(tmp);
+        free(tmp2);
+        return (tmp3);
+    }
+    return (file);
+}
+
+int     open_file(char *file, int flags)
+{
+    int fd;
+
+    fd = open(file, flags, 0644);
+    if (fd == -1)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(file, 2);
+        ft_putstr_fd(": ", 2);
+        ft_putstr_fd("'No such file or directory\n", 2);
+    }
+    return (fd);
+}
+
+int has_input_redirection(char **redir_and_files)
+{
+    int i;
+
+    i = 0;
+    while (redir_and_files[i])
+    {
+        if (redir_and_files[i][0] == '<')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int has_output_redirection(char **redir_and_files)
+{
+    int i;
+
+    i = 0;
+    while (redir_and_files[i])
+    {
+        if (redir_and_files[i][0] == '>')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+void    set_input_and_output(char **redir_and_files, int i)
+{
+    int     j;
+    char    *file;
+    int     fd[2];
+
+    j = 0;
+    while (redir_and_files[j])
+    {
+        file = redir_and_files[j + 1];
+        if (redir_and_files[j][0] == '>')
+        {
+            if (redir_and_files[j][1] == '>')
+                fd[1] = open_file(file, O_WRONLY | O_CREAT | O_APPEND);
+            else
+                fd[1] = open_file(file, O_WRONLY | O_CREAT | O_TRUNC);
+            g_data.pipes_pids->pipes[i + 1][1] = fd[1];
+        }
+        else if (redir_and_files[j][0] == '<')
+        {
+            fd[0] = open_file(file, O_RDONLY);
+            g_data.pipes_pids->pipes[i][0] = fd[0];
+        }
+        j++;
+    }
+	if (i != 0 || has_input_redirection(redir_and_files))
+    	dup2(g_data.pipes_pids->pipes[i][0], STDIN_FILENO);
+    if (i != (g_data.pipes_pids->total_cmd - 1) || has_output_redirection(redir_and_files))
+    	dup2(g_data.pipes_pids->pipes[i + 1][1], STDOUT_FILENO);
+    close(g_data.pipes_pids->pipes[i][0]);
+    close(g_data.pipes_pids->pipes[i + 1][1]);
+}
 
 void    execute_with_fork(t_cmd *command_table)
 {
     int i;
 
     i = 0;
-    // sinais aqui
     while (command_table[i].cmd_and_args)
     {
+        // sinais gerais
         g_data.pipes_pids->pids[i] = fork();
         if (g_data.pipes_pids->pids[i] == 0)
         {
+            // sinais para o child
             close_pipes_in_child(i);
-		    if (i != 0)
-				dup2(g_data.pipes_pids->pipes[i][0], STDIN_FILENO);
-		    if (i != (g_data.pipes_pids->total_cmd - 1))
-				dup2(g_data.pipes_pids->pipes[i + 1][1], STDOUT_FILENO);
-            close(g_data.pipes_pids->pipes[i][0]);
-            close(g_data.pipes_pids->pipes[i + 1][1]);
+            set_input_and_output(command_table[i].redirections_and_files, i);
             run_single_command(command_table[i].cmd_and_args);
         }
         i++;
