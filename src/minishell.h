@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:51:38 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:33:14 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,7 @@ void		error_handler(char *str1, char *str2, int status, char *cmd);
 void		error_msg(char *cmd, char *msg, int status);
 void		insert_in_hashtable(char *envp);
 void		cd_builtin(char *folder);
+void		change_env(char *key, char *value);
+void		export_builtin(char **cmds);
 
 #endif

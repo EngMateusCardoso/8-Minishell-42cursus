@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:11 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/13 19:18:23 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:03:24 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void change_env(char *key, char *value)
 {
 	t_list *pivot;
-	char *oldpwd;
+	char *var;
+	char *tmp;
 	int len;
 
 	len = ft_strlen(key);
@@ -32,9 +33,11 @@ void change_env(char *key, char *value)
 	}
 	if (pivot == NULL)
 	{
-		oldpwd = ft_strjoin("OLDPWD=", value);
-		insert_in_hashtable(oldpwd);
-		ft_free_pointer((void *)&oldpwd);
+		tmp = ft_strjoin(key, "=");
+		var = ft_strjoin(tmp, value);
+		insert_in_hashtable(var);
+		ft_free_pointer((void *)&var);
+		ft_free_pointer((void *)&tmp);
 	}
 }
 
