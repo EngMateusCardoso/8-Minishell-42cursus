@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 22:33:14 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:36:52 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_data
 	t_list			*(hash_table[TABLE_SIZE]);
 	char			**envp;
 	t_cmd			*command_table_expanded;
-    int         exit_code;
+    int         	exit_code;
 	t_pipes_pids	*pipes_pids;
 }					t_data;
 
