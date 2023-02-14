@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:50:51 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:18:54 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ void exec_env(void)
 	while (i < TABLE_SIZE)
 	{
 		tmp = g_data.hash_table[i];
-		while (tmp)
+		while (tmp != NULL)
 		{
 			ft_putstr_fd(((t_env_var *)tmp->content)->key, 1);
 			ft_putstr_fd("=", 1);
-			ft_putstr_fd(((t_env_var *)tmp->content)->value, 1);
+			if (((t_env_var *)(tmp->content))->value)
+				ft_putstr_fd(((t_env_var *)(tmp->content))->value, 1);
 			ft_putstr_fd("\n", 1);
 			tmp = tmp->next;
 		}
@@ -80,11 +81,10 @@ void execute_builtin(char **command, int isfork)
 		if (!ft_strncmp(command[0], "cd", 3))
 			cd_builtin(command[1]);
 		else if (!ft_strncmp(command[0], "export", 7))
-			ft_putstr_fd("exporting\n", 1);
+			export_builtin(command);
 		else if (!ft_strncmp(command[0], "unset", 6))
 			ft_putstr_fd("unsetting\n", 1);
 		else if (!ft_strncmp(command[0], "exit", 5))
 			exec_exit(command);
 	}
-	g_data.exit_code = 1;
 }
