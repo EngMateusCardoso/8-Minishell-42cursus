@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 22:33:14 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:32:58 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct s_data
 	t_list			*(hash_table[TABLE_SIZE]);
 	char			**envp;
 	t_cmd			*command_table_expanded;
-    int         exit_code;
+	int				exit_code;
+	char			*root_path;
 	t_pipes_pids	*pipes_pids;
 }					t_data;
 
@@ -75,15 +76,20 @@ void		print_color_char(int idx, char c);
 char		*get_prompt(void);
 void		execute_line(char *command);
 void		capture_signals(struct sigaction *sint, struct sigaction *squit);
-char    *find_hash_var(t_list *head, char *key);
+char		*find_hash_var(t_list *head, char *key);
+t_list		*find_hash_node(char *key);
 unsigned int hash_function(char *key);
 void		free_pipes_and_pids(void);
 void		run_single_command(char **cmd_and_args);
 void		error_handler(char *str1, char *str2, int status, char *cmd);
 void		error_msg(char *cmd, char *msg, int status);
 void		insert_in_hashtable(char *envp);
-void		cd_builtin(char *folder);
-void		change_env(char *key, char *value);
+void		cd_builtin(char **cmds);
 void		export_builtin(char **cmds);
+void		unset_builtin(char **cmds);
+void		exit_builtin(char **cmds);
+void		change_env(char *key, char *value);
+int			check_identifier(char *var);
+char		*clear_quotes(char *var);
 
 #endif

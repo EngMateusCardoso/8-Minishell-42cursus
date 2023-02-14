@@ -1,648 +1,454 @@
-==26974== Memcheck, a memory error detector
-==26974== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==26974== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==26974== Command: ./minishell
-==26974== Parent PID: 26973
-==26974== 
-==26974== Invalid write of size 8
-==26974==    at 0x10C393: insert_in_hashtable (hashtable.c:34)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974==  Address 0x4b10538 is 0 bytes after a block of size 8 alloc'd
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== Invalid write of size 8
-==26974==    at 0x10C393: insert_in_hashtable (hashtable.c:34)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974==  Address 0x4b10688 is 0 bytes after a block of size 8 alloc'd
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== Invalid write of size 8
-==26974==    at 0x10C393: insert_in_hashtable (hashtable.c:34)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974==  Address 0x4b107c8 is 0 bytes after a block of size 8 alloc'd
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== Syscall param rt_sigaction(act->sa_flags) points to uninitialised byte(s)
-==26974==    at 0x48F65F3: __libc_sigaction (libc_sigaction.c:58)
-==26974==    by 0x10D3D0: capture_signals (signals.c:33)
-==26974==    by 0x10DDAD: start_minishell (start_minishell.c:236)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974==  Address 0x1ffefff908 is on thread 1's stack
-==26974==  in frame #0, created by __libc_sigaction (libc_sigaction.c:43)
-==26974==  Uninitialised value was created by a stack allocation
-==26974==    at 0x10DD7F: start_minishell (start_minishell.c:228)
-==26974== 
-==26974== Syscall param rt_sigaction(act->sa_flags) points to uninitialised byte(s)
-==26974==    at 0x48F65F3: __libc_sigaction (libc_sigaction.c:58)
-==26974==    by 0x10D48D: capture_signals (signals.c:36)
-==26974==    by 0x10DDAD: start_minishell (start_minishell.c:236)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974==  Address 0x1ffefff908 is on thread 1's stack
-==26974==  in frame #0, created by __libc_sigaction (libc_sigaction.c:43)
-==26974==  Uninitialised value was created by a stack allocation
-==26974==    at 0x10DD77: start_minishell (start_minishell.c:228)
-==26974== 
-==26974== Invalid read of size 8
-==26974==    at 0x10BB12: print_declarex (export_builtin.c:41)
-==26974==    by 0x10BD32: export_builtin (export_builtin.c:84)
-==26974==    by 0x10987D: execute_builtin (builtin.c:84)
-==26974==    by 0x10D7EB: execute_no_fork (start_minishell.c:87)
-==26974==    by 0x10DD5F: execute_line (start_minishell.c:221)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974==  Address 0x4b115e8 is 0 bytes after a block of size 8 alloc'd
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974== 
-==26974== Invalid read of size 8
-==26974==    at 0x10BB22: print_declarex (export_builtin.c:42)
-==26974==    by 0x10BD32: export_builtin (export_builtin.c:84)
-==26974==    by 0x10987D: execute_builtin (builtin.c:84)
-==26974==    by 0x10D7EB: execute_no_fork (start_minishell.c:87)
-==26974==    by 0x10DD5F: execute_line (start_minishell.c:221)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974==  Address 0x4b115e8 is 0 bytes after a block of size 8 alloc'd
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974== 
-==26974== Invalid read of size 1
-==26974==    at 0x10DF69: ft_strlen (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10B9EC: append_hashtable (export_builtin.c:20)
-==26974==    by 0x10BDAE: export_builtin (export_builtin.c:95)
-==26974==    by 0x10987D: execute_builtin (builtin.c:84)
-==26974==    by 0x10D7EB: execute_no_fork (start_minishell.c:87)
-==26974==    by 0x10DD5F: execute_line (start_minishell.c:221)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==26974== 
-==26974== 
-==26974== Process terminating with default action of signal 11 (SIGSEGV)
-==26974==  Access not within mapped region at address 0x0
-==26974==    at 0x10DF69: ft_strlen (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10B9EC: append_hashtable (export_builtin.c:20)
-==26974==    by 0x10BDAE: export_builtin (export_builtin.c:95)
-==26974==    by 0x10987D: execute_builtin (builtin.c:84)
-==26974==    by 0x10D7EB: execute_no_fork (start_minishell.c:87)
-==26974==    by 0x10DD5F: execute_line (start_minishell.c:221)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974==  If you believe this happened as a result of a stack
-==26974==  overflow in your program's main thread (unlikely but
-==26974==  possible), you can try to increase the size of the
-==26974==  main thread stack using the --main-stacksize= flag.
-==26974==  The main thread stack size used in this run was 8388608.
-==26974== 
-==26974== HEAP SUMMARY:
-==26974==     in use at exit: 220,374 bytes in 417 blocks
-==26974==   total heap usage: 653 allocs, 236 frees, 249,503 bytes allocated
-==26974== 
-==26974== 1 bytes in 1 blocks are definitely lost in loss record 1 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 2 bytes in 1 blocks are definitely lost in loss record 2 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 4 bytes in 1 blocks are still reachable in loss record 3 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10D9D1: init_pipes_and_pids (start_minishell.c:128)
-==26974==    by 0x10DCF0: execute_line (start_minishell.c:209)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 5 bytes in 1 blocks are still reachable in loss record 4 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 6 bytes in 1 blocks are still reachable in loss record 5 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 7 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 8 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 9 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 10 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 11 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 12 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 13 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 14 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 15 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974== 
-==26974== 8 bytes in 1 blocks are still reachable in loss record 18 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10B8E5: expand_command_table (expand_command_table.c:504)
-==26974==    by 0x10DD18: execute_line (start_minishell.c:213)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 9 bytes in 1 blocks are still reachable in loss record 20 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 9 bytes in 2 blocks are still reachable in loss record 22 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10E1CB: ft_strdup (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10B48C: expand_cmd_and_args (expand_command_table.c:409)
-==26974==    by 0x10B8A0: expand_command_table (expand_command_table.c:503)
-==26974==    by 0x10DD18: execute_line (start_minishell.c:213)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 11 bytes in 1 blocks are still reachable in loss record 23 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974== 
-==26974== 11 bytes in 1 blocks are definitely lost in loss record 24 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 12 bytes in 1 blocks are still reachable in loss record 25 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 12 bytes in 1 blocks are definitely lost in loss record 27 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974== 
-==26974== 15 bytes in 1 blocks are definitely lost in loss record 31 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 32 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 33 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 34 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 35 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 36 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 37 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 38 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 39 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 16 bytes in 1 blocks are still reachable in loss record 40 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974== 
-==26974== 16 bytes in 2 blocks are still reachable in loss record 42 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x4899BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==26974==    by 0x4890B39: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==26974==    by 0x4892F65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==26974==    by 0x10DE05: start_minishell (start_minishell.c:241)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 16 bytes in 2 blocks are still reachable in loss record 43 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10DA12: init_pipes_and_pids (start_minishell.c:133)
-==26974==    by 0x10DCF0: execute_line (start_minishell.c:209)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 23 bytes in 1 blocks are definitely lost in loss record 46 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 24 bytes in 1 blocks are still reachable in loss record 50 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10D991: init_pipes_and_pids (start_minishell.c:126)
-==26974==    by 0x10DCF0: execute_line (start_minishell.c:209)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 24 bytes in 1 blocks are still reachable in loss record 51 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10D9B3: init_pipes_and_pids (start_minishell.c:127)
-==26974==    by 0x10DCF0: execute_line (start_minishell.c:209)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 24 bytes in 1 blocks are still reachable in loss record 52 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10B866: expand_command_table (expand_command_table.c:502)
-==26974==    by 0x10DD18: execute_line (start_minishell.c:213)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 26 bytes in 1 blocks are still reachable in loss record 54 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 32 bytes in 1 blocks are still reachable in loss record 58 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10B819: expand_command_table (expand_command_table.c:499)
-==26974==    by 0x10DD18: execute_line (start_minishell.c:213)
-==26974==    by 0x10DE14: start_minishell (start_minishell.c:242)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 48 bytes in 2 blocks are still reachable in loss record 63 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x4899BAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==26974==    by 0x4890B1D: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==26974==    by 0x4892F65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==26974==    by 0x10DE05: start_minishell (start_minishell.c:241)
-==26974==    by 0x10CBA7: main (main.c:73)
-==26974== 
-==26974== 108 bytes in 1 blocks are definitely lost in loss record 73 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10CB5E: init_minishell (main.c:64)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 240 bytes in 30 blocks are still reachable in loss record 80 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10C37B: insert_in_hashtable (hashtable.c:32)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974== 
-==26974== 387 bytes in 32 blocks are still reachable in loss record 83 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C2F6: insert_in_hashtable (hashtable.c:29)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974== 
-==26974== 496 bytes in 31 blocks are still reachable in loss record 84 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10EAA5: ft_lstnew (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C3A2: insert_in_hashtable (hashtable.c:35)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974== 
-==26974== 1,024 bytes in 1 blocks are still reachable in loss record 90 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x4932C23: _IO_file_doallocate (filedoalloc.c:101)
-==26974==    by 0x4941D5F: _IO_doallocbuf (genops.c:347)
-==26974==    by 0x4940FDF: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
-==26974==    by 0x4936A76: putchar (putchar.c:28)
-==26974==    by 0x10CAA8: print_startup (main.c:42)
-==26974==    by 0x10CB47: init_minishell (main.c:62)
-==26974==    by 0x10CBA2: main (main.c:72)
-==26974== 
-==26974== 3,337 bytes in 32 blocks are definitely lost in loss record 105 of 130
-==26974==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26974==    by 0x10ECF2: ft_calloc (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10E2A8: ft_substr (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
-==26974==    by 0x10C343: insert_in_hashtable (hashtable.c:30)
-==26974==    by 0x10C3F7: store_env_variables (hashtable.c:42)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974==    by 0x10C407: store_env_variables (hashtable.c:43)
-==26974== 
-==26974== LEAK SUMMARY:
-==26974==    definitely lost: 3,509 bytes in 39 blocks
-==26974==    indirectly lost: 0 bytes in 0 blocks
-==26974==      possibly lost: 0 bytes in 0 blocks
-==26974==    still reachable: 2,637 bytes in 132 blocks
-==26974==         suppressed: 214,228 bytes in 246 blocks
-==26974== 
-==26974== For lists of detected and suppressed errors, rerun with: -s
-==26974== ERROR SUMMARY: 130 errors from 16 contexts (suppressed: 0 from 0)
+==13086== Memcheck, a memory error detector
+==13086== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13086== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==13086== Command: ./minishell
+==13086== Parent PID: 13085
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10C4CC: insert_in_hashtable (hashtable.c:34)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086==  Address 0x4b10538 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10C4CC: insert_in_hashtable (hashtable.c:34)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086==  Address 0x4b10678 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10C4CC: insert_in_hashtable (hashtable.c:34)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086==  Address 0x4b10818 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Syscall param rt_sigaction(act->sa_flags) points to uninitialised byte(s)
+==13086==    at 0x48F65F3: __libc_sigaction (libc_sigaction.c:58)
+==13086==    by 0x10D5B1: capture_signals (signals.c:33)
+==13086==    by 0x10DF8E: start_minishell (start_minishell.c:236)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x1ffefff8d8 is on thread 1's stack
+==13086==  in frame #0, created by __libc_sigaction (libc_sigaction.c:43)
+==13086==  Uninitialised value was created by a stack allocation
+==13086==    at 0x10DF60: start_minishell (start_minishell.c:228)
+==13086== 
+==13086== Syscall param rt_sigaction(act->sa_flags) points to uninitialised byte(s)
+==13086==    at 0x48F65F3: __libc_sigaction (libc_sigaction.c:58)
+==13086==    by 0x10D66E: capture_signals (signals.c:36)
+==13086==    by 0x10DF8E: start_minishell (start_minishell.c:236)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x1ffefff8d8 is on thread 1's stack
+==13086==  in frame #0, created by __libc_sigaction (libc_sigaction.c:43)
+==13086==  Uninitialised value was created by a stack allocation
+==13086==    at 0x10DF58: start_minishell (start_minishell.c:228)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10C63B: find_hash_var (hashtable.c:80)
+==13086==    by 0x109C0D: cd_builtin (cd_builtin.c:76)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b139b8 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10EFB4: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x109939: change_env (cd_builtin.c:28)
+==13086==    by 0x109C27: cd_builtin (cd_builtin.c:77)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b10c08 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10EFC0: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x109939: change_env (cd_builtin.c:28)
+==13086==    by 0x109C27: cd_builtin (cd_builtin.c:77)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b10c08 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10EFCF: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x109939: change_env (cd_builtin.c:28)
+==13086==    by 0x109C27: cd_builtin (cd_builtin.c:77)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b10c08 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10994D: change_env (cd_builtin.c:29)
+==13086==    by 0x109C27: cd_builtin (cd_builtin.c:77)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b10c08 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10EFB4: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x109939: change_env (cd_builtin.c:28)
+==13086==    by 0x109C50: cd_builtin (cd_builtin.c:79)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b139b8 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10EFC0: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x109939: change_env (cd_builtin.c:28)
+==13086==    by 0x109C50: cd_builtin (cd_builtin.c:79)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b139b8 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10EFCF: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x109939: change_env (cd_builtin.c:28)
+==13086==    by 0x109C50: cd_builtin (cd_builtin.c:79)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b139b8 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10994D: change_env (cd_builtin.c:29)
+==13086==    by 0x109C50: cd_builtin (cd_builtin.c:79)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b139b8 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10C63B: find_hash_var (hashtable.c:80)
+==13086==    by 0x109AD6: cd_builtin (cd_builtin.c:60)
+==13086==    by 0x1097FA: execute_builtin (builtin.c:58)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b10c08 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10CD3F: init_minishell (main.c:64)
+==13086==    by 0x10CD83: main (main.c:72)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10BB15: print_declarex (export_builtin.c:41)
+==13086==    by 0x10BE87: export_builtin (export_builtin.c:125)
+==13086==    by 0x10982D: execute_builtin (builtin.c:60)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b11608 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10BB25: print_declarex (export_builtin.c:42)
+==13086==    by 0x10BE87: export_builtin (export_builtin.c:125)
+==13086==    by 0x10982D: execute_builtin (builtin.c:60)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b11608 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10C4CC: insert_in_hashtable (hashtable.c:34)
+==13086==    by 0x1099A9: change_env (cd_builtin.c:38)
+==13086==    by 0x10BA6A: append_hashtable (export_builtin.c:22)
+==13086==    by 0x10BEF0: export_builtin (export_builtin.c:135)
+==13086==    by 0x10982D: execute_builtin (builtin.c:60)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b60828 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x1099A9: change_env (cd_builtin.c:38)
+==13086==    by 0x10BA6A: append_hashtable (export_builtin.c:22)
+==13086==    by 0x10BEF0: export_builtin (export_builtin.c:135)
+==13086==    by 0x10982D: execute_builtin (builtin.c:60)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10EFB4: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x10E02C: free_hash_node (unset_builtin.c:18)
+==13086==    by 0x10E0E6: delete_from_hashtable (unset_builtin.c:34)
+==13086==    by 0x10E292: unset_builtin (unset_builtin.c:74)
+==13086==    by 0x10985D: execute_builtin (builtin.c:62)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b60828 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x1099A9: change_env (cd_builtin.c:38)
+==13086==    by 0x10BA6A: append_hashtable (export_builtin.c:22)
+==13086==    by 0x10BEF0: export_builtin (export_builtin.c:135)
+==13086==    by 0x10982D: execute_builtin (builtin.c:60)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10EFC0: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x10E02C: free_hash_node (unset_builtin.c:18)
+==13086==    by 0x10E0E6: delete_from_hashtable (unset_builtin.c:34)
+==13086==    by 0x10E292: unset_builtin (unset_builtin.c:74)
+==13086==    by 0x10985D: execute_builtin (builtin.c:62)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b60828 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x1099A9: change_env (cd_builtin.c:38)
+==13086==    by 0x10BA6A: append_hashtable (export_builtin.c:22)
+==13086==    by 0x10BEF0: export_builtin (export_builtin.c:135)
+==13086==    by 0x10982D: execute_builtin (builtin.c:60)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086== 
+==13086== Invalid write of size 8
+==13086==    at 0x10EFCF: ft_free_pointer (in /home/thayhabeck/42-cursus/minishell-42SP/minishell)
+==13086==    by 0x10E02C: free_hash_node (unset_builtin.c:18)
+==13086==    by 0x10E0E6: delete_from_hashtable (unset_builtin.c:34)
+==13086==    by 0x10E292: unset_builtin (unset_builtin.c:74)
+==13086==    by 0x10985D: execute_builtin (builtin.c:62)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b60828 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x1099A9: change_env (cd_builtin.c:38)
+==13086==    by 0x10BA6A: append_hashtable (export_builtin.c:22)
+==13086==    by 0x10BEF0: export_builtin (export_builtin.c:135)
+==13086==    by 0x10982D: execute_builtin (builtin.c:60)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086== 
+==13086== Invalid read of size 8
+==13086==    at 0x10C59C: free_hash_table (hashtable.c:61)
+==13086==    by 0x10C056: finish_free (finish_minishell.c:44)
+==13086==    by 0x10C066: finish_minishell (finish_minishell.c:49)
+==13086==    by 0x10A377: exit_builtin (exit_builtin.c:26)
+==13086==    by 0x10988D: execute_builtin (builtin.c:64)
+==13086==    by 0x10D9CC: execute_no_fork (start_minishell.c:87)
+==13086==    by 0x10DF40: execute_line (start_minishell.c:221)
+==13086==    by 0x10DFF5: start_minishell (start_minishell.c:242)
+==13086==    by 0x10CD88: main (main.c:73)
+==13086==  Address 0x4b11608 is 0 bytes after a block of size 8 alloc'd
+==13086==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13086==    by 0x10C4B4: insert_in_hashtable (hashtable.c:32)
+==13086==    by 0x10C530: store_env_variables (hashtable.c:42)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086==    by 0x10C540: store_env_variables (hashtable.c:43)
+==13086== 
+==13086== 
+==13086== HEAP SUMMARY:
+==13086==     in use at exit: 208,568 bytes in 225 blocks
+==13086==   total heap usage: 1,087 allocs, 862 frees, 304,037 bytes allocated
+==13086== 
+==13086== LEAK SUMMARY:
+==13086==    definitely lost: 0 bytes in 0 blocks
+==13086==    indirectly lost: 0 bytes in 0 blocks
+==13086==      possibly lost: 0 bytes in 0 blocks
+==13086==    still reachable: 0 bytes in 0 blocks
+==13086==         suppressed: 208,568 bytes in 225 blocks
+==13086== 
+==13086== For lists of detected and suppressed errors, rerun with: -s
+==13086== ERROR SUMMARY: 359 errors from 22 contexts (suppressed: 0 from 0)
