@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 22:30:53 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:50:40 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,122 @@ void    wait_all_pids(void)
     }
 }
 
+char    *file_absolute_path(char *file)
+{
+    char *tmp;
+    char *tmp2;
+    char *tmp3;
+
+    if (file[0] == '~')
+    {
+        tmp = ft_strjoin(getenv("HOME"), file + 1);
+        tmp2 = ft_strjoin(tmp, "/");
+        tmp3 = ft_strjoin(tmp2, file);
+        free(tmp);
+        free(tmp2);
+        return (tmp3);
+    }
+    return (file);
+}
+
+int     open_file(char *file, int flags)
+{
+    int fd;
+
+    fd = open(file, flags, 0644);
+    if (fd == -1)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(file, 2);
+        ft_putstr_fd(": ", 2);
+        ft_putstr_fd("'No such file or directory\n", 2);
+    }
+    return (fd);
+}
+
+int     open_fd_heredoc(char *file, int n_cmd)
+{
+    char    *temp;
+    int     fd;
+
+    temp = ft_itoa(n_cmd);    
+    file = ft_strjoin("/tmp/inputfile", temp);
+    free(temp);
+    fd = open(file, O_RDONLY, 0644);
+    if (fd == -1)
+    {
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(file, 2);
+        ft_putstr_fd(": ", 2);
+        ft_putstr_fd("'No such file or directory\n", 2);
+    }
+    free(file);
+    return (fd);
+}
+
+int has_input_redirection(char **redir_and_files)
+{
+    int i;
+
+    i = 0;
+    while (redir_and_files[i])
+    {
+        if (redir_and_files[i][0] == '<')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int has_output_redirection(char **redir_and_files)
+{
+    int i;
+
+    i = 0;
+    while (redir_and_files[i])
+    {
+        if (redir_and_files[i][0] == '>')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+void    set_input_and_output(char **redir_and_files, int i)
+{
+    int     j;
+    char    *file;
+    int     fd[2];
+
+    j = 0;
+    while (redir_and_files[j])
+    {
+        file = redir_and_files[j + 1];
+        if (redir_and_files[j][0] == '>')
+        {
+            if (redir_and_files[j][1] == '>')
+                fd[1] = open_file(file, O_WRONLY | O_CREAT | O_APPEND);
+            else
+                fd[1] = open_file(file, O_WRONLY | O_CREAT | O_TRUNC);
+            g_data.pipes_pids->pipes[i + 1][1] = fd[1];
+        }
+        else if (redir_and_files[j][0] == '<')
+        {
+            if (redir_and_files[j][1] == '<')
+                fd[0] = open_fd_heredoc(file, i);
+            else
+                fd[0] = open_file(file, O_RDONLY);
+            g_data.pipes_pids->pipes[i][0] = fd[0];
+        }
+        j++;
+    }
+	if (i != 0 || has_input_redirection(redir_and_files))
+    	dup2(g_data.pipes_pids->pipes[i][0], STDIN_FILENO);
+    if (i != (g_data.pipes_pids->total_cmd - 1) || has_output_redirection(redir_and_files))
+    	dup2(g_data.pipes_pids->pipes[i + 1][1], STDOUT_FILENO);
+    close(g_data.pipes_pids->pipes[i][0]);
+    close(g_data.pipes_pids->pipes[i + 1][1]);
+}
 
 void    execute_with_fork(t_cmd *command_table)
 {
@@ -62,16 +178,13 @@ void    execute_with_fork(t_cmd *command_table)
     i = 0;
     while (command_table[i].cmd_and_args)
     {
+        // sinais gerais
         g_data.pipes_pids->pids[i] = fork();
         if (g_data.pipes_pids->pids[i] == 0)
         {
+            // sinais para o child
             close_pipes_in_child(i);
-		    if (i != 0)
-				dup2(g_data.pipes_pids->pipes[i][0], STDIN_FILENO);
-		    if (i != (g_data.pipes_pids->total_cmd - 1))
-				dup2(g_data.pipes_pids->pipes[i + 1][1], STDOUT_FILENO);
-            close(g_data.pipes_pids->pipes[i][0]);
-            close(g_data.pipes_pids->pipes[i + 1][1]);
+            set_input_and_output(command_table[i].redirections_and_files, i);
             run_single_command(command_table[i].cmd_and_args);
         }
         i++;
@@ -196,6 +309,86 @@ char    *get_prompt(void)
     return (tmp2);
 }
 
+void    open_heredoc(char *stop_str, int n_cmd)
+{
+    char    *line;
+    int     fd;
+    char    *file;
+    char    *temp;
+
+    temp = ft_itoa(n_cmd);    
+    file = ft_strjoin("/tmp/inputfile", temp);
+    free(temp);
+    fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd < 0)
+        write(2, "Error opening file\n", 19);
+    while (1)
+    {
+        line = readline("> ");
+        if (ft_strncmp(line, stop_str, ft_strlen(stop_str)) == 0)
+        {
+            free(line);
+            break ;
+        }
+        write(fd, line, ft_strlen(line));
+        write(fd, "\n", 1);
+        free(line);
+    }
+    close(fd);
+    g_data.exit_code = 0;
+    exit(0);
+    // free child process?
+}
+
+// void	ctrlc_parent_hd(int signal)
+// {
+// 	(void)signal;
+// 	if (signal == SIGINT)
+// 	{
+// 		rl_replace_line("", 0);
+// 		rl_on_new_line();
+// 		g_data.exit_code = 130;
+// 		// g_data->not_run = 1;
+// 	}
+// }
+
+void	init_heredoc(char *stop_str, int n_cmd)
+{
+	pid_t	pid;
+	int	    wstatus;
+
+	pid = fork();
+	if (pid < 0)
+		write(2, "Error forking\n", 14);
+	// if (pid > 0)
+	// 	signal(SIGINT, ctrlc_parent_hd);
+	if (pid == 0)
+		open_heredoc(stop_str, n_cmd);
+	waitpid(-1, &wstatus, 0);
+	g_data.exit_code = WEXITSTATUS(wstatus);
+}
+
+void    heredoc(t_cmd *command_table)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (command_table[i].redirections_and_files)
+    {
+        j = 0;
+        while (command_table[i].redirections_and_files[j])
+        {
+            if (ft_strncmp(command_table[i].redirections_and_files[j], "<<", 2) == 0)
+            {
+                init_heredoc(command_table[i].redirections_and_files[j + 1], i);
+            }
+            j++;
+        }        
+        i++;
+    }
+}
+
 void    execute_line(char *command)
 {
     char    **command_tokens;
@@ -203,18 +396,14 @@ void    execute_line(char *command)
 
     command_tokens = lexer(command);
     free(command);
-    //print_command_tokens(command_tokens);
     if (check_syntax(command_tokens))
     {
         init_pipes_and_pids(count_pipes(command_tokens));
         command_table = parser(command_tokens);
         free_command_tokens(command_tokens);
-        //print_command_table(command_table);
         g_data.command_table_expanded = expand_command_table(command_table);
         free_command_table(command_table);
-        //print_command_table(g_data.command_table_expanded);
-
-        // executar -------------
+        heredoc(g_data.command_table_expanded);
         if (is_forked(g_data.command_table_expanded))
             execute_with_fork(g_data.command_table_expanded);
         else

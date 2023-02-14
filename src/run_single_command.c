@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/12 15:10:52 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:43:48 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_command_path(char *cmd)
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		target = ft_strjoin(tmp, cmd);
-		free(tmp);
+		// free(tmp);
 		if (access(target, F_OK) == 0)
         {
 			// why do not leak here?
@@ -37,9 +37,9 @@ char	*get_command_path(char *cmd)
 		// free(target);
 		i++;
 	}
-	while (*paths)
-		free(*paths++);
-	free(paths);
+	// while (*paths)
+	// 	free(*paths++);
+	// free(paths);
 	return (NULL);
 }
 

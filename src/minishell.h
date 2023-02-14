@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/14 18:32:58 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:09:35 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_data
 	t_list			*(hash_table[TABLE_SIZE]);
 	char			**envp;
 	t_cmd			*command_table_expanded;
-	int				exit_code;
+	int					exit_code;
 	char			*root_path;
 	t_pipes_pids	*pipes_pids;
 }					t_data;
