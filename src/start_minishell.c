@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 22:30:53 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:43:25 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void    execute_with_fork(t_cmd *command_table)
     int i;
 
     i = 0;
+    // sinais aqui
     while (command_table[i].cmd_and_args)
     {
         g_data.pipes_pids->pids[i] = fork();
@@ -203,18 +204,14 @@ void    execute_line(char *command)
 
     command_tokens = lexer(command);
     free(command);
-    //print_command_tokens(command_tokens);
     if (check_syntax(command_tokens))
     {
         init_pipes_and_pids(count_pipes(command_tokens));
+        // init_heredocs(command_tokens);
         command_table = parser(command_tokens);
         free_command_tokens(command_tokens);
-        //print_command_table(command_table);
         g_data.command_table_expanded = expand_command_table(command_table);
         free_command_table(command_table);
-        //print_command_table(g_data.command_table_expanded);
-
-        // executar -------------
         if (is_forked(g_data.command_table_expanded))
             execute_with_fork(g_data.command_table_expanded);
         else
