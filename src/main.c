@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 17:51:01 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:50:39 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void print_startup(void)
 	char buff[1];
 	int idx;
 
-	fd = open("./src/startup.txt", O_RDONLY);
+	fd = open("./src/assets/startup.txt", O_RDONLY);
 	if (fd == -1)
 		return;
 	printf("\n");

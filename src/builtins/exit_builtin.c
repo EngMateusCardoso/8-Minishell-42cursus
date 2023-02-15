@@ -6,15 +6,15 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:23:59 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 18:32:22 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:02:10 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void exit_builtin(char **cmds)
+void	exit_builtin(char **cmds)
 {
-	int exit_status;
+	int	exit_status;
 
 	exit_status = 0;
 	if (cmds[1])

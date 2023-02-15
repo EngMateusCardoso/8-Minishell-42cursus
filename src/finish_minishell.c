@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/09 08:52:51 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:50:50 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_closing(void)
 	char	buff[1];
 	int		idx;
 
-	fd = open("./src/closing.txt", O_RDONLY);
+	fd = open("./src/assets/closing.txt", O_RDONLY);
 	if (fd == -1)
 		return ;
     printf("\n");

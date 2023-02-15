@@ -6,12 +6,16 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/14 19:09:35 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:39:12 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+/******************************************************************************\
+ * includes
+\******************************************************************************/
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -25,6 +29,10 @@
 # include "../libraries/libft/libft.h"
 
 # define TABLE_SIZE 50
+
+/******************************************************************************\
+ * structs
+\******************************************************************************/
 
 typedef struct s_env_var
 {
@@ -55,6 +63,10 @@ typedef struct s_data
 	t_pipes_pids	*pipes_pids;
 }					t_data;
 
+/******************************************************************************\
+ * global var
+\******************************************************************************/
+
 extern t_data	g_data;
 
 void		store_env_variables(char **envp);
@@ -84,12 +96,47 @@ void		run_single_command(char **cmd_and_args);
 void		error_handler(char *str1, char *str2, int status, char *cmd);
 void		error_msg(char *cmd, char *msg, int status);
 void		insert_in_hashtable(char *envp);
-void		cd_builtin(char **cmds);
-void		export_builtin(char **cmds);
-void		unset_builtin(char **cmds);
-void		exit_builtin(char **cmds);
-void		change_env(char *key, char *value);
-int			check_identifier(char *var);
-char		*clear_quotes(char *var);
+
+/******************************************************************************\
+ * builtin.c
+\******************************************************************************/
+void	execute_builtin(char **command, int isfork);
+int		is_builtin(char *command);
+char	*clear_quotes(char *var);
+int		check_identifier(char *var);
+void	identifier_error(char *cmd, char **value);
+
+/******************************************************************************\
+ * cd_builtin.c
+\******************************************************************************/
+void	cd_builtin(char **cmds);
+int		cd_exec(char *folder);
+void	cd_error(char *folder);
+void	change_env(char *key, char *value);
+
+/******************************************************************************\
+ * export_builtin.c
+\******************************************************************************/
+void	export_builtin(char **cmds);
+int		has_equal(char *str);
+void	print_declarex(void);
+void	append_hashtable(char *name);
+
+/******************************************************************************\
+ * unset_builtin.c
+\******************************************************************************/
+void	unset_builtin(char **cmds);
+void	delete_from_hashtable(t_list *head, t_list *node, char *key);
+void	free_hash_node(t_list *node);
+
+/******************************************************************************\
+ * env_builtin.c
+\******************************************************************************/
+void	env_builtin(void);
+
+/******************************************************************************\
+ * exit_builtin.c
+\******************************************************************************/
+void	exit_builtin(char **cmds);
 
 #endif

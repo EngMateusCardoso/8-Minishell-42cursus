@@ -6,28 +6,29 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:03:17 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 18:22:15 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:01:45 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void append_hashtable(char *name)
+void	append_hashtable(char *name)
 {
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
 
 	key = ft_substr(name, 0, ft_strlen(name) - ft_strlen(ft_strchr(name, '=')));
-	value = ft_substr(ft_strchr(name, '='), 1, ft_strlen(name) - (ft_strlen(key) + 1));
+	value = ft_substr(ft_strchr(name, '='), 1, ft_strlen(name) - \
+		(ft_strlen(key) + 1));
 	change_env(key, value);
 	ft_free_pointer((void *)&key);
 	ft_free_pointer((void *)&value);
 }
 
-void print_declarex(void)
+void	print_declarex(void)
 {
-	int i;
-	t_list *sublist;
+	int		i;
+	t_list	*sublist;
 
 	i = 0;
 	while (i < TABLE_SIZE)
@@ -47,37 +48,9 @@ void print_declarex(void)
 	}
 }
 
-int check_identifier(char *var)
+int	has_equal(char *str)
 {
-	int i;
-	int flag;
-	char mark;
-
-	i = 0;
-	mark = 0;
-	flag = 0;
-	if (var == NULL || var[i] == '\0' || var[i] == '=')
-		return (0);
-	while (var[i] && var[i] != '=')
-	{
-		if (ft_isalpha(var[i]) || var[i] == '_')
-			flag = 1;
-		if (ft_isdigit(var[i]) && !flag)
-			return (0);
-		if ((var[i] == '\'' || var[i] == '\"') && !mark)
-			mark = var[i];
-		else if (var[i] == mark)
-			mark = 0;
-		else if (!ft_isalnum(var[i]) && var[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int has_equal(char *str)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -89,37 +62,10 @@ int has_equal(char *str)
 	return (0);
 }
 
-char *clear_quotes(char *var)
+void	export_builtin(char **cmds)
 {
-	char *cmd;
-	int i;
-
-	cmd = NULL;
-	i = 0;
-	while (var[i])
-	{
-		if ((var[i] != '\'') && (var[i] != '\"'))
-		{
-			cmd = ft_straddchar(cmd, var[i]);
-		}
-		i++;
-	}
-	return (cmd);
-}
-
-void send_export_error(char *cmd)
-{
-	char *tmp;
-
-	tmp = ft_strjoin("export: `", cmd);
-	error_msg(tmp, "': not a valid identifier", 1);
-	ft_free_pointer((void *)&tmp);
-}
-
-void export_builtin(char **cmds)
-{
-	char *cmd;
-	int i;
+	char	*cmd;
+	int		i;
 
 	if (!cmds[1])
 		print_declarex();
@@ -136,12 +82,7 @@ void export_builtin(char **cmds)
 				g_data.exit_code = 0;
 			}
 			else
-			{
-				if (cmd)
-					send_export_error(cmd);
-				else
-					error_msg("", "export: `': not a valid identifier", 1);
-			}
+				identifier_error("export", &cmd);
 			i++;
 			ft_free_pointer((void *)&cmd);
 		}
