@@ -6,35 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 22:18:54 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:32:42 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
- *   exit [n]
- *   Exit the shell, returning a status of n to the shell’s parent.
- *   If n is omitted, the exit status is that of the last command executed.
- *   Any trap on EXIT is executed before the shell terminates.
- *   OBS: este comando não faz nada quando tem pipes com outros comandos.
- *   --help para descrição dos cmd
- */
-
-void exec_exit(char **command)
-{
-	int exit_status;
-
-	exit_status = 0;
-	if (command[1])
-		exit_status = ft_atoi(command[1]);
-	else
-		exit_status = 0;
-	free_command_table(g_data.command_table_expanded);
-	free_pipes_and_pids();
-	finish_minishell();
-	exit(exit_status);
-}
 
 void exec_env(void)
 {
@@ -79,12 +55,12 @@ void execute_builtin(char **command, int isfork)
 	else
 	{
 		if (!ft_strncmp(command[0], "cd", 3))
-			cd_builtin(command[1]);
+			cd_builtin(command);
 		else if (!ft_strncmp(command[0], "export", 7))
 			export_builtin(command);
 		else if (!ft_strncmp(command[0], "unset", 6))
-			ft_putstr_fd("unsetting\n", 1);
+			unset_builtin(command);
 		else if (!ft_strncmp(command[0], "exit", 5))
-			exec_exit(command);
+			exit_builtin(command);
 	}
 }

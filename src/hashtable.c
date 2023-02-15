@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 09:27:29 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/13 19:11:10 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:51:40 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,24 @@ char *find_hash_var(t_list *head, char *key)
     {
         if (ft_strncmp(((t_env_var *)pivot->content)->key, key, len) == 0)
             return (((t_env_var *)pivot->content)->value);
+        pivot = pivot->next;
+    }
+    return (NULL);
+}
+
+t_list *find_hash_node(char *key)
+{
+	t_list *pivot;
+	int		idx;
+    int len;
+
+    len = ft_strlen(key);
+	idx = hash_function(key) % TABLE_SIZE;
+    pivot = g_data.hash_table[idx];
+    while (pivot != NULL)
+    {
+        if (ft_strncmp(((t_env_var *)pivot->content)->key, key, len) == 0)
+            return (pivot);
         pivot = pivot->next;
     }
     return (NULL);

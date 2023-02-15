@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:11 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/13 21:03:24 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:58:19 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,43 @@ void change_env(char *key, char *value)
 	}
 }
 
-void cd_builtin(char *folder)
+void cd_builtin(char **cmds)
 {
-	char	*pwd;
-	char	*path;
-	char	*cwd;
+	char *pwd;
+	char *path;
+	char *cwd;
+	char *folder;
 
-	if (folder && !(ft_strncmp(folder, "~", 2) == 0))
+	if (ft_arrlen(cmds) > 2)
+		error_msg("cd", ": too many arguments", 1);
+	else
 	{
-		if (ft_strncmp(folder, "-", 2) == 0)
+		folder = cmds[1];
+		if (folder && !(ft_strncmp(folder, "~", 2) == 0))
 		{
-			path = find_hash_var(g_data.hash_table[hash_function("OLDPWD") % TABLE_SIZE], "OLDPWD");
-			ft_putstr_fd(path, 1);
-			ft_putstr_fd("\n", 1);
+			if (ft_strncmp(folder, "-", 2) == 0)
+			{
+				path = find_hash_var(g_data.hash_table[hash_function("OLDPWD") % TABLE_SIZE], "OLDPWD");
+				printf("%s\n", path);
+			}
+			else
+				path = folder;
 		}
 		else
-			path = folder;
+			path = find_hash_var(g_data.hash_table[hash_function("HOME") % TABLE_SIZE], "HOME");
+		if (chdir(path) != 0)
+		{
+			if (ft_strncmp(folder, "-", 2) == 0)
+				error_msg("cd", ": OLDPWD not set", 1);
+			else
+				error_handler(folder, ": ", 1, "cd");
+			return;
+		}
+		pwd = find_hash_var(g_data.hash_table[hash_function("PWD") % TABLE_SIZE], "PWD");
+		change_env("OLDPWD", pwd);
+		cwd = getcwd(NULL, 0);
+		change_env("PWD", cwd);
+		ft_free_pointer((void *)&cwd);
+		g_data.exit_code = 0;
 	}
-	else
-		path = find_hash_var(g_data.hash_table[hash_function("HOME") % TABLE_SIZE], "HOME");
-	if (chdir(path) != 0)
-	{
-		if (ft_strncmp(folder, "-", 2) == 0)
-			error_msg("cd", "OLDPWD not set", 1);
-		else
-			error_handler(folder, ": ", 1, "cd");
-		return;
-	}
-	pwd = find_hash_var(g_data.hash_table[hash_function("PWD") % TABLE_SIZE], "PWD");
-	change_env("OLDPWD", pwd);
-	cwd = getcwd(NULL, 0);
-	change_env("PWD", cwd);
-	ft_free_pointer((void *)&cwd);
-	g_data.exit_code = 0;
 }

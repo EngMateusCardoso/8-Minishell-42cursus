@@ -6,7 +6,7 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 19:09:59 by thabeck-          #+#    #+#              #
-#    Updated: 2023/02/08 20:16:27 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/14 16:01:28 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS 		= ft_isalpha.c 			\
 			ft_isascii.c 			\
 			ft_isprint.c 			\
 			ft_isdigit_sign.c 		\
+			ft_isquote.c			\
 			ft_strlen.c 			\
 			ft_memset.c 			\
 			ft_bzero.c 				\

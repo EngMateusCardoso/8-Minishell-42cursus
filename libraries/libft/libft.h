@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:48:55 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/08 20:17:06 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:01:08 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_isdigit_sign(int ch, int next_ch);
+int		ft_isquote(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 void	*ft_memchr(const void *s, int c, size_t n);
