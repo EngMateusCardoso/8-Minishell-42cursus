@@ -6,13 +6,13 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:20:17 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 18:22:08 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:01:50 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void free_hash_node(t_list *node)
+void	free_hash_node(t_list *node)
 {
 	ft_free_pointer((void *)&((t_env_var *)node->content)->key);
 	ft_free_pointer((void *)&((t_env_var *)node->content)->value);
@@ -20,19 +20,19 @@ void free_hash_node(t_list *node)
 	ft_free_pointer(&node->content);
 	ft_free_pointer((void *)&node);
 	node = NULL;
-	return;
+	return ;
 }
 
-void delete_from_hashtable(t_list *head, t_list *node, char *key)
+void	delete_from_hashtable(t_list *head, t_list *node, char *key)
 {
-	int idx;
+	int	idx;
 
 	idx = hash_function(key) % TABLE_SIZE;
 	if (head == node)
 	{
 		g_data.hash_table[idx] = g_data.hash_table[idx]->next;
 		free_hash_node(node);
-		return;
+		return ;
 	}
 	while (head)
 	{
@@ -40,29 +40,20 @@ void delete_from_hashtable(t_list *head, t_list *node, char *key)
 		{
 			head->next = node->next;
 			free_hash_node(node);
-			return;
+			return ;
 		}
 		head = head->next;
 	}
 }
 
-void send_unset_error(char *cmd)
+void	unset_builtin(char **cmds)
 {
-	char *tmp;
-
-	tmp = ft_strjoin("unset: `", cmd);
-	error_msg(tmp, "': not a valid identifier", 1);
-	ft_free_pointer((void *)&tmp);
-}
-
-void unset_builtin(char **cmds)
-{
-	char *cmd;
-	int idx;
-	int i;
+	char	*cmd;
+	int		idx;
+	int		i;
 
 	if (!cmds[1])
-		return;
+		return ;
 	i = 1;
 	while (cmds[i])
 	{
@@ -71,17 +62,12 @@ void unset_builtin(char **cmds)
 		{
 			idx = hash_function(cmd) % TABLE_SIZE;
 			if (find_hash_node(cmd))
-				delete_from_hashtable(g_data.hash_table[idx],
-									  find_hash_node(cmd), cmd);
+				delete_from_hashtable(g_data.hash_table[idx], \
+				find_hash_node(cmd), cmd);
 			g_data.exit_code = 0;
 		}
 		else
-		{
-			if (cmd)
-				send_unset_error(cmd);
-			else
-				error_msg("", "unset: `': not a valid identifier", 1);
-		}
+			identifier_error("unset", &cmd);
 		i++;
 		ft_free_pointer((void *)&cmd);
 	}

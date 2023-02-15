@@ -6,13 +6,32 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/12 15:36:18 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/14 22:18:15 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRCS			= $(wildcard src/*.c)
+SRCS			= 	./src/main.c					\
+					./src/lexer.c					\
+					./src/parser.c					\
+					./src/hashtable.c				\
+					./src/signals.c					\
+					./src/utils.c					\
+					./src/start_minishell.c			\
+					./src/run_single_command.c		\
+					./src/expand_command_table.c	\
+					./src/finish_minishell.c		\
+					./src/free_algorithm.c			\
+					./src/check_syntax.c			\
+					./src/debug_functions.c			\
+					./src/builtins/builtin.c		\
+					./src/builtins/cd_builtin.c		\
+					./src/builtins/env_builtin.c	\
+					./src/builtins/exit_builtin.c	\
+					./src/builtins/export_builtin.c	\
+					./src/builtins/unset_builtin.c	\
+
 OBJS			= ${SRCS:src/%.c=objs/%.o}
 HEADER			= src/minishell.h
 OBJS_DIR		= objs/
@@ -21,41 +40,40 @@ RM				= rm -fr
 CC				= gcc
 FLAGS			= -Wall -Wextra -Werror -g
 
-LEAKS 		= valgrind
-LEAKS_FILE	= valgrind-out.txt
-LF 			= --suppressions=readline.supp \
-			--leak-check=full \
-        	--track-origins=yes \
-			--show-leak-kinds=all \
-        	--log-file=$(LEAKS_FILE)
+LEAKS 			= valgrind
+LEAKS_FILE		= valgrind-out.txt
+LF 				= --suppressions=readline.supp \
+				--leak-check=full \
+				--track-origins=yes \
+				--show-leak-kinds=all \
+				--log-file=$(LEAKS_FILE)
 
 LIBFT			= ./libraries/libft/libft.a
 LIBS			= $(LIBFT) -lreadline
 
-GR	= \033[32;1m
-RE	= \033[31;1m
-YE	= \033[33;1m
-CY	= \033[36;1m
-RC	= \033[0m
+GR				= \033[32;1m
+RE				= \033[31;1m
+CY				= \033[36;1m
+RC				= \033[0m
 
 all: $(NAME)
 
 $(NAME): $(OBJS_DIR) $(OBJS) $(LIBFT)
 			@printf "\n$(CY)Generating minishell executable...$(RC)\n"
-			$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBS)
-			@printf "$(GR)Done!$(RC)\n\n"
+			@$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBS)
+			@printf "$(GR)minishell is Ready!$(RC)\n\n"
 
 $(OBJS_DIR):
-			mkdir $(OBJS_DIR)
+			@mkdir $(OBJS_DIR)
 
 objs/%.o: src/%.c
 			@printf "\n$(CY)Generating object...$(RC)\n"
-			${CC} ${FLAGS} -c $< -o ${<:src/%.c=objs/%.o}
+			@${CC} ${FLAGS} -c $< -o ${<:src/%.c=objs/%.o}
 			@printf "$(GR)Object ready!$(RC)"
 
 $(LIBFT):
 			@printf "\n$(CY)Generating libft...$(RC)\n"
-			make bonus -C ./libraries/libft
+			@make bonus -C ./libraries/libft
 			@printf "$(GR)libft ready!$(RC)"
 
 norm:
@@ -65,14 +83,12 @@ leaks:
 			$(LEAKS) $(LF) ./$(NAME)
 
 clean:
-			make -C ./libraries/libft clean
-			$(RM) $(OBJS_DIR)
-			@printf "$(RE)minishell objects removed!$(RC)\n\n"
+			@$(RM) $(OBJS_DIR)
+			@printf "\n$(RE)minishell objects removed!$(RC)\n"
 
 fclean:		clean
-			make -C ./libraries/libft clean
-			$(RM) $(NAME)
-			@printf "$(RE)minishell executables removed!$(RC)\n\n"
+			@$(RM) $(NAME)
+			@printf "$(RE)minishell removed!$(RC)\n\n"
 
 re:			fclean all
 

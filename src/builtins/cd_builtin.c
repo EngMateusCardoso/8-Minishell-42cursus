@@ -6,18 +6,18 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:11 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 18:58:19 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:02:04 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void change_env(char *key, char *value)
+void	change_env(char *key, char *value)
 {
-	t_list *pivot;
-	char *var;
-	char *tmp;
-	int len;
+	t_list	*pivot;
+	char	*var;
+	char	*tmp;
+	int		len;
 
 	len = ft_strlen(key);
 	pivot = g_data.hash_table[hash_function(key) % TABLE_SIZE];
@@ -27,7 +27,7 @@ void change_env(char *key, char *value)
 		{
 			ft_free_pointer((void *)&(((t_env_var *)pivot->content)->value));
 			((t_env_var *)pivot->content)->value = ft_strdup(value);
-			return;
+			return ;
 		}
 		pivot = pivot->next;
 	}
@@ -41,43 +41,58 @@ void change_env(char *key, char *value)
 	}
 }
 
-void cd_builtin(char **cmds)
+void	cd_error(char *folder)
 {
-	char *pwd;
-	char *path;
-	char *cwd;
-	char *folder;
+	if (ft_strncmp(folder, "-", 2) == 0)
+		error_msg("cd", ": OLDPWD not set", 1);
+	else
+		error_handler(folder, ": ", 1, "cd");
+}
+
+int	cd_exec(char *folder)
+{
+	char	*path;
+
+	if (folder && !(ft_strncmp(folder, "~", 2) == 0))
+	{
+		if (ft_strncmp(folder, "-", 2) == 0)
+		{
+			path = find_hash_var(g_data.hash_table[hash_function("OLDPWD") \
+				% TABLE_SIZE], "OLDPWD");
+			printf("%s\n", path);
+		}
+		else
+			path = folder;
+	}
+	else
+		path = find_hash_var(g_data.hash_table[hash_function("HOME") \
+			% TABLE_SIZE], "HOME");
+	if (chdir(path) != 0)
+	{
+		cd_error(folder);
+		return (0);
+	}
+	return (1);
+}
+
+void	cd_builtin(char **cmds)
+{
+	char	*pwd;
+	char	*cwd;
 
 	if (ft_arrlen(cmds) > 2)
 		error_msg("cd", ": too many arguments", 1);
 	else
 	{
-		folder = cmds[1];
-		if (folder && !(ft_strncmp(folder, "~", 2) == 0))
+		if (cd_exec(cmds[1]))
 		{
-			if (ft_strncmp(folder, "-", 2) == 0)
-			{
-				path = find_hash_var(g_data.hash_table[hash_function("OLDPWD") % TABLE_SIZE], "OLDPWD");
-				printf("%s\n", path);
-			}
-			else
-				path = folder;
+			pwd = find_hash_var(g_data.hash_table[hash_function("PWD") \
+				% TABLE_SIZE], "PWD");
+			change_env("OLDPWD", pwd);
+			cwd = getcwd(NULL, 0);
+			change_env("PWD", cwd);
+			ft_free_pointer((void *)&cwd);
+			g_data.exit_code = 0;
 		}
-		else
-			path = find_hash_var(g_data.hash_table[hash_function("HOME") % TABLE_SIZE], "HOME");
-		if (chdir(path) != 0)
-		{
-			if (ft_strncmp(folder, "-", 2) == 0)
-				error_msg("cd", ": OLDPWD not set", 1);
-			else
-				error_handler(folder, ": ", 1, "cd");
-			return;
-		}
-		pwd = find_hash_var(g_data.hash_table[hash_function("PWD") % TABLE_SIZE], "PWD");
-		change_env("OLDPWD", pwd);
-		cwd = getcwd(NULL, 0);
-		change_env("PWD", cwd);
-		ft_free_pointer((void *)&cwd);
-		g_data.exit_code = 0;
 	}
 }
