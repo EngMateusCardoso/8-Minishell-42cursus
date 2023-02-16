@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/14 22:01:38 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:08:13 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	execute_builtin(char **command, int isfork)
 	if (isfork)
 	{
 		if (!ft_strncmp(command[0], "echo", 5))
-			ft_putstr_fd("echoing\n", 1);
+			echo_builtin(command);
 		else if (!ft_strncmp(command[0], "pwd", 4))
-			ft_putstr_fd("printing working directory\n", 1);
+			pwd_builtin();
 		else if (!ft_strncmp(command[0], "env", 4))
 			env_builtin();
 	}

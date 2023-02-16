@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/14 21:39:12 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:08:55 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ extern t_data	g_data;
 
 void		store_env_variables(char **envp);
 void		start_minishell(void);
-int			is_builtin(char *command);
-void		execute_builtin(char **command, int isfork);
 void		free_hash_table(void);
 void		finish_minishell(void);
 void		print_command_tokens(char **command_tokens);
@@ -138,5 +136,17 @@ void	env_builtin(void);
  * exit_builtin.c
 \******************************************************************************/
 void	exit_builtin(char **cmds);
+
+/******************************************************************************\
+ * echo_builtin.c
+\******************************************************************************/
+void	echo_builtin(char **cmds);
+void	print_echo(char **cmds);
+void	print_echo_n(char **cmds);
+
+/******************************************************************************\
+ * pwd_builtin.c
+\******************************************************************************/
+void	pwd_builtin(void);
 
 #endif

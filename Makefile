@@ -6,7 +6,7 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/14 22:18:15 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/15 21:07:45 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRCS			= 	./src/main.c					\
 					./src/builtins/exit_builtin.c	\
 					./src/builtins/export_builtin.c	\
 					./src/builtins/unset_builtin.c	\
+					./src/builtins/echo_builtin.c	\
+					./src/builtins/pwd_builtin.c	\
 
 OBJS			= ${SRCS:src/%.c=objs/%.o}
 HEADER			= src/minishell.h

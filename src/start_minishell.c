@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:54:15 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/14 15:50:40 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:15:55 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int     open_fd_heredoc(char *file, int n_cmd)
     char    *temp;
     int     fd;
 
-    temp = ft_itoa(n_cmd);    
+    temp = ft_itoa(n_cmd);
     file = ft_strjoin("/tmp/inputfile", temp);
     free(temp);
     fd = open(file, O_RDONLY, 0644);
@@ -316,7 +316,7 @@ void    open_heredoc(char *stop_str, int n_cmd)
     char    *file;
     char    *temp;
 
-    temp = ft_itoa(n_cmd);    
+    temp = ft_itoa(n_cmd);
     file = ft_strjoin("/tmp/inputfile", temp);
     free(temp);
     fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -384,7 +384,7 @@ void    heredoc(t_cmd *command_table)
                 init_heredoc(command_table[i].redirections_and_files[j + 1], i);
             }
             j++;
-        }        
+        }
         i++;
     }
 }
