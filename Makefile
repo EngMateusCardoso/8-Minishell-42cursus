@@ -3,36 +3,38 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/15 21:07:45 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/16 13:51:15 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRCS			= 	./src/main.c					\
-					./src/lexer.c					\
-					./src/parser.c					\
-					./src/hashtable.c				\
-					./src/signals.c					\
-					./src/utils.c					\
-					./src/start_minishell.c			\
-					./src/run_single_command.c		\
-					./src/expand_command_table.c	\
-					./src/finish_minishell.c		\
-					./src/free_algorithm.c			\
-					./src/check_syntax.c			\
-					./src/debug_functions.c			\
-					./src/builtins/builtin.c		\
-					./src/builtins/cd_builtin.c		\
-					./src/builtins/env_builtin.c	\
-					./src/builtins/exit_builtin.c	\
-					./src/builtins/export_builtin.c	\
-					./src/builtins/unset_builtin.c	\
-					./src/builtins/echo_builtin.c	\
-					./src/builtins/pwd_builtin.c	\
+SRCS			= 	./src/main.c							\
+					./src/lexer.c							\
+					./src/parser.c							\
+					./src/signals.c							\
+					./src/utils.c							\
+					./src/start_minishell.c					\
+					./src/run_single_command.c				\
+					./src/expand_command_table.c			\
+					./src/finish_minishell.c				\
+					./src/free_algorithm.c					\
+					./src/check_syntax.c					\
+					./src/debug_functions.c					\
+					./src/hashtable/hashtable.c				\
+					./src/hashtable/insert_in_hashtable.c	\
+					./src/hashtable/store_env_hashtable.c	\
+					./src/builtins/builtin.c				\
+					./src/builtins/cd_builtin.c				\
+					./src/builtins/env_builtin.c			\
+					./src/builtins/exit_builtin.c			\
+					./src/builtins/export_builtin.c			\
+					./src/builtins/unset_builtin.c			\
+					./src/builtins/echo_builtin.c			\
+					./src/builtins/pwd_builtin.c			\
 
 OBJS			= ${SRCS:src/%.c=objs/%.o}
 HEADER			= src/minishell.h
