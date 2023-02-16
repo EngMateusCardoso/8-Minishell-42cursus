@@ -6,7 +6,7 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/16 12:10:29 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/16 12:41:40 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,17 +67,17 @@ RC				= \033[0m
 all:		$(NAME)
 
 $(NAME):	$(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT)
-	@printf "\n$(CY)Generating minishell executable...$(RC)\n"
+	@printf "\r$(CY)Generating minishell executable...                              $(RC)\n"
 	@$(CC) $(addprefix $(OBJS_DIR),$(OBJS)) -o $(NAME) $(LIBS)
-	@printf "$(GR)minishell is Ready!$(RC)\n\n"
+	@printf "$(GR)minishell is Ready!$(RC)\n"
 
 $(OBJS_DIR):
 	@mkdir $(OBJS_DIR) $(OBJS_DIR)/builtins $(OBJS_DIR)/expander
 
 objs/%.o:	src/%.c
-	@printf "\n$(CY)Generating object...$(RC)\n"
+	@printf "\r$(CY)Generating object "$@
 	@$(CC) -c -o $@ $< $(LIBS)
-	@printf "$(GR)Object ready!$(RC)"
+	@printf "$(RC)                              "
 
 $(LIBFT):
 	@printf "\n$(CY)Generating libft...$(RC)\n"
@@ -92,11 +92,11 @@ leaks:
 
 clean:
 	@$(RM) $(OBJS_DIR)
-	@printf "\n$(RE)minishell objects removed!$(RC)\n"
+	@printf "$(RE)minishell objects removed!$(RC)\n"
 
 fclean:		clean
 	@$(RM) $(NAME)
-	@printf "$(RE)minishell removed!$(RC)\n\n"
+	@printf "$(RE)minishell removed!$(RC)\n"
 
 re:			fclean all
 
