@@ -6,23 +6,37 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:03:17 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 22:01:45 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:33:44 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	append_hashtable(char *name)
+void	export_builtin(char **cmds)
 {
-	char	*key;
-	char	*value;
+	char	*cmd;
+	int		i;
 
-	key = ft_substr(name, 0, ft_strlen(name) - ft_strlen(ft_strchr(name, '=')));
-	value = ft_substr(ft_strchr(name, '='), 1, ft_strlen(name) - \
-		(ft_strlen(key) + 1));
-	change_env(key, value);
-	ft_free_pointer((void *)&key);
-	ft_free_pointer((void *)&value);
+	if (!cmds[1])
+		print_declarex();
+	else
+	{
+		i = 1;
+		while (cmds[i])
+		{
+			cmd = clear_quotes(cmds[i]);
+			if (cmd && check_identifier(cmd))
+			{
+				if (has_equal(cmd))
+					append_hashtable(cmd);
+				g_data.exit_code = 0;
+			}
+			else
+				identifier_error("export", &cmd);
+			i++;
+			ft_free_pointer((void *)&cmd);
+		}
+	}
 }
 
 void	print_declarex(void)
@@ -62,29 +76,15 @@ int	has_equal(char *str)
 	return (0);
 }
 
-void	export_builtin(char **cmds)
+void	append_hashtable(char *name)
 {
-	char	*cmd;
-	int		i;
+	char	*key;
+	char	*value;
 
-	if (!cmds[1])
-		print_declarex();
-	else
-	{
-		i = 1;
-		while (cmds[i])
-		{
-			cmd = clear_quotes(cmds[i]);
-			if (cmd && check_identifier(cmd))
-			{
-				if (has_equal(cmd))
-					append_hashtable(cmd);
-				g_data.exit_code = 0;
-			}
-			else
-				identifier_error("export", &cmd);
-			i++;
-			ft_free_pointer((void *)&cmd);
-		}
-	}
+	key = ft_substr(name, 0, ft_strlen(name) - ft_strlen(ft_strchr(name, '=')));
+	value = ft_substr(ft_strchr(name, '='), 1, ft_strlen(name) - \
+		(ft_strlen(key) + 1));
+	change_env(key, value);
+	ft_free_pointer((void *)&key);
+	ft_free_pointer((void *)&value);
 }

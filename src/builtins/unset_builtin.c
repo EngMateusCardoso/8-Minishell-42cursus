@@ -6,45 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:20:17 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 22:01:50 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:34:46 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	free_hash_node(t_list *node)
-{
-	ft_free_pointer((void *)&((t_env_var *)node->content)->key);
-	ft_free_pointer((void *)&((t_env_var *)node->content)->value);
-	ft_free_pointer(&node->content);
-	ft_free_pointer(&node->content);
-	ft_free_pointer((void *)&node);
-	node = NULL;
-	return ;
-}
-
-void	delete_from_hashtable(t_list *head, t_list *node, char *key)
-{
-	int	idx;
-
-	idx = hash_function(key) % TABLE_SIZE;
-	if (head == node)
-	{
-		g_data.hash_table[idx] = g_data.hash_table[idx]->next;
-		free_hash_node(node);
-		return ;
-	}
-	while (head)
-	{
-		if (head->next == node)
-		{
-			head->next = node->next;
-			free_hash_node(node);
-			return ;
-		}
-		head = head->next;
-	}
-}
 
 void	unset_builtin(char **cmds)
 {
@@ -71,4 +37,38 @@ void	unset_builtin(char **cmds)
 		i++;
 		ft_free_pointer((void *)&cmd);
 	}
+}
+
+void	delete_from_hashtable(t_list *head, t_list *node, char *key)
+{
+	int	idx;
+
+	idx = hash_function(key) % TABLE_SIZE;
+	if (head == node)
+	{
+		g_data.hash_table[idx] = g_data.hash_table[idx]->next;
+		free_hash_node(node);
+		return ;
+	}
+	while (head)
+	{
+		if (head->next == node)
+		{
+			head->next = node->next;
+			free_hash_node(node);
+			return ;
+		}
+		head = head->next;
+	}
+}
+
+void	free_hash_node(t_list *node)
+{
+	ft_free_pointer((void *)&((t_env_var *)node->content)->key);
+	ft_free_pointer((void *)&((t_env_var *)node->content)->value);
+	ft_free_pointer(&node->content);
+	ft_free_pointer(&node->content);
+	ft_free_pointer((void *)&node);
+	node = NULL;
+	return ;
 }
