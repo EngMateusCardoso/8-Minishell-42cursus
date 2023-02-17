@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/14 21:50:39 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:34:14 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,50 @@
 
 t_data g_data;
 
-void print_color_char(int idx, char c)
+void	print_color_char(int index, char c)
 {
-	if (idx < 12)
+	if (index < 12)
 		printf("\e[38;5;%dm%c\e[0m", 82, c);
-	else if (idx < 24)
+	else if (index < 24)
 		printf("\e[38;5;%dm%c\e[0m", 83, c);
-	else if (idx < 36)
+	else if (index < 36)
 		printf("\e[38;5;%dm%c\e[0m", 84, c);
-	else if (idx < 48)
+	else if (index < 48)
 		printf("\e[38;5;%dm%c\e[0m", 85, c);
-	else if (idx < 60)
+	else if (index < 60)
 		printf("\e[38;5;%dm%c\e[0m", 86, c);
 	else
 		printf("\e[38;5;%dm%c\e[0m", 87, c);
 }
 
-void print_startup(void)
+void	print_startup(void)
 {
-	int fd;
-	char buff[1];
-	int idx;
+	int		fd;
+	char	buff[1];
+	int		index;
 
 	fd = open("./src/assets/startup.txt", O_RDONLY);
 	if (fd == -1)
-		return;
+		return ;
 	printf("\n");
-	idx = 0;
+	index = 0;
 	while (read(fd, buff, 1))
 	{
-		if (idx < 74)
-			print_color_char(idx, buff[0]);
+		if (index < 74)
+			print_color_char(index, buff[0]);
 		else
 		{
-			idx = 0;
-			print_color_char(idx, buff[0]);
+			index = 0;
+			print_color_char(index, buff[0]);
 		}
-		idx++;
+		index++;
 	}
 	printf("\n");
 	close(fd);
-	return;
+	return ;
 }
 
-void init_minishell(char **envp)
+void	init_minishell(char **envp)
 {
 	print_startup();
 	g_data.envp = envp;
@@ -65,12 +65,12 @@ void init_minishell(char **envp)
 	g_data.exit_code = 0;
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	if (argc != 1 && argv)
 		return (1);
 	init_minishell(envp);
 	start_minishell();
 	finish_minishell();
-	return 0;
+	return (0);
 }
