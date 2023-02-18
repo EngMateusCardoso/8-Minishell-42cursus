@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 14:54:24 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:12:36 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	finish_minishell(void)
 {
-	finish_free();
 	print_closing();
+	finish_free();
 }
 
 void	finish_free(void)
 {
 	free_hash_table();
-	// free(g_data.root_path)
+	free(g_data.root_path);
 	rl_clear_history();
 	free_command_table(g_data.command_table_expanded);
 	free_pipes_and_pids();
@@ -42,7 +42,6 @@ void	print_closing(void)
 	printf("\n");
 	close(fd);
 	ft_free_pointer((void *)&path);
-	free(g_data.root_path);
 	return ;
 }
 
