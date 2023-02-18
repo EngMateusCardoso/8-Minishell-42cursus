@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:51:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:14:17 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:50:39 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 char	**lexer(char *command)
 {

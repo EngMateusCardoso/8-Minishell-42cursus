@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:20:17 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/17 18:34:46 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:50:03 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 void	unset_builtin(char **cmds)
 {

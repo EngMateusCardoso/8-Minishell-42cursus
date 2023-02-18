@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   debug_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 17:47:14 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/17 23:39:01 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:48:19 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 void	print_command_tokens(char **command_tokens)
 {

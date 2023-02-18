@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:29:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:23:08 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:50:27 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 short int	is_redirection(char *token)
 {

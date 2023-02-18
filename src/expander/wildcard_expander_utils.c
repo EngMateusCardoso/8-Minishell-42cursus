@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_expander_utils_2.c                        :+:      :+:    :+:   */
+/*   wildcard_expander_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 10:11:19 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/16 10:16:44 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:52:42 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 int	has_wildcard(char *var)
 {

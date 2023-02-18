@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hashtable_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 09:27:29 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/17 21:36:14 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:52:57 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 unsigned int	hash_function(char *key)
 {

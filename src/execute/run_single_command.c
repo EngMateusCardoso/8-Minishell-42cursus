@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_single_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 06:36:04 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:50:52 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 void	run_single_command(char **cmd_and_args)
 {

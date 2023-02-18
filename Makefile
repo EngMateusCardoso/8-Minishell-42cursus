@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/18 02:11:46 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/18 12:14:47 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ SRCS			= 	main.c								\
 					exit_algorithm/free_algorithm.c		\
 
 OBJS			= ${SRCS:%.c=%.o}
-HEADER			= src/minishell.h
+HEADER			= ./inc/minishell.h
 OBJS_DIR		= objs/
 
 RM				= rm -fr
@@ -74,7 +74,7 @@ RC				= \033[0m
 all:		$(NAME)
 
 $(NAME):	$(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT)
-	@printf "\r$(CY)Generating minishell executable...                  $(RC)\n"
+	@printf "\r$(CY)Generating minishell executable...                                 $(RC)\n"
 	@$(CC) $(addprefix $(OBJS_DIR),$(OBJS)) -o $(NAME) $(LIBS)
 	@printf "$(GR)minishell is Ready!$(RC)\n"
 
@@ -91,14 +91,14 @@ $(LIBFT):
 	@make bonus -C ./libraries/libft
 	@printf "$(GR)libft ready!$(RC)"
 
-norm:
-	norminette ./src/builtins/* ./src/execute/* ./src/exit_algorithm/*  ./src/expander/* ./src/hashtable/* ./src/redirections/* ${HEADER}
+norm:		$(NAME)
+	@norminette ./src/ ./inc/
 
 leaks:
 	$(LEAKS) $(LF) ./$(NAME)
 
 clean:
-	@$(RM) $(OBJS_DIR)
+	@$(RM) $(OBJS_DIR) $(LEAKS_FILE)
 	@printf "$(RE)minishell objects removed!$(RC)\n"
 
 fclean:		clean
@@ -107,4 +107,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re norm

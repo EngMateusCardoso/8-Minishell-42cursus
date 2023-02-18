@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:37:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:14:21 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:50:43 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 unsigned int	count_tokens_for(char **command_tokens, \
 	unsigned int start_index, unsigned int end_index, char *type)
