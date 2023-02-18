@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 05:17:35 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 06:36:04 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_command_path(char *cmd)
 	int		i;
 
 	i = 0;
-	if (ft_strncmp(cmd, "/bin/", 5) == 0)
+	if (!ft_strncmp(cmd, "/bin/", 5) && access(cmd, F_OK) == 0)
 		return (cmd);
 	paths = ft_split(getenv("PATH"), ':');
 	while (paths[i])
