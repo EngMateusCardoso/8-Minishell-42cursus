@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 07:56:12 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 10:48:11 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:10:07 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,15 @@ void	handler_signal(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+}
+
+void	ctrlc_parent_hd(int signal)
+{
+	(void)signal;
+	if (signal == SIGINT)
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		g_data.exit_code = 130;
+	}
 }

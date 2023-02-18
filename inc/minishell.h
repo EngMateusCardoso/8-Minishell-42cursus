@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 14:55:12 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:10:59 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void			start_minishell(void);
 void			capture_signals(struct sigaction *sint, \
 	struct sigaction *squit);
 void			handler_signal(int sig);
-
+void			ctrlc_parent_hd(int signal);
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);
 void			error_handler(char *str1, char *str2, int status, char *cmd);
