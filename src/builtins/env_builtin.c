@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:10:02 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 22:01:57 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:49:36 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 void	env_builtin(void)
 {

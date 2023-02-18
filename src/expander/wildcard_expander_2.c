@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_expander_utils_1.c                        :+:      :+:    :+:   */
+/*   wildcard_expander_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 10:08:05 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/16 10:16:17 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:52:36 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 int	match_randon_asterisks(char *str, char *shrunk)
 {

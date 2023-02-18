@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:11 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 04:54:12 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:53:24 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 void	cd_builtin(char **cmds)
 {
@@ -38,7 +38,7 @@ int	cd_exec(char *folder)
 {
 	char	*path;
 
-	if (folder && !(ft_strncmp(folder, "~", 2) == 0))
+	if (folder)
 	{
 		if (ft_strncmp(folder, "-", 2) == 0)
 		{

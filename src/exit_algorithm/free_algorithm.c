@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_algorithm.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 17:44:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:25:53 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:51:17 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 void	free_command_tokens(char **command_tokens)
 {

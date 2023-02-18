@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 09:58:03 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/16 10:21:32 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:52:21 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 void	expand_env_var(char **expand, char *var, int size)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   finish_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 05:17:22 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 12:02:20 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 void	finish_minishell(void)
 {
@@ -30,12 +30,25 @@ void	print_closing(void)
 {
 	int		fd;
 	char	buff[1];
-	int		index;
+	char	*path;
 
-	fd = open("./src/assets/closing.txt", O_RDONLY);
+	path = ft_strjoin(g_data.root_path, "/src/assets/closing.txt");
+	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return ;
 	printf("\n");
+	read_file(buff, fd);
+	printf("\n");
+	close(fd);
+	ft_free_pointer((void *)&path);
+	free(g_data.root_path);
+	return ;
+}
+
+void	read_file(char *buff, int fd)
+{
+	int		index;
+
 	index = 0;
 	while (read(fd, buff, 1))
 	{
@@ -48,7 +61,4 @@ void	print_closing(void)
 		}
 		index++;
 	}
-	printf("\n");
-	close(fd);
-	return ;
 }

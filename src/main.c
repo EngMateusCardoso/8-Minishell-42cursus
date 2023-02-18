@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 05:10:21 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:35:46 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 t_data	g_data;
 
@@ -29,6 +29,7 @@ void	init_minishell(char **envp)
 	g_data.envp = envp;
 	store_env_variables(envp);
 	g_data.exit_code = 0;
+	g_data.root_path = getcwd(NULL, 0);
 }
 
 void	print_startup(void)
@@ -61,17 +62,17 @@ void	print_startup(void)
 void	print_color_char(int index, char c)
 {
 	if (index < 12)
-		printf("\e[38;5;%dm%c\e[0m", 82, c);
+		printf("%s%c", COLOR_1, c);
 	else if (index < 24)
-		printf("\e[38;5;%dm%c\e[0m", 83, c);
+		printf("%s%c", COLOR_2, c);
 	else if (index < 36)
-		printf("\e[38;5;%dm%c\e[0m", 84, c);
+		printf("%s%c", COLOR_3, c);
 	else if (index < 48)
-		printf("\e[38;5;%dm%c\e[0m", 85, c);
+		printf("%s%c", COLOR_4, c);
 	else if (index < 60)
-		printf("\e[38;5;%dm%c\e[0m", 86, c);
+		printf("%s%c", COLOR_5, c);
 	else
-		printf("\e[38;5;%dm%c\e[0m", 87, c);
+		printf("%s%c%s", COLOR_6, c, RESET_COLOR);
 }
 
 void	start_minishell(void)

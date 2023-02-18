@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:17:37 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/16 10:24:02 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:52:09 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 t_cmd	*expand_command_table(t_cmd *cmd)
 {

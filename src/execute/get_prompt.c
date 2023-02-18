@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_prompt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:05:16 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:14:13 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:01:43 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../inc/minishell.h"
 
 char	*get_prompt(void)
 {
@@ -22,7 +22,7 @@ char	*get_prompt(void)
 	prompt = get_str_prompt();
 	path = get_str_path();
 	tmp = ft_strjoin(prompt, path);
-	tmp2 = ft_strjoin(tmp, "\001\033[0m\002$ ");
+	tmp2 = ft_strjoin(tmp, RESET_PROMPT);
 	free(path);
 	free(prompt);
 	free(tmp);
@@ -35,7 +35,7 @@ char	*get_str_prompt(void)
 	char	*tmp;
 
 	tmp = ft_strjoin(getenv("USER"), "@minishell:");
-	prompt = ft_strjoin("\001\033[1;92m\002", tmp);
+	prompt = ft_strjoin(PROMPT_COLOR, tmp);
 	free(tmp);
 	return (prompt);
 }
@@ -52,7 +52,7 @@ char	*get_str_path(void)
 	if (ft_strncmp(path, home, ft_strlen(home)) == 0)
 	{
 		tmp = ft_strjoin("~", &path[ft_strlen(home)]);
-		tmp2 = ft_strjoin("\001\033[1;34m\002", tmp);
+		tmp2 = ft_strjoin(PATH_COLOR, tmp);
 		free(path);
 		free(home);
 		free(tmp);
@@ -60,7 +60,7 @@ char	*get_str_path(void)
 	}
 	else
 	{
-		tmp = ft_strjoin("\001\033[1;34m\002", path);
+		tmp = ft_strjoin(PATH_COLOR, path);
 		free(path);
 		free(home);
 		return (tmp);
