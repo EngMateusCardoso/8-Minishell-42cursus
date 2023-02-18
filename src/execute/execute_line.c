@@ -71,7 +71,6 @@ void	init_pipes_and_pids(int n_pipes)
 		i++;
 	}
 	g_data.pipes_pids->pipes[i] = NULL;
-	g_data.pipes_pids->total_cmd = n_pipes + 1;
 }
 
 short int	is_forked(t_cmd *command_table)

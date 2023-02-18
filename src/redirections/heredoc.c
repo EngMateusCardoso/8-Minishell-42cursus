@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:53:08 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:10:33 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+
 
 void	heredoc(t_cmd *command_table)
 {
@@ -42,25 +44,13 @@ void	init_heredoc(char *stop_str, int n_cmd)
 	pid = fork();
 	if (pid < 0)
 		write(2, "Error forking\n", 14);
-	// if (pid > 0)
-	// 	signal(SIGINT, ctrlc_parent_hd);
+	if (pid > 0)
+		signal(SIGINT, ctrlc_parent_hd);
 	if (pid == 0)
 		open_heredoc(stop_str, n_cmd);
 	waitpid(-1, &wstatus, 0);
 	g_data.exit_code = WEXITSTATUS(wstatus);
 }
-
-// void	ctrlc_parent_hd(int signal)
-// {
-// 	(void)signal;
-// 	if (signal == SIGINT)
-// 	{
-// 		rl_replace_line("", 0);
-// 		rl_on_new_line();
-// 		g_data.exit_code = 130;
-// 		// g_data->not_run = 1;
-// 	}
-// }
 
 void	open_heredoc(char *stop_str, int n_cmd)
 {
@@ -88,6 +78,11 @@ void	open_heredoc(char *stop_str, int n_cmd)
 		write(fd, "\n", 1);
 		free(line);
 	}
+	finish_open_heredoc(fd);
+}
+
+void	finish_open_heredoc(int fd)
+{
 	close(fd);
 	g_data.exit_code = 0;
 	finish_free();
