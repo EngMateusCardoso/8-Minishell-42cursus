@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/18 00:59:34 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/18 02:11:46 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS			= 	main.c								\
 					execute/execute_line.c				\
 					execute/check_syntax.c				\
 					execute/lexer.c						\
-					execute/parser.c						\
+					execute/parser.c					\
 					execute/parser_utils.c				\
 					execute/execute_with_fork.c			\
 					execute/run_single_command.c		\
@@ -74,7 +74,7 @@ RC				= \033[0m
 all:		$(NAME)
 
 $(NAME):	$(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT)
-	@printf "\r$(CY)Generating minishell executable...                              $(RC)\n"
+	@printf "\r$(CY)Generating minishell executable...                  $(RC)\n"
 	@$(CC) $(addprefix $(OBJS_DIR),$(OBJS)) -o $(NAME) $(LIBS)
 	@printf "$(GR)minishell is Ready!$(RC)\n"
 
@@ -92,7 +92,7 @@ $(LIBFT):
 	@printf "$(GR)libft ready!$(RC)"
 
 norm:
-	norminette ${SRCS} ${HEADER}
+	norminette ./src/builtins/* ./src/execute/* ./src/exit_algorithm/*  ./src/expander/* ./src/hashtable/* ./src/redirections/* ${HEADER}
 
 leaks:
 	$(LEAKS) $(LF) ./$(NAME)
