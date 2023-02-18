@@ -6,28 +6,30 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/16 13:34:14 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:20:13 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data g_data;
+t_data	g_data;
 
-void	print_color_char(int index, char c)
+int	main(int argc, char **argv, char **envp)
 {
-	if (index < 12)
-		printf("\e[38;5;%dm%c\e[0m", 82, c);
-	else if (index < 24)
-		printf("\e[38;5;%dm%c\e[0m", 83, c);
-	else if (index < 36)
-		printf("\e[38;5;%dm%c\e[0m", 84, c);
-	else if (index < 48)
-		printf("\e[38;5;%dm%c\e[0m", 85, c);
-	else if (index < 60)
-		printf("\e[38;5;%dm%c\e[0m", 86, c);
-	else
-		printf("\e[38;5;%dm%c\e[0m", 87, c);
+	if (argc != 1 && argv)
+		return (1);
+	init_minishell(envp);
+	start_minishell();
+	finish_minishell();
+	return (0);
+}
+
+void	init_minishell(char **envp)
+{
+	print_startup();
+	g_data.envp = envp;
+	store_env_variables(envp);
+	g_data.exit_code = 0;
 }
 
 void	print_startup(void)
@@ -57,20 +59,37 @@ void	print_startup(void)
 	return ;
 }
 
-void	init_minishell(char **envp)
+void	print_color_char(int index, char c)
 {
-	print_startup();
-	g_data.envp = envp;
-	store_env_variables(envp);
-	g_data.exit_code = 0;
+	if (index < 12)
+		printf("\e[38;5;%dm%c\e[0m", 82, c);
+	else if (index < 24)
+		printf("\e[38;5;%dm%c\e[0m", 83, c);
+	else if (index < 36)
+		printf("\e[38;5;%dm%c\e[0m", 84, c);
+	else if (index < 48)
+		printf("\e[38;5;%dm%c\e[0m", 85, c);
+	else if (index < 60)
+		printf("\e[38;5;%dm%c\e[0m", 86, c);
+	else
+		printf("\e[38;5;%dm%c\e[0m", 87, c);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	start_minishell(void)
 {
-	if (argc != 1 && argv)
-		return (1);
-	init_minishell(envp);
-	start_minishell();
-	finish_minishell();
-	return (0);
+	char				*prompt;
+	char				*prompt_input;
+	struct sigaction	sint;
+	struct sigaction	squit;
+
+	while (1)
+	{
+		capture_signals(&sint, &squit);
+		prompt = get_prompt();
+		prompt_input = readline(prompt);
+		free(prompt);
+		if (prompt_input && *prompt_input)
+			add_history(prompt_input);
+		execute_line(prompt_input);
+	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hashtable.c                                        :+:      :+:    :+:   */
+/*   hashtable_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 09:27:29 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/16 13:55:20 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:36:14 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,6 @@ unsigned int	hash_function(char *key)
 	if (*key)
 		return (*key + hash_function(key + 1));
 	return (0);
-}
-
-void	free_hash_table(void)
-{
-	int		i;
-	t_list	*temp;
-	t_list	*temp2;
-
-	i = 0;
-	while (i < TABLE_SIZE)
-	{
-		temp = g_data.hash_table[i];
-		while (temp)
-		{
-			temp2 = temp->next;
-			free(((t_env_var *)temp->content)->key);
-			free(((t_env_var *)temp->content)->value);
-			free(temp->content);
-			free(temp);
-			temp = temp2;
-		}
-		i++;
-	}
 }
 
 char	*find_hash_var(t_list *head, char *key)
