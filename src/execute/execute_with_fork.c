@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:50:31 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:10:54 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	execute_with_fork(t_cmd *command_table)
 			close_pipes_in_child(i);
 			set_redirections(command_table[i].redirections_and_files, i);
 			if (is_builtin(command_table[i].cmd_and_args[0]))
+			{
 				run_builtin(command_table[i].cmd_and_args, 1);
+				finish_free();
+				exit(0);
+			}
 			else
 				run_single_command(command_table[i].cmd_and_args);
 		}
