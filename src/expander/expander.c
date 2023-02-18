@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:17:37 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:52:09 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:45:56 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	expand_cmd_and_args(char **new_cmds, char **cmds)
 			expand_token(new_cmds, cmds[i], &j);
 		else
 		{
-			new_cmds[j] = ft_strdup(cmds[i]);
+			new_cmds[j] = clear_quotes(cmds[i]);
 			j++;
 		}
 		i++;
@@ -71,7 +71,7 @@ void	expand_redirections_and_files(char **new_redir, char **redir)
 			expand_token(new_redir, redir[i], &j);
 		else
 		{
-			new_redir[j] = ft_strdup(redir[i]);
+			new_redir[j] = clear_quotes(redir[i]);
 			j++;
 		}
 		i++;
@@ -94,8 +94,9 @@ void	expand_token(char **new_token, char *token, int *j)
 			expanded = expand_money_sign(token);
 		if (expanded != NULL)
 		{
-			new_token[*j] = expanded;
+			new_token[*j] = clear_quotes(expanded);
 			*j += 1;
+			free(expanded);
 		}
 	}
 }
