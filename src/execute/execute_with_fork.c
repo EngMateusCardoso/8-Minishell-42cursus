@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:55:27 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 04:50:44 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@ void	execute_with_fork(t_cmd *command_table)
 	while (command_table[i].cmd_and_args)
 	{
 		// sinais gerais
+	// 		signal(SIGINT, ctrlc_fork);
+	// signal(SIGQUIT, ctrlc_fork);
 		g_data.pipes_pids->pids[i] = fork();
 		if (g_data.pipes_pids->pids[i] == 0)
 		{
 			// sinais para o child
 			close_pipes_in_child(i);
 			set_redirections(command_table[i].redirections_and_files, i);
-			run_single_command(command_table[i].cmd_and_args);
+			if (is_builtin(command_table[i].cmd_and_args[0]))
+				run_builtin(command_table[i].cmd_and_args, 1);
+			else
+				run_single_command(command_table[i].cmd_and_args);
 		}
 		i++;
 	}

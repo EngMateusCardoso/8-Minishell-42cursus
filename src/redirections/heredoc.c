@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:18:05 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 04:32:03 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	open_heredoc(char *stop_str, int n_cmd)
 	}
 	close(fd);
 	g_data.exit_code = 0;
+	// free child process
 	exit(0);
-	// free child process?
 }
 
 int	open_fd_heredoc(char *file, int n_cmd)

@@ -91,5 +91,6 @@ short int	is_forked(t_cmd *command_table)
 
 void	execute_no_fork(t_cmd *command_table)
 {
-	execute_builtin(command_table->cmd_and_args, 0);
+	set_redirections(command_table[0].redirections_and_files, 0);
+	run_builtin(command_table[0].cmd_and_args, 0);
 }

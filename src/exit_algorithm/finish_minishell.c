@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:14:49 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 02:58:08 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	finish_minishell(void)
 {
 	finish_free();
-	rl_clear_history();
 	print_closing();
 }
 
 void	finish_free(void)
 {
+	rl_clear_history();
 	free_hash_table();
 }
 

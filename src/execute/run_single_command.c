@@ -6,11 +6,31 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:25:35 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 02:55:50 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	run_single_command(char **cmd_and_args)
+{
+	char	*cmd_path;
+	char	*str_error;
+
+	cmd_path = get_command_path(cmd_and_args[0]);
+	if (!cmd_path)
+	{
+		str_error = ft_strjoin(cmd_and_args[0], ": command not found\n");
+		write(2, str_error, ft_strlen(str_error));
+		free(str_error);
+		free(cmd_path);
+		finish_free();
+		free_command_table(g_data.command_table_expanded);
+		free_pipes_and_pids();
+		exit(127);
+	}
+	execve(cmd_path, cmd_and_args, g_data.envp);
+}
 
 char	*get_command_path(char *cmd)
 {
@@ -27,36 +47,28 @@ char	*get_command_path(char *cmd)
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		target = ft_strjoin(tmp, cmd);
-		// free(tmp);
+		free(tmp);
 		if (access(target, F_OK) == 0)
 		{
-			// why do not leak here?
-			// while (*paths)
-			// 	free(*paths++);
-			// free(paths);
+			free_paths(paths);
 			return (target);
 		}
-		// free(target);
+		free(target);
 		i++;
 	}
-	// while (*paths)
-	// free(*paths++);
-	// free(paths);
+	free_paths(paths);
 	return (NULL);
 }
 
-void	run_single_command(char **cmd_and_args)
+void	free_paths(char **paths)
 {
-	char	*cmd_path;
-	char	*str_error;
+	int	i;
 
-	cmd_path = get_command_path(cmd_and_args[0]);
-	if (!cmd_path)
+	i = 0;
+	while (paths[i])
 	{
-		str_error = ft_strjoin(cmd_and_args[0], ": command not found\n");
-		write(2, str_error, ft_strlen(str_error));
-		free(str_error);
-		exit(127);
+		free(paths[i]);
+		i++;
 	}
-	execve(cmd_path, cmd_and_args, g_data.envp);
+	free(paths);
 }

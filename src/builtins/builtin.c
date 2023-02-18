@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/17 18:35:45 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 04:50:15 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	execute_builtin(char **command, int isfork)
+void	run_builtin(char **command, int isfork)
 {
 	if (isfork)
 	{

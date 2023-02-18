@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:28:57 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 04:54:37 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ char	**put_redirections(char **command_tokens, unsigned int start_index, \
 unsigned int	count_tokens_for(char **command_tokens, \
 	unsigned int start_index, unsigned int end_index, char *type);
 
-
 // execute_with_fork.c
 void	execute_with_fork(t_cmd *command_table);
 void	close_pipes_in_child(int i);
@@ -130,20 +129,20 @@ void	close_pipes_in_parent(void);
 void	wait_all_pids(void);
 
 // run_single_command.c
-char	*get_command_path(char *cmd);
 void	run_single_command(char **cmd_and_args);
-
+char	*get_command_path(char *cmd);
+void	free_paths(char **paths);
 
 // execute_utils.c
-short int	is_redirection(char *token);
+short int		is_redirection(char *token);
 unsigned int	redirection_and_pipe_size(char const *command, unsigned int i);
-short int	is_redirection_or_pipe(char *token);
+short int		is_redirection_or_pipe(char *token);
 
 /******************************************************************************\
  * /builtin/
 \******************************************************************************/
 // builtin.c
-void	execute_builtin(char **command, int isfork);
+void	run_builtin(char **command, int isfork);
 int		is_builtin(char *command);
 char	*clear_quotes(char *var);
 int		check_identifier(char *var);
