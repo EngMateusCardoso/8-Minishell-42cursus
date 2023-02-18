@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/16 11:03:50 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:28:57 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,43 +58,86 @@ typedef struct s_data
 	t_list			*(hash_table[TABLE_SIZE]);
 	char			**envp;
 	t_cmd			*command_table_expanded;
-	int					exit_code;
+	int				exit_code;
 	char			*root_path;
 	t_pipes_pids	*pipes_pids;
 }					t_data;
 
 typedef struct sigaction	t_sigaction;
 
+extern t_data				g_data;
+
+// main.c
+void	init_minishell(char **envp);
+void	print_startup(void);
+void	print_color_char(int index, char c);
+void	start_minishell(void);
+
+// signals.c
+void	capture_signals(struct sigaction *sint, struct sigaction *squit);
+void	handler_signal(int sig);
+
+// utils.c
+void	error_msg(char *cmd, char *msg, int status);
+void	error_handler(char *str1, char *str2, int status, char *cmd);
+
 /******************************************************************************\
- * global var
+ * /execute/
 \******************************************************************************/
+// get_prompt.c
+char	*get_prompt(void);
+char	*get_str_prompt(void);
+char	*get_str_path(void);
 
-extern t_data	g_data;
-
-void		store_env_variables(char **envp);
-void		start_minishell(void);
-void		free_hash_table(void);
-void		finish_minishell(void);
-void		print_command_tokens(char **command_tokens);
-void		free_command_tokens(char **command_tokens);
-char		**lexer(char *command);
-t_cmd		*parser(char **command_tokens);
-void		print_command_table(t_cmd *command_table);
-void		free_command_table(t_cmd *command_table);
-short int	check_syntax(char **command_tokens);
-short int	is_redirection(char *token);
-void		print_color_char(int idx, char c);
-char		*get_prompt(void);
+// execute_line.c
 void		execute_line(char *command);
-void		capture_signals(struct sigaction *sint, struct sigaction *squit);
-char		*find_hash_var(t_list *head, char *key);
-t_list		*find_hash_node(char *key);
-unsigned int hash_function(char *key);
-void		free_pipes_and_pids(void);
-void		run_single_command(char **cmd_and_args);
-void		error_handler(char *str1, char *str2, int status, char *cmd);
-void		error_msg(char *cmd, char *msg, int status);
-void		insert_in_hashtable(char *envp);
+int			count_pipes(char **command_tokens);
+void		init_pipes_and_pids(int n_pipes);
+short int	is_forked(t_cmd *command_table);
+void		execute_with_fork(t_cmd *command_table);
+void		execute_no_fork(t_cmd *command_table);
+
+// check_syntax.c
+short int	check_syntax(char **command_tokens);
+short int	syntax_error(char **command_tokens, char *token);
+
+// lexer.c
+char			**lexer(char *command);
+unsigned int	to_count_tokens(char const *command);
+unsigned int	token_size(char const *command, unsigned int i);
+unsigned int	quote_token_size(char const *command, unsigned int i, \
+	const char quote_type);
+char			*put_slices_lexer(char const *command, unsigned int token_index);
+
+// parse.c
+t_cmd	*parser(char **command_tokens);
+size_t	get_command_table_size(char **command_tokens);
+t_cmd	put_complete_cmd(char **command_tokens, unsigned int index_table);
+char	**put_cmd_and_args(char **command_tokens, unsigned int start_index, \
+	unsigned int end_index);
+char	**put_redirections(char **command_tokens, unsigned int start_index, \
+	unsigned int end_index);
+
+// parser_utils.c
+unsigned int	count_tokens_for(char **command_tokens, \
+	unsigned int start_index, unsigned int end_index, char *type);
+
+
+// execute_with_fork.c
+void	execute_with_fork(t_cmd *command_table);
+void	close_pipes_in_child(int i);
+void	close_pipes_in_parent(void);
+void	wait_all_pids(void);
+
+// run_single_command.c
+char	*get_command_path(char *cmd);
+void	run_single_command(char **cmd_and_args);
+
+
+// execute_utils.c
+short int	is_redirection(char *token);
+unsigned int	redirection_and_pipe_size(char const *command, unsigned int i);
+short int	is_redirection_or_pipe(char *token);
 
 /******************************************************************************\
  * /builtin/
@@ -179,5 +222,47 @@ char	*shrink_asterisks(char *token);
 int		has_wildcard(char *var);
 void	mask_asterisks(char *str);
 int		unmask_asterisks(char *str);
+
+/******************************************************************************\
+ * /redirection/
+\******************************************************************************/
+// heredoc.c
+void	heredoc(t_cmd *command_table);
+void	init_heredoc(char *stop_str, int n_cmd);
+void	open_heredoc(char *stop_str, int n_cmd);
+int		open_fd_heredoc(char *file, int n_cmd);
+
+// set_redirections.c
+void	set_redirections(char **redir_and_files, int i);
+void	set_redirection_in_pipeline(char *redir, char *file, int i);
+int		open_file(char *file, int flags);
+int		has_input_redirection(char **redir_and_files);
+int		has_output_redirection(char **redir_and_files);
+
+/******************************************************************************\
+ * /exit_algorithm/
+/******************************************************************************/
+// finish_minishell.c
+void	finish_minishell(void);
+void	finish_free(void);
+void	print_closing(void);
+
+// free_algorithm.c
+void	free_command_tokens(char **command_tokens);
+void	free_command_table(t_cmd *command_table);
+void	free_pipes_and_pids(void);
+void	free_hash_table(void);
+
+/******************************************************************************\
+ * /hashtable/
+/******************************************************************************/
+// store_env_variables.c
+void	store_env_variables(char **envp);
+void	insert_in_hashtable(char *envp);
+
+// hashtable_utils.c
+unsigned int	hash_function(char *key);
+t_list			*find_hash_node(char *key);
+char			*find_hash_var(t_list *head, char *key);
 
 #endif

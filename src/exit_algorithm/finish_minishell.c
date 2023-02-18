@@ -6,11 +6,23 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/16 13:36:18 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:14:49 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
+
+void	finish_minishell(void)
+{
+	finish_free();
+	rl_clear_history();
+	print_closing();
+}
+
+void	finish_free(void)
+{
+	free_hash_table();
+}
 
 void	print_closing(void)
 {
@@ -37,16 +49,4 @@ void	print_closing(void)
 	printf("\n");
 	close(fd);
 	return ;
-}
-
-void	finish_free(void)
-{
-	free_hash_table();
-}
-
-void	finish_minishell(void)
-{
-	finish_free();
-	rl_clear_history();
-	print_closing();
 }
