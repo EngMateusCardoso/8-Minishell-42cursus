@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 00:20:13 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 05:10:21 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	init_minishell(envp);
 	start_minishell();
-	finish_minishell();
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 02:58:08 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 05:17:22 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	finish_minishell(void)
 
 void	finish_free(void)
 {
-	rl_clear_history();
 	free_hash_table();
+	rl_clear_history();
+	free_command_table(g_data.command_table_expanded);
+	free_pipes_and_pids();
 }
 
 void	print_closing(void)

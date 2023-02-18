@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 04:32:03 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 05:27:08 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	open_heredoc(char *stop_str, int n_cmd)
 	file = ft_strjoin("/tmp/inputfile", temp);
 	free(temp);
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	free(file);
 	if (fd < 0)
 		write(2, "Error opening file\n", 19);
 	while (1)
@@ -89,7 +90,7 @@ void	open_heredoc(char *stop_str, int n_cmd)
 	}
 	close(fd);
 	g_data.exit_code = 0;
-	// free child process
+	finish_free();
 	exit(0);
 }
 

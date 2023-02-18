@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 02:55:50 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/18 05:17:35 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	run_single_command(char **cmd_and_args)
 		free(str_error);
 		free(cmd_path);
 		finish_free();
-		free_command_table(g_data.command_table_expanded);
-		free_pipes_and_pids();
 		exit(127);
 	}
 	execve(cmd_path, cmd_and_args, g_data.envp);
