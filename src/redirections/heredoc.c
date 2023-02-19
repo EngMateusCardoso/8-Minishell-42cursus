@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 18:10:33 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:06:05 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	init_heredoc(char *stop_str, int n_cmd)
 	pid = fork();
 	if (pid < 0)
 		write(2, "Error forking\n", 14);
-	if (pid > 0)
-		signal(SIGINT, ctrlc_parent_hd);
+	capture_heredoc_signals(pid);
 	if (pid == 0)
 		open_heredoc(stop_str, n_cmd);
 	waitpid(-1, &wstatus, 0);
