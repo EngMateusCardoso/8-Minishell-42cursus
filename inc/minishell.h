@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 18:10:59 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:05:44 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_data
 	t_pipes_pids	*pipes_pids;
 }					t_data;
 
+typedef struct sigaction	t_sigaction;
+
 extern t_data				g_data;
 
 /******************************************************************************\
@@ -97,7 +99,9 @@ void			start_minishell(void);
 void			capture_signals(struct sigaction *sint, \
 	struct sigaction *squit);
 void			handler_signal(int sig);
-void			ctrlc_parent_hd(int signal);
+void			capture_exec_signals(int child_pid);
+void			capture_heredoc_signals(int child_pid);
+
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);
 void			error_handler(char *str1, char *str2, int status, char *cmd);
@@ -254,6 +258,7 @@ void			heredoc(t_cmd *command_table);
 void			init_heredoc(char *stop_str, int n_cmd);
 void			open_heredoc(char *stop_str, int n_cmd);
 int				open_fd_heredoc(char *file, int n_cmd);
+void			finish_open_heredoc(int fd);
 
 // set_redirections.c
 void			set_redirections(char **redir_and_files, int i);

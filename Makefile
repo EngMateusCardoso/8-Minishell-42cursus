@@ -6,7 +6,7 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/18 12:14:47 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/19 10:23:07 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ HEADER			= ./inc/minishell.h
 OBJS_DIR		= objs/
 
 RM				= rm -fr
-CC				= gcc
+CC				= clang
 FLAGS			= -Wall -Wextra -Werror -g
 
 LEAKS 			= valgrind
@@ -83,7 +83,7 @@ $(OBJS_DIR):
 
 objs/%.o:	src/%.c
 	@printf "\r$(CY)Generating object "$@
-	@$(CC) -c -o $@ $< $(LIBS)
+	@$(CC) -c -o $@ $<
 	@printf "$(RC)                              "
 
 $(LIBFT):

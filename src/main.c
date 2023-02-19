@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 11:35:46 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/19 11:17:04 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ void	start_minishell(void)
 		prompt = get_prompt();
 		prompt_input = readline(prompt);
 		free(prompt);
+		if (!prompt_input)
+		{
+			print_closing();
+			exit(127);
+		}
 		if (prompt_input && *prompt_input)
 			add_history(prompt_input);
 		execute_line(prompt_input);

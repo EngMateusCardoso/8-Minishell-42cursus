@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 17:10:54 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:05:53 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	execute_with_fork(t_cmd *command_table)
 	// 		signal(SIGINT, ctrlc_fork);
 	// signal(SIGQUIT, ctrlc_fork);
 		g_data.pipes_pids->pids[i] = fork();
+		capture_exec_signals(g_data.pipes_pids->pids[i]);
 		if (g_data.pipes_pids->pids[i] == 0)
 		{
 			// sinais para o child
