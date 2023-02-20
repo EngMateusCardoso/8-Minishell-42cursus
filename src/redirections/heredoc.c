@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/20 12:13:45 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:31:14 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	open_heredoc(char *stop_str, int n_cmd)
 	{
 		line = readline("> ");
 		if (!line)
+		{
+			// finish_free();
 			eof_msg(stop_str);
+		}
 		if (ft_strncmp(line, stop_str, ft_strlen(stop_str)) == 0)
 		{
 			free(line);
