@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/19 12:05:44 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:02:33 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void			capture_heredoc_signals(int child_pid);
 
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);
-void			error_handler(char *str1, char *str2, int status, char *cmd);
+char			*clear_quotes(char *var);
 
 /******************************************************************************\
  * /execute/
@@ -171,9 +171,9 @@ short int		is_redirection_or_pipe(char *token);
 // builtin.c
 void			run_builtin(char **command, int isfork);
 int				is_builtin(char *command);
-char			*clear_quotes(char *var);
 int				check_identifier(char *var);
 void			identifier_error(char *cmd, char **value);
+void			error_handler(char *str1, char *str2, int status, char *cmd);
 
 // cd_builtin.c
 void			cd_builtin(char **cmds);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:48:04 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:01:49 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,20 @@ void	error_msg(char *cmd, char *msg, int status)
 	g_data.exit_code = status;
 }
 
-void	error_handler(char *str1, char *str2, int status, char *cmd)
+char	*clear_quotes(char *var)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(str1, 2);
-	ft_putstr_fd(str2, 2);
-	perror("");
-	g_data.exit_code = status;
+	char	*cmd;
+	int		i;
+
+	cmd = NULL;
+	i = 0;
+	while (var[i])
+	{
+		if ((var[i] != '\'') && (var[i] != '\"'))
+		{
+			cmd = ft_straddchar(cmd, var[i]);
+		}
+		i++;
+	}
+	return (cmd);
 }
