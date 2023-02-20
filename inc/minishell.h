@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/20 09:02:33 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:23:47 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,14 @@ void			start_minishell(void);
 void			capture_signals(struct sigaction *sint, \
 	struct sigaction *squit);
 void			handler_signal(int sig);
-void			capture_exec_signals(int child_pid);
-void			capture_heredoc_signals(int child_pid);
+void			capture_child_signals(int pid, int need_free);
+void			handler_signal_child(int sig);
+void			handler_signal_father(int sig);
 
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);
 char			*clear_quotes(char *var);
+void			eof_msg(char *redir);
 
 /******************************************************************************\
  * /execute/

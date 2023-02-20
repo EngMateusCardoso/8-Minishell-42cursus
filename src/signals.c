@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 07:56:12 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/19 12:04:53 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:15:24 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,16 @@ void	handler_signal(int sig)
 	rl_redisplay();
 }
 
-void	capture_exec_signals(int pid)
-{
-	struct sigaction	sa;
-	sigset_t			mask;
-
-	sigemptyset(&mask);
-	sigaddset(&mask, SIGINT);
-	sigaddset(&mask, SIGQUIT);
-	sa.sa_mask = mask;
-	if (pid == 0)
-		sa.sa_handler = SIG_DFL;
-	else
-		sa.sa_handler = SIG_IGN;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-}
-
-void	capture_heredoc_signals(int pid)
+void	capture_child_signals(int pid, int need_free)
 {
 	struct sigaction	sint;
 	struct sigaction	squit;
 	sigset_t			mask;
 
+	if (need_free)
+	{
+		//add free aqui
+	}
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGINT);
 	sigaddset(&mask, SIGQUIT);
@@ -67,10 +54,24 @@ void	capture_heredoc_signals(int pid)
 	sint.sa_mask = mask;
 	sint.sa_mask = mask;
 	if (pid == 0)
-		sint.sa_handler = SIG_DFL;
+		sint.sa_handler = handler_signal_child;
 	else
 		sint.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sint, NULL);
 	squit.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &squit, NULL);
+}
+
+void	handler_signal_child(int sig)
+{
+	(void)sig;
+	g_data.exit_code = 130;
+	write(2, "\n", 1);
+	exit (130);
+}
+
+void	handler_signal_father(int sig)
+{
+	(void)sig;
+	write(2, "\n", 1);
 }
