@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:49:07 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:01:36 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,13 @@ void	identifier_error(char *cmd, char **value)
 		error_msg(cmd, ": `': not a valid identifier", 1);
 }
 
-char	*clear_quotes(char *var)
+void	error_handler(char *str1, char *str2, int status, char *cmd)
 {
-	char	*cmd;
-	int		i;
-
-	cmd = NULL;
-	i = 0;
-	while (var[i])
-	{
-		if ((var[i] != '\'') && (var[i] != '\"'))
-		{
-			cmd = ft_straddchar(cmd, var[i]);
-		}
-		i++;
-	}
-	return (cmd);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(str2, 2);
+	perror("");
+	g_data.exit_code = status;
 }

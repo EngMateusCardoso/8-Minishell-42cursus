@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/20 12:07:11 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:23:47 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void			handler_signal_father(int sig);
 
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);
-void			error_handler(char *str1, char *str2, int status, char *cmd);
+char			*clear_quotes(char *var);
 void			eof_msg(char *redir);
 
 /******************************************************************************\
@@ -173,9 +173,9 @@ short int		is_redirection_or_pipe(char *token);
 // builtin.c
 void			run_builtin(char **command, int isfork);
 int				is_builtin(char *command);
-char			*clear_quotes(char *var);
 int				check_identifier(char *var);
 void			identifier_error(char *cmd, char **value);
+void			error_handler(char *str1, char *str2, int status, char *cmd);
 
 // cd_builtin.c
 void			cd_builtin(char **cmds);

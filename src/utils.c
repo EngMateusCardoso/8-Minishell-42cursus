@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/20 11:23:30 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:23:38 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@ void	error_msg(char *cmd, char *msg, int status)
 	g_data.exit_code = status;
 }
 
-void	error_handler(char *str1, char *str2, int status, char *cmd)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(str1, 2);
-	ft_putstr_fd(str2, 2);
-	perror("");
-	g_data.exit_code = status;
-}
-
 void	eof_msg(char *redir)
 {
 	ft_putstr_fd("minishell: ", 2);
@@ -39,4 +28,22 @@ void	eof_msg(char *redir)
 	ft_putstr_fd(" by end-of-file (wanted `", 2);
 	ft_putstr_fd(redir, 2);
 	ft_putstr_fd("')\n", 2);
+}
+
+char	*clear_quotes(char *var)
+{
+	char	*cmd;
+	int		i;
+
+	cmd = NULL;
+	i = 0;
+	while (var[i])
+	{
+		if ((var[i] != '\'') && (var[i] != '\"'))
+		{
+			cmd = ft_straddchar(cmd, var[i]);
+		}
+		i++;
+	}
+	return (cmd);
 }
