@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/19 11:17:04 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:16:02 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	start_minishell(void)
 		free(prompt);
 		if (!prompt_input)
 		{
+			//add free aqui
 			print_closing();
 			exit(127);
 		}

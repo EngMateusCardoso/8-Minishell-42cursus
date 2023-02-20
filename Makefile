@@ -6,7 +6,7 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/19 10:23:07 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/20 12:14:39 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,10 +91,10 @@ $(LIBFT):
 	@make bonus -C ./libraries/libft
 	@printf "$(GR)libft ready!$(RC)"
 
-norm:		$(NAME)
+norm:
 	@norminette ./src/ ./inc/
 
-leaks:
+leaks:		$(NAME)
 	$(LEAKS) $(LF) ./$(NAME)
 
 clean:

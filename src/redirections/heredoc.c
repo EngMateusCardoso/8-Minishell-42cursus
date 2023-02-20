@@ -6,13 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/19 12:06:05 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:13:45 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-
 
 void	heredoc(t_cmd *command_table)
 {
@@ -44,7 +42,7 @@ void	init_heredoc(char *stop_str, int n_cmd)
 	pid = fork();
 	if (pid < 0)
 		write(2, "Error forking\n", 14);
-	capture_heredoc_signals(pid);
+	capture_child_signals(pid, 1);
 	if (pid == 0)
 		open_heredoc(stop_str, n_cmd);
 	waitpid(-1, &wstatus, 0);
@@ -68,6 +66,8 @@ void	open_heredoc(char *stop_str, int n_cmd)
 	while (1)
 	{
 		line = readline("> ");
+		if (!line)
+			eof_msg(stop_str);
 		if (ft_strncmp(line, stop_str, ft_strlen(stop_str)) == 0)
 		{
 			free(line);

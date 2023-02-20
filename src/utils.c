@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:48:04 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:23:30 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,13 @@ void	error_handler(char *str1, char *str2, int status, char *cmd)
 	ft_putstr_fd(str2, 2);
 	perror("");
 	g_data.exit_code = status;
+}
+
+void	eof_msg(char *redir)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("warning: here-document delimited", 2);
+	ft_putstr_fd(" by end-of-file (wanted `", 2);
+	ft_putstr_fd(redir, 2);
+	ft_putstr_fd("')\n", 2);
 }
