@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/20 12:23:47 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:56:10 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			capture_signals(struct sigaction *sint, \
 void			handler_signal(int sig);
 void			capture_child_signals(int pid, int need_free);
 void			handler_signal_child(int sig);
-void			handler_signal_father(int sig);
+void			handler_signal_parent(int sig);
 
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);

@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/20 12:07:13 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 01:51:34 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	execute_with_fork(t_cmd *command_table)
 				run_single_command(command_table[i].cmd_and_args);
 		}
 		else
-			signal(SIGINT, handler_signal_father);
+			signal(SIGINT, handler_signal_parent);
 		i++;
 	}
 	close_pipes_in_parent();

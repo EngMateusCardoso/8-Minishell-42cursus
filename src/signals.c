@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 07:56:12 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/20 14:30:58 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/21 02:06:41 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ void	capture_child_signals(int pid, int need_free)
 	sigset_t			mask;
 
 	if (need_free)
-	{
-		// finish_free();
-	}
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGINT);
 	sigaddset(&mask, SIGQUIT);
@@ -65,11 +62,11 @@ void	handler_signal_child(int sig)
 	(void)sig;
 	g_data.exit_code = 130;
 	write(2, "\n", 1);
-	// finish_free();
+	finish_free();
 	exit (130);
 }
 
-void	handler_signal_father(int sig)
+void	handler_signal_parent(int sig)
 {
 	(void)sig;
 	write(2, "\n", 1);
