@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/20 13:15:50 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:56:16 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ void	start_minishell(void)
 		free(prompt);
 		if (!prompt_input)
 		{
+			print_closing();
 			free_hash_table();
 			free(g_data.root_path);
 			rl_clear_history();
 			free(prompt_input);
-			print_closing();
 			exit(127);
 		}
 		if (prompt_input && *prompt_input)
