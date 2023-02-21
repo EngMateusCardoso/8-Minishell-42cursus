@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 14:55:59 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:30:45 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	init_heredoc(char *stop_str, int n_cmd)
 	pid = fork();
 	if (pid < 0)
 		write(2, "Error forking\n", 14);
-	capture_child_signals(pid, 1);
+	capture_child_signals(pid);
 	if (pid == 0)
 		open_heredoc(stop_str, n_cmd);
 	waitpid(-1, &wstatus, 0);
@@ -53,27 +53,17 @@ void	open_heredoc(char *stop_str, int n_cmd)
 {
 	char	*line;
 	int		fd;
-	char	*file;
-	char	*temp;
 
-	temp = ft_itoa(n_cmd);
-	file = ft_strjoin("/tmp/inputfile", temp);
-	free(temp);
-	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	free(file);
+	fd = open_fd_heredoc(n_cmd);
 	if (fd < 0)
 		write(2, "Error opening file\n", 19);
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
-		{
-			finish_free();
-			free(line);
-			eof_msg(stop_str);
-			exit (130);
-		}
-		if (ft_strncmp(line, stop_str, ft_strlen(stop_str)) == 0)
+			finish_eof_heredoc(stop_str, line);
+		if (ft_strncmp(line, stop_str, ft_strlen(stop_str)) == 0 && \
+			ft_strlen(line) == ft_strlen(stop_str))
 		{
 			free(line);
 			break ;
@@ -85,30 +75,24 @@ void	open_heredoc(char *stop_str, int n_cmd)
 	finish_open_heredoc(fd);
 }
 
-void	finish_open_heredoc(int fd)
+int	open_fd_heredoc(int n_cmd)
 {
-	close(fd);
-	g_data.exit_code = 0;
-	finish_free();
-	exit(0);
-}
-
-int	open_fd_heredoc(char *file, int n_cmd)
-{
-	char	*temp;
 	int		fd;
+	char	*file;
+	char	*temp;
 
 	temp = ft_itoa(n_cmd);
 	file = ft_strjoin("/tmp/inputfile", temp);
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(temp);
-	fd = open(file, O_RDONLY, 0644);
-	if (fd == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd("'No such file or directory\n", 2);
-	}
 	free(file);
 	return (fd);
+}
+
+void	finish_eof_heredoc(char *stop_str, char *line)
+{
+	finish_free();
+	free(line);
+	eof_msg(stop_str);
+	exit (130);
 }

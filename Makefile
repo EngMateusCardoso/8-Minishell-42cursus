@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/20 12:14:39 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/21 20:21:10 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS			= 	main.c								\
 					expander/wildcard_expander_2.c		\
 					expander/wildcard_expander_utils.c	\
 					redirections/heredoc.c				\
+					redirections/heredoc_utils.c		\
 					redirections/set_redirections.c		\
 					exit_algorithm/finish_minishell.c	\
 					exit_algorithm/free_algorithm.c		\

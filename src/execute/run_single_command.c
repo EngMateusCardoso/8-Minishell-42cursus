@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_single_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:50:52 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:55:44 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	run_single_command(char **cmd_and_args)
 	char	*cmd_path;
 	char	*str_error;
 
+	if (!cmd_and_args[0])
+	{
+		finish_free();
+		exit(0);
+	}
 	cmd_path = get_command_path(cmd_and_args[0]);
 	if (!cmd_path)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirections.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:22:59 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 10:53:12 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:07:27 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	set_redirection_in_pipeline(char *redir, char *file, int i)
 	else if (redir[0] == '<')
 	{
 		if (redir[1] == '<')
-			g_data.pipes_pids->pipes[i][0] = open_fd_heredoc(file, i);
+			g_data.pipes_pids->pipes[i][0] = open_heredoc_file(file, i);
 		else
 			g_data.pipes_pids->pipes[i][0] = open_file(file, O_RDONLY);
 	}

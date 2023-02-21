@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 14:56:10 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:30:31 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void			start_minishell(void);
 void			capture_signals(struct sigaction *sint, \
 	struct sigaction *squit);
 void			handler_signal(int sig);
-void			capture_child_signals(int pid, int need_free);
+void			capture_child_signals(int pid);
 void			handler_signal_child(int sig);
 void			handler_signal_parent(int sig);
 
@@ -153,6 +153,7 @@ unsigned int	count_tokens_for(char **command_tokens, \
 
 // execute_with_fork.c
 void			execute_with_fork(t_cmd *command_table);
+void			finish_execute_with_fork(void);
 void			close_pipes_in_child(int i);
 void			close_pipes_in_parent(void);
 void			wait_all_pids(void);
@@ -259,7 +260,11 @@ int				unmask_asterisks(char *str);
 void			heredoc(t_cmd *command_table);
 void			init_heredoc(char *stop_str, int n_cmd);
 void			open_heredoc(char *stop_str, int n_cmd);
-int				open_fd_heredoc(char *file, int n_cmd);
+int				open_fd_heredoc(int n_cmd);
+void			finish_eof_heredoc(char *stop_str, char *line);
+
+// heredoc_utils.c
+int				open_heredoc_file(char *file, int n_cmd);
 void			finish_open_heredoc(int fd);
 
 // set_redirections.c

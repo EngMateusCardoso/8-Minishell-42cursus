@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_with_fork.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 01:51:34 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:30:41 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ void	execute_with_fork(t_cmd *command_table)
 {
 	int	i;
 
-	i = 0;
-	while (command_table[i].cmd_and_args)
+	i = -1;
+	while (command_table[++i].cmd_and_args)
 	{
 		g_data.pipes_pids->pids[i] = fork();
-		capture_child_signals(g_data.pipes_pids->pids[i], 0);
+		capture_child_signals(g_data.pipes_pids->pids[i]);
 		if (g_data.pipes_pids->pids[i] == 0)
 		{
 			close_pipes_in_child(i);
 			set_redirections(command_table[i].redirections_and_files, i);
-			if (is_builtin(command_table[i].cmd_and_args[0]))
+			if (command_table[i].cmd_and_args[0] && \
+				is_builtin(command_table[i].cmd_and_args[0]))
 			{
 				run_builtin(command_table[i].cmd_and_args, 1);
 				finish_free();
@@ -36,8 +37,12 @@ void	execute_with_fork(t_cmd *command_table)
 		}
 		else
 			signal(SIGINT, handler_signal_parent);
-		i++;
 	}
+	finish_execute_with_fork();
+}
+
+void	finish_execute_with_fork(void)
+{
 	close_pipes_in_parent();
 	wait_all_pids();
 	close(g_data.pipes_pids->pipes[0][1]);
