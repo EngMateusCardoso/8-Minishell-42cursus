@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:11 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 11:53:24 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:59:00 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	cd_exec(char *folder)
 		{
 			path = find_hash_var(g_data.hash_table[hash_function("OLDPWD") \
 				% TABLE_SIZE], "OLDPWD");
-			printf("%s\n", path);
+			if (path != NULL)
+				printf("%s\n", path);
 		}
 		else
 			path = folder;

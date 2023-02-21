@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 20:30:31 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:57:10 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void			execute_line(char *command);
 int				count_pipes(char **command_tokens);
 void			init_pipes_and_pids(int n_pipes);
 short int		is_forked(t_cmd *command_table);
-void			execute_with_fork(t_cmd *command_table);
 void			execute_no_fork(t_cmd *command_table);
 
 // check_syntax.c
