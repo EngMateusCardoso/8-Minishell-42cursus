@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 20:57:10 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:58:36 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,9 @@ void			error_handler(char *str1, char *str2, int status, char *cmd);
 // cd_builtin.c
 void			cd_builtin(char **cmds);
 int				cd_exec(char *folder);
-void			cd_error(char *folder);
+int				get_home_path(char **path, char *folder);
 void			change_env(char *key, char *value);
+void			cd_error(char *folder, char *var);
 
 // export_builtin.c
 void			export_builtin(char **cmds);
