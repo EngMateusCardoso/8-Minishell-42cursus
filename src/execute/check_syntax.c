@@ -44,6 +44,6 @@ short int	syntax_error(char **command_tokens, char *token)
 	ft_putchar_fd('\'', 2);
 	ft_putstr_fd("\n", 2);
 	free_command_tokens(command_tokens);
-	g_data.exit_code = 127;
+	g_data.exit_code = 2;
 	return (0);
 }
