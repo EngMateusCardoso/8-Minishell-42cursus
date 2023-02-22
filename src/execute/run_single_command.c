@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_single_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 19:55:44 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:54:18 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,14 @@ char	*get_command_path(char *cmd)
 	i = 0;
 	if (!ft_strncmp(cmd, "/bin/", 5) && access(cmd, F_OK) == 0)
 		return (cmd);
-	paths = ft_split(getenv("PATH"), ':');
+	paths = ft_split(find_hash_var(g_data.hash_table[hash_function("PATH") \
+				% TABLE_SIZE], "PATH"), ':');
+	if (!paths)
+	{
+		error_msg(cmd, ": No such file or directory", 127);
+		finish_free();
+		exit(127);
+	}
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
