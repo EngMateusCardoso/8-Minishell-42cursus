@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:05:16 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 11:01:43 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:45:18 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ char	*get_str_path(void)
 	char	*tmp2;
 
 	path = getcwd(NULL, 0);
-	home = ft_strdup(getenv("HOME"));
-	if (ft_strncmp(path, home, ft_strlen(home)) == 0)
+	home = getenv("HOME");
+	if (home && ft_strncmp(path, home, ft_strlen(home)) == 0)
 	{
 		tmp = ft_strjoin("~", &path[ft_strlen(home)]);
 		tmp2 = ft_strjoin(PATH_COLOR, tmp);
 		free(path);
-		free(home);
 		free(tmp);
 		return (tmp2);
 	}
