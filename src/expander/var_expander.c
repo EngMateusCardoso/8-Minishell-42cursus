@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 09:58:03 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/22 15:06:35 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:00:22 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ char	*expand_tilde(char *var)
 	if (temp && ft_strncmp(var, "~", 2) == 0)
 	{
 		home = ft_strdup(temp);
-		ft_putstr_fd("entrou2\n", 1);
 		return (home);
 	}
 	return (NULL);
