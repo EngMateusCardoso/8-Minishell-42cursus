@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:39:37 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 10:49:28 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:59:01 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	echo_builtin(char **cmds)
 {
-	if (ft_strncmp(cmds[1], "-n", 3) == 0)
+	if (ft_strncmp(cmds[1], "-nnnnnnnnnnnn", ft_strlen(cmds[1])) == 0)
 		print_echo_n(cmds);
 	else
 	{
@@ -26,30 +26,31 @@ void	echo_builtin(char **cmds)
 void	print_echo_n(char **cmds)
 {
 	int		i;
-	char	*cmd;
+	int		flag;
 
 	i = 2;
+	flag = 0;
 	while (cmds[i])
 	{
-		cmd = clear_quotes(cmds[i]);
-		ft_putstr_fd(cmd, 1);
-		ft_free_pointer((void *)&cmd);
-		if (cmds[++i])
-			ft_putchar_fd(' ', 1);
+		if (flag || ft_strncmp(cmds[i], "-nnnnnnnnn", ft_strlen(cmds[i])) != 0)
+		{
+			flag = 1;
+			ft_putstr_fd(cmds[i], 1);
+			if (cmds[i + 1])
+				ft_putchar_fd(' ', 1);
+		}
+		i++;
 	}
 }
 
 void	print_echo(char **cmds)
 {
 	int		i;
-	char	*cmd;
 
 	i = 1;
 	while (cmds[i])
 	{
-		cmd = clear_quotes(cmds[i]);
-		ft_putstr_fd(cmd, 1);
-		ft_free_pointer((void *)&cmd);
+		ft_putstr_fd(cmds[i], 1);
 		if (cmds[++i])
 			ft_putchar_fd(' ', 1);
 	}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/21 20:21:10 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/22 19:04:08 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT)
 	@printf "\r$(CY)Generating minishell executable...                                 $(RC)\n"
-	@$(CC) $(addprefix $(OBJS_DIR),$(OBJS)) -o $(NAME) $(LIBS)
+	@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS)) -o $(NAME) $(LIBS)
 	@printf "$(GR)minishell is Ready!$(RC)\n"
 
 $(OBJS_DIR):
@@ -84,7 +84,7 @@ $(OBJS_DIR):
 
 objs/%.o:	src/%.c
 	@printf "\r$(CY)Generating object "$@
-	@$(CC) -c -o $@ $<
+	@$(CC) $(FLAGS) -c -o $@ $<
 	@printf "$(RC)                              "
 
 $(LIBFT):

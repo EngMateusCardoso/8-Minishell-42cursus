@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:17:37 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 18:45:56 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:00:25 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,8 @@ void	expand_token(char **new_token, char *token, int *j)
 			expanded = expand_money_sign(token);
 		if (expanded != NULL)
 		{
-			new_token[*j] = clear_quotes(expanded);
+			new_token[*j] = expanded;
 			*j += 1;
-			free(expanded);
 		}
 	}
 }
