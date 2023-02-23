@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/22 22:02:25 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/22 22:23:18 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,11 @@ OBJS_DIR		= objs/
 
 RM				= rm -fr
 CC				= clang
-FLAGS			= -Wall -Wextra -Werror -g
+FLAGS			= -Wall -Wextra -Werror
 
 LEAKS 			= valgrind
 LEAKS_FILE		= valgrind-out.txt
-LF 				= --suppressions=readline.supp \
+LF				= --suppressions=readline.supp \
 				--leak-check=full \
 				--track-origins=yes \
 				--show-leak-kinds=all \

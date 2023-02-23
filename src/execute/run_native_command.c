@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_single_command.c                               :+:      :+:    :+:   */
+/*   run_native_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 21:48:42 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:23:39 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	run_native_command(char **cmd_and_args)
 {
 	char	*cmd_path;
-	char	*str_error;
 
 	if (!cmd_and_args[0])
 	{
@@ -25,9 +24,10 @@ void	run_native_command(char **cmd_and_args)
 	cmd_path = get_command_path(cmd_and_args[0]);
 	if (!cmd_path)
 	{
-		str_error = ft_strjoin(cmd_and_args[0], ": command not found\n");
-		write(2, str_error, ft_strlen(str_error));
-		free(str_error);
+		if (has_chr(cmd_and_args[0], '/'))
+			error_msg(cmd_and_args[0], ": No such file or directory", 127);
+		else
+			error_msg(cmd_and_args[0], ": command not found", 127);
 		free(cmd_path);
 		finish_free();
 		exit(127);
@@ -43,7 +43,7 @@ char	*get_command_path(char *cmd)
 	int		i;
 
 	i = 0;
-	if (!ft_strncmp(cmd, "/bin/", 5) && access(cmd, F_OK) == 0)
+	if (has_chr(cmd, '/') && access(cmd, F_OK) == 0)
 		return (cmd);
 	paths = ft_split(find_hash_var(g_data.hash_table[hash_function("PATH") \
 				% TABLE_SIZE], "PATH"), ':');

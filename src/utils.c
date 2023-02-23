@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 18:58:03 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:23:39 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,20 @@ char	*clear_quotes(char *var)
 		i++;
 	}
 	return (cmd);
+}
+
+int	has_chr(const char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	if (c == '\0')
+		return (1);
+	return (0);
 }

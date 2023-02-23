@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 21:52:22 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:23:52 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			handler_signal_parent(int sig);
 void			error_msg(char *cmd, char *msg, int status);
 char			*clear_quotes(char *var);
 void			eof_msg(char *redir);
+int				has_chr(const char *s, char c);
 
 /******************************************************************************\
  * /execute/
