@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 23:23:52 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:52:43 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void			close_pipes_in_child(int i);
 void			run_single_command(char **cmd_and_args);
 
 // execute_with_fork_utils.c
+int				check_command(char **cmd_and_args);
 void			finish_execute_with_fork(void);
 void			close_pipes_in_parent(void);
 void			wait_all_pids(void);
