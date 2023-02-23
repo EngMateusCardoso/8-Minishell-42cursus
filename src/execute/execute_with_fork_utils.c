@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   execute_with_fork_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:43:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 21:44:04 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:09:56 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	check_command(char **cmd_and_args)
+{
+	char	*cmd_path;
+	char	*path;
+
+	path = find_hash_var(g_data.hash_table[hash_function("PATH") \
+				% TABLE_SIZE], "PATH");
+	if (!path && !is_builtin(cmd_and_args[0]))
+	{
+		error_msg(cmd_and_args[0], ": No such file or directory", 127);
+		return (0);
+	}
+	cmd_path = get_command_path(cmd_and_args[0]);
+	if (!cmd_path)
+	{
+		if (has_chr(cmd_and_args[0], '/'))
+			error_msg(cmd_and_args[0], ": No such file or directory", 127);
+		else
+			error_msg(cmd_and_args[0], ": command not found", 127);
+		free(cmd_path);
+		return (0);
+	}
+	free(cmd_path);
+	return (1);
+}
 
 void	finish_execute_with_fork(void)
 {

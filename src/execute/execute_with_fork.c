@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_with_fork.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 21:51:23 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:52:13 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,8 @@ void	execute_with_fork(t_cmd *command_table)
 	i = -1;
 	while (command_table[++i].cmd_and_args)
 	{
-		if (!find_hash_var(g_data.hash_table[hash_function("PATH") \
-				% TABLE_SIZE], "PATH") && \
-				!is_builtin(command_table[i].cmd_and_args[0]))
-		{
-			error_msg(command_table[i].cmd_and_args[0], \
-				": No such file or directory", 127);
+		if (!check_command(command_table[i].cmd_and_args))
 			continue ;
-		}
 		g_data.pipes_pids->pids[i] = fork();
 		capture_child_signals(g_data.pipes_pids->pids[i]);
 		if (g_data.pipes_pids->pids[i] == 0)
