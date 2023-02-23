@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 14:58:36 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/22 21:52:22 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,16 @@ unsigned int	count_tokens_for(char **command_tokens, \
 
 // execute_with_fork.c
 void			execute_with_fork(t_cmd *command_table);
-void			finish_execute_with_fork(void);
 void			close_pipes_in_child(int i);
+void			run_single_command(char **cmd_and_args);
+
+// execute_with_fork_utils.c
+void			finish_execute_with_fork(void);
 void			close_pipes_in_parent(void);
 void			wait_all_pids(void);
 
-// run_single_command.c
-void			run_single_command(char **cmd_and_args);
+// run_native_command.c
+void			run_native_command(char **cmd_and_args);
 char			*get_command_path(char *cmd);
 void			free_paths(char **paths);
 

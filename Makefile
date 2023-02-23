@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/22 19:04:08 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/22 22:02:25 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS			= 	main.c								\
 					execute/parser.c					\
 					execute/parser_utils.c				\
 					execute/execute_with_fork.c			\
-					execute/run_single_command.c		\
+					execute/execute_with_fork_utils.c	\
+					execute/run_native_command.c		\
 					execute/execute_utils.c				\
 					hashtable/store_env_variables.c		\
 					hashtable/hashtable_utils.c			\
