@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 20:56:43 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 10:49:57 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:34:26 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void	pwd_builtin(void)
 		ft_putendl_fd(path, 1);
 	}
 	ft_free_pointer((void *)&path);
+	g_data.exit_code = 0;
 }

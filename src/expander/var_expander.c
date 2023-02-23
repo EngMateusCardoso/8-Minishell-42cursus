@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 09:58:03 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/22 19:00:22 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:28:11 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	expand_var(char **expanded, char *var)
 		*expanded = ft_strjoin(temp, value);
 		ft_free_pointer((void *)&temp);
 		ft_free_pointer((void *)&value);
-		g_data.exit_code = 0;
 		return (1);
 	}
 	else

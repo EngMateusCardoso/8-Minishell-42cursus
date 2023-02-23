@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/23 11:52:43 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:29:52 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void			handler_signal_parent(int sig);
 
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);
+void			clear_quotes_loop(char **cmds);
 char			*clear_quotes(char *var);
 void			eof_msg(char *redir);
 int				has_chr(const char *s, char c);
@@ -179,7 +180,7 @@ short int		is_redirection_or_pipe(char *token);
 void			run_builtin(char **command, int isfork);
 int				is_builtin(char *command);
 int				check_identifier(char *var);
-void			identifier_error(char *cmd, char **value);
+void			identifier_error(char *cmd, char *value);
 void			error_handler(char *str1, char *str2, int status, char *cmd);
 
 // cd_builtin.c
@@ -210,6 +211,7 @@ void			exit_builtin(char **cmds);
 void			echo_builtin(char **cmds);
 void			print_echo(char **cmds);
 void			print_echo_n(char **cmds);
+int				print_echo_n_cleared(char *command, int flag);
 
 //pwd_builtin.c
 void			pwd_builtin(void);

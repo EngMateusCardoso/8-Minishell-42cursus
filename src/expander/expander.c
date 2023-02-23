@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:17:37 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 19:00:25 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:28:51 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	expand_cmd_and_args(char **new_cmds, char **cmds)
 			expand_token(new_cmds, cmds[i], &j);
 		else
 		{
-			new_cmds[j] = clear_quotes(cmds[i]);
+			new_cmds[j] = cmds[i];
 			j++;
 		}
 		i++;
@@ -71,7 +71,7 @@ void	expand_redirections_and_files(char **new_redir, char **redir)
 			expand_token(new_redir, redir[i], &j);
 		else
 		{
-			new_redir[j] = clear_quotes(redir[i]);
+			new_redir[j] = redir[i];
 			j++;
 		}
 		i++;
