@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 07:56:12 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/21 20:30:12 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:37:17 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void	handler_signal_child(int sig)
 void	handler_signal_parent(int sig)
 {
 	(void)sig;
+	g_data.exit_code = 130;
 	write(2, "\n", 1);
 }
