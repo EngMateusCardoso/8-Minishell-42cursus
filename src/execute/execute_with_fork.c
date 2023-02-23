@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/23 11:52:13 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:35:19 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ void	run_single_command(char **cmd_and_args)
 		exit(0);
 	}
 	else
+	{
+		clear_quotes_loop(cmd_and_args);
 		run_native_command(cmd_and_args);
+	}
 }

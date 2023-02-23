@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:20:17 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 10:50:03 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:28:47 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ void	unset_builtin(char **cmds)
 			g_data.exit_code = 0;
 		}
 		else
-			identifier_error("unset", &cmd);
+			identifier_error("unset", cmd);
 		i++;
 		ft_free_pointer((void *)&cmd);
 	}
+	g_data.exit_code = 0;
 }
 
 void	delete_from_hashtable(t_list *head, t_list *node, char *key)

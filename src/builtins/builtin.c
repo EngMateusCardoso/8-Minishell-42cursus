@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:32:35 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 18:58:35 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:58:27 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ int	check_identifier(char *var)
 	return (1);
 }
 
-void	identifier_error(char *cmd, char **value)
+void	identifier_error(char *cmd, char *value)
 {
 	char	*tmp;
 	char	*tmp2;
 
-	if (*value)
+	if (value)
 	{
 		tmp = ft_strjoin(cmd, ": `");
-		tmp2 = ft_strjoin(tmp, *value);
-		error_msg(tmp, "': not a valid identifier", 1);
+		tmp2 = ft_strjoin(tmp, value);
+		error_msg(tmp2, "': not a valid identifier", 1);
 		ft_free_pointer((void *)&tmp);
 		ft_free_pointer((void *)&tmp2);
 	}

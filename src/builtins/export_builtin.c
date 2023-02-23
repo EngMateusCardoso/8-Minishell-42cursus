@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:03:17 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 10:49:51 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:20:46 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ void	export_builtin(char **cmds)
 		while (cmds[i])
 		{
 			cmd = clear_quotes(cmds[i]);
-			if (cmd && check_identifier(cmd))
+			if (cmd && check_identifier(cmd) && has_equal(cmd))
 			{
-				if (has_equal(cmd))
-					append_hashtable(cmd);
+				append_hashtable(cmd);
 				g_data.exit_code = 0;
 			}
 			else
-				identifier_error("export", &cmd);
+				identifier_error("export", cmd);
 			i++;
 			ft_free_pointer((void *)&cmd);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 23:23:39 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:35:33 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ void	eof_msg(char *redir)
 	ft_putstr_fd(" by end-of-file (wanted `", 2);
 	ft_putstr_fd(redir, 2);
 	ft_putstr_fd("')\n", 2);
+}
+
+void	clear_quotes_loop(char **cmds)
+{
+	int		i;
+	char	*cmd;
+
+	i = 0;
+	while (cmds[i])
+	{
+		cmd = cmds[i];
+		free(cmds[i]);
+		cmds[i] = clear_quotes(cmd);
+		i++;
+	}
 }
 
 char	*clear_quotes(char *var)
