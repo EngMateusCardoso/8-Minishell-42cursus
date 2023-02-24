@@ -80,10 +80,10 @@ short int	is_forked(t_cmd *command_table)
 		!(command_table[1].redirections_and_files) && \
 		command_table[0].cmd_and_args && \
 		command_table[0].cmd_and_args[0] && \
-		(ft_strncmp(command_table[0].cmd_and_args[0], "exit", 4) == 0 || \
-		ft_strncmp(command_table[0].cmd_and_args[0], "cd", 2) == 0 || \
-		ft_strncmp(command_table[0].cmd_and_args[0], "export", 6) == 0 || \
-		ft_strncmp(command_table[0].cmd_and_args[0], "unset", 5) == 0))
+		(ft_strncmp(command_table[0].cmd_and_args[0], "exit", 5) == 0 || \
+		ft_strncmp(command_table[0].cmd_and_args[0], "cd", 3) == 0 || \
+		ft_strncmp(command_table[0].cmd_and_args[0], "export", 7) == 0 || \
+		ft_strncmp(command_table[0].cmd_and_args[0], "unset", 6) == 0))
 		return (0);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:39:37 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/23 18:58:27 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:08:50 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	echo_builtin(char **cmds)
 {
-	if (ft_strncmp(cmds[1], "-nnnnnnnnnnnn", ft_strlen(cmds[1])) == 0)
+	if (cmds[1] == NULL)
+		ft_putchar_fd('\n', 1);
+	else if (ft_strncmp(cmds[1], "-nnnnnnnnnnnn", ft_strlen(cmds[1])) == 0)
 		print_echo_n(cmds);
 	else
 	{

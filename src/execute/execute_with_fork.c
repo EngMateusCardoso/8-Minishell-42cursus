@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_with_fork.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:17:57 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/23 17:35:19 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:18:14 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	execute_with_fork(t_cmd *command_table)
 	int	i;
 
 	i = -1;
-	while (command_table[++i].cmd_and_args)
+	while (command_table[++i].cmd_and_args && command_table[i].cmd_and_args[0])
 	{
 		if (!check_command(command_table[i].cmd_and_args))
 			continue ;
+		g_data.exit_code = 0;
 		g_data.pipes_pids->pids[i] = fork();
 		capture_child_signals(g_data.pipes_pids->pids[i]);
 		if (g_data.pipes_pids->pids[i] == 0)
