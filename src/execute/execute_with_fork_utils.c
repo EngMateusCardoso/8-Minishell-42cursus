@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_with_fork_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:43:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/23 12:09:56 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:25:08 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@ void	close_pipes_in_parent(void)
 void	wait_all_pids(void)
 {
 	int	i;
+	int	wstatus;
 
 	i = 0;
 	while (i < g_data.pipes_pids->total_cmd)
 	{
-		waitpid(g_data.pipes_pids->pids[i], NULL, 0);
+		waitpid(g_data.pipes_pids->pids[i], &wstatus, 0);
 		i++;
 	}
+	g_data.exit_code = WEXITSTATUS(wstatus);
 }

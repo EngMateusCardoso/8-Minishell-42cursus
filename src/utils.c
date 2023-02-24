@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/24 10:36:11 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:57:58 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,20 @@ void	clear_quotes_loop(char **cmds)
 char	*clear_quotes(char *var)
 {
 	char	*cmd;
-	char	quote;
 	int		i;
 
 	cmd = NULL;
-	quote = '\0';
-	i = 0;
-	while (var[i])
+	i = -1;
+	while (var[++i])
 	{
-		if ((var[i] == '\'') || (var[i] == '\"'))
-		{
-			quote = var[i];
-			break ;
-		}
-		i++;
-	}
-	i = 0;
-	while (var[i])
-	{
-		if ((var[i] != quote))
+		if (var[i] == '\'')
+			i += single_mark_case(&var[i], &cmd);
+		else if (var[i] == '\"')
+			i += double_mark_case(&var[i], &cmd);
+		else
 			cmd = ft_straddchar(cmd, var[i]);
-		i++;
+		if (!var[i])
+			break ;
 	}
 	return (cmd);
 }
