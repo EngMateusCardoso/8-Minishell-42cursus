@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/23 17:35:33 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/24 10:36:11 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	clear_quotes_loop(char **cmds)
 	while (cmds[i])
 	{
 		cmd = cmds[i];
-		free(cmds[i]);
 		cmds[i] = clear_quotes(cmd);
+		free(cmd);
 		i++;
 	}
 }
