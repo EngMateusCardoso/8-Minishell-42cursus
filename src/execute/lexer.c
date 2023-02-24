@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:51:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 14:43:01 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:32:30 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,24 @@ unsigned int	token_size(char const *command, unsigned int i)
 	unsigned int	size;
 
 	size = 0;
+	//****************************************************
+	if (command[i] && (command[i] == '"' || command[i] == '\''))
+			return (quote_token_size(command, i, command[i]));
+	//****************************************************
 	if (redirection_and_pipe_size(command, i) > 0)
 		return (redirection_and_pipe_size(command, i));
 	while (command[i] && command[i] != ' ' && \
-		redirection_and_pipe_size(command, i) == 0)
+		//redirection_and_pipe_size(command, i) == 0)
+		redirection_and_pipe_size(command, i) == 0 && command[i] != '"' \
+		&& command[i] != '\'')
 	{
 		size++;
 		i++;
-		if (command[i] && (command[i] == '"' || command[i] == '\''))
-		{
-			size += quote_token_size(command, i, command[i]);
-			i += quote_token_size(command, i, command[i]);
-		}
+		// if (command[i] && (command[i] == '"' || command[i] == '\''))
+		// {
+		// 	size += quote_token_size(command, i, command[i]);
+		// 	i += quote_token_size(command, i, command[i]);
+		// }
 	}
 	return (size);
 }
