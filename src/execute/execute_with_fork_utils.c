@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:43:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/24 19:25:08 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/24 20:15:05 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,27 @@ int	check_command(char **cmd_and_args)
 	char	*cmd_path;
 	char	*path;
 
-	path = find_hash_var(g_data.hash_table[hash_function("PATH") \
-				% TABLE_SIZE], "PATH");
-	if (!path && !is_builtin(cmd_and_args[0]))
+	if (!is_builtin(cmd_and_args[0]))
 	{
-		error_msg(cmd_and_args[0], ": No such file or directory", 127);
-		return (0);
-	}
-	cmd_path = get_command_path(cmd_and_args[0]);
-	if (!cmd_path)
-	{
-		if (has_chr(cmd_and_args[0], '/'))
+		path = find_hash_var(g_data.hash_table[hash_function("PATH") \
+					% TABLE_SIZE], "PATH");
+		if (!path)
+		{
 			error_msg(cmd_and_args[0], ": No such file or directory", 127);
-		else
-			error_msg(cmd_and_args[0], ": command not found", 127);
+			return (0);
+		}
+		cmd_path = get_command_path(cmd_and_args[0]);
+		if (!cmd_path)
+		{
+			if (has_chr(cmd_and_args[0], '/'))
+				error_msg(cmd_and_args[0], ": No such file or directory", 127);
+			else
+				error_msg(cmd_and_args[0], ": command not found", 127);
+			free(cmd_path);
+			return (0);
+		}
 		free(cmd_path);
-		return (0);
 	}
-	free(cmd_path);
 	return (1);
 }
 
