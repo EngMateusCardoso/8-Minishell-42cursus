@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/25 01:05:23 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/25 14:35:57 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ void			wait_all_pids(void);
 void			run_native_command(char **cmd_and_args);
 char			*get_command_path(char *cmd);
 void			free_paths(char **paths);
+int				has_tilde_access(char *cmd);
 
 // execute_utils.c
 short int		is_redirection(char *token);
