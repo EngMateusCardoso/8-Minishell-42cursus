@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:05:16 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 21:45:18 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:01:48 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	*get_str_path(void)
 	char	*tmp2;
 
 	path = getcwd(NULL, 0);
-	home = getenv("HOME");
+	home = find_hash_var(g_data.hash_table[hash_function("HOME") \
+				% TABLE_SIZE], "HOME");
 	if (home && ft_strncmp(path, home, ft_strlen(home)) == 0)
 	{
 		tmp = ft_strjoin("~", &path[ft_strlen(home)]);
@@ -61,7 +62,6 @@ char	*get_str_path(void)
 	{
 		tmp = ft_strjoin(PATH_COLOR, path);
 		free(path);
-		free(home);
 		return (tmp);
 	}
 }

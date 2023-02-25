@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_native_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:27:53 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/22 23:23:39 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/25 01:15:25 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@ void	run_native_command(char **cmd_and_args)
 		exit(0);
 	}
 	cmd_path = get_command_path(cmd_and_args[0]);
-	if (!cmd_path)
-	{
-		if (has_chr(cmd_and_args[0], '/'))
-			error_msg(cmd_and_args[0], ": No such file or directory", 127);
-		else
-			error_msg(cmd_and_args[0], ": command not found", 127);
-		free(cmd_path);
-		finish_free();
-		exit(127);
-	}
 	execve(cmd_path, cmd_and_args, g_data.envp);
 }
 

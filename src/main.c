@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/24 19:18:46 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:24:31 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,18 @@ int	main(int argc, char **argv, char **envp)
 
 void	init_minishell(char **envp)
 {
+	int		i;
+	char	*path;
+
 	print_startup();
 	g_data.envp = envp;
 	store_env_variables(envp);
 	g_data.exit_code = 0;
-	g_data.root_path = getcwd(NULL, 0);
+	path = getcwd(NULL, 0);
+	g_data.root_path = ft_strdup(path);
+	free(path);
+	i = hash_function("HOME") % TABLE_SIZE;
+	g_data.home_path = ft_strdup(find_hash_var(g_data.hash_table[i], "HOME"));
 }
 
 void	print_startup(void)

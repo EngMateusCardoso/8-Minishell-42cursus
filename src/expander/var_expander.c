@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 09:58:03 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/23 12:28:11 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:05:46 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,8 @@ char	*expand_tilde(char *var)
 {
 	char			*home;
 	char			*temp;
-	unsigned int	idx;
 
-	idx = hash_function("HOME") % TABLE_SIZE;
-	temp = find_hash_var(g_data.hash_table[idx], "HOME");
+	temp = g_data.home_path;
 	if (temp && ft_strncmp(var, "~", 2) == 0)
 	{
 		home = ft_strdup(temp);
