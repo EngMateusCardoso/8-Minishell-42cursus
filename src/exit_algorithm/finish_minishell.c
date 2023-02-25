@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/18 17:12:36 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:08:25 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	finish_free(void)
 {
 	free_hash_table();
 	free(g_data.root_path);
+	free(g_data.home_path);
 	rl_clear_history();
 	free_command_table(g_data.command_table_expanded);
 	free_pipes_and_pids();
