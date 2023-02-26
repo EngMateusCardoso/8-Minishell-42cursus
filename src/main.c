@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/26 01:03:41 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:07:16 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,6 @@ void	print_startup(void)
 	return ;
 }
 
-void	print_color_char(int index, char c)
-{
-	if (index < 12)
-		printf("%s%c", COLOR_1, c);
-	else if (index < 24)
-		printf("%s%c", COLOR_2, c);
-	else if (index < 36)
-		printf("%s%c", COLOR_3, c);
-	else if (index < 48)
-		printf("%s%c", COLOR_4, c);
-	else if (index < 60)
-		printf("%s%c", COLOR_5, c);
-	else
-		printf("%s%c%s", COLOR_6, c, RESET_COLOR);
-}
-
 void	start_minishell(void)
 {
 	char				*prompt;
@@ -97,15 +81,7 @@ void	start_minishell(void)
 		prompt_input = readline(prompt);
 		free(prompt);
 		if (!prompt_input)
-		{
-			print_closing();
-			free_hash_table();
-			free(g_data.root_path);
-			free(g_data.home_path);
-			rl_clear_history();
-			free(prompt_input);
-			exit(2);
-		}
+			prompt_eof_finish(prompt_input);
 		if (prompt_input && *prompt_input)
 			add_history(prompt_input);
 		execute_line(prompt_input);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:24:22 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/25 00:08:25 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:06:52 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ void	finish_free(void)
 	rl_clear_history();
 	free_command_table(g_data.command_table_expanded);
 	free_pipes_and_pids();
+}
+
+void	prompt_eof_finish(char *prompt_input)
+{
+	print_closing();
+	free_hash_table();
+	free(g_data.root_path);
+	free(g_data.home_path);
+	rl_clear_history();
+	free(prompt_input);
+	exit(2);
 }
 
 void	print_closing(void)

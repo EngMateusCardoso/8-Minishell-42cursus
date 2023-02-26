@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:28:02 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/24 19:57:58 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:34:18 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,18 @@ char	*clear_quotes(char *var)
 	return (cmd);
 }
 
-int	has_chr(const char *s, char c)
+void	print_color_char(int index, char c)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			return (1);
-		i++;
-	}
-	if (c == '\0')
-		return (1);
-	return (0);
+	if (index < 12)
+		printf("%s%c", COLOR_1, c);
+	else if (index < 24)
+		printf("%s%c", COLOR_2, c);
+	else if (index < 36)
+		printf("%s%c", COLOR_3, c);
+	else if (index < 48)
+		printf("%s%c", COLOR_4, c);
+	else if (index < 60)
+		printf("%s%c", COLOR_5, c);
+	else
+		printf("%s%c%s", COLOR_6, c, RESET_COLOR);
 }

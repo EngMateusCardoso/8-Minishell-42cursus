@@ -27,10 +27,13 @@ void	execute_line(char *command)
 		g_data.command_table_expanded = expand_command_table(command_table);
 		free_command_table(command_table);
 		heredoc(g_data.command_table_expanded);
-		if (is_forked(g_data.command_table_expanded))
-			execute_with_fork(g_data.command_table_expanded);
-		else
-			execute_no_fork(g_data.command_table_expanded);
+		if (!g_data.not_run)
+		{
+			if (is_forked(g_data.command_table_expanded))
+				execute_with_fork(g_data.command_table_expanded);
+			else
+				execute_no_fork(g_data.command_table_expanded);
+		}
 		free_command_table(g_data.command_table_expanded);
 		free_pipes_and_pids();
 	}

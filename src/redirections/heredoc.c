@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/25 22:06:28 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:58:28 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ void	init_heredoc(char *stop_str, int n_cmd)
 	pid = fork();
 	if (pid < 0)
 		write(2, "Error forking\n", 14);
-	capture_child_signals(pid);
+	capture_child_signals(pid, 1);
 	if (pid == 0)
 		open_heredoc(stop_str, n_cmd);
 	waitpid(-1, &wstatus, 0);
 	g_data.exit_code = WEXITSTATUS(wstatus);
-	g_data.not_run = 1;
 }
 
 void	open_heredoc(char *stop_str, int n_cmd)

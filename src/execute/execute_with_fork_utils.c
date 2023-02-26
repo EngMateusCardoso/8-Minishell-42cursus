@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_with_fork_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:43:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/25 22:03:48 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:34:06 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,24 @@ void	wait_all_pids(void)
 		waitpid(g_data.pipes_pids->pids[i], &wstatus, 0);
 		i++;
 	}
-	if (WEXITSTATUS(wstatus) != 0 && g_data.not_run == 0)
+	if (WEXITSTATUS(wstatus) != 0)
 	{
 		g_data.exit_code = WEXITSTATUS(wstatus);
 	}
+}
+
+int	has_chr(const char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	if (c == '\0')
+		return (1);
+	return (0);
 }

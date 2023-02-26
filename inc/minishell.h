@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/26 15:38:25 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:43:18 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,23 +94,25 @@ extern t_data				g_data;
 // main.c
 void			init_minishell(char **envp);
 void			print_startup(void);
-void			print_color_char(int index, char c);
 void			start_minishell(void);
 
 // signals.c
 void			capture_signals(struct sigaction *sint, \
 	struct sigaction *squit);
+void			capture_child_signals(int pid, int is_heredoc);
+
+// signals_handler.c
 void			handler_signal(int sig);
-void			capture_child_signals(int pid);
-void			handler_signal_child(int sig);
 void			handler_signal_parent(int sig);
+void			handler_signal_child_exec(int sig);
+void			handler_signal_child_heredoc(int sig);
 
 // utils.c
 void			error_msg(char *cmd, char *msg, int status);
 void			clear_quotes_loop(char **cmds);
 char			*clear_quotes(char *var);
 void			eof_msg(char *redir);
-int				has_chr(const char *s, char c);
+void			print_color_char(int index, char c);
 
 /******************************************************************************\
  * /execute/
@@ -164,6 +166,7 @@ int				check_command(char **cmd_and_args);
 void			finish_execute_with_fork(void);
 void			close_pipes_in_parent(void);
 void			wait_all_pids(void);
+int				has_chr(const char *s, char c);
 
 // run_native_command.c
 void			run_native_command(char **cmd_and_args);
@@ -290,6 +293,7 @@ int				has_output_redirection(char **redir_and_files);
 // finish_minishell.c
 void			finish_minishell(void);
 void			finish_free(void);
+void			prompt_eof_finish(char *prompt_input);
 void			print_closing(void);
 void			read_file(char *buff, int fd);
 

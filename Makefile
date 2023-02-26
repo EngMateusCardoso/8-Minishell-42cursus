@@ -6,14 +6,13 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/26 15:29:47 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/26 17:44:04 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
 SRCS			= 	main.c								\
-					signals.c							\
 					utils.c								\
 					debug_functions.c					\
 					execute/get_prompt.c				\
@@ -48,6 +47,8 @@ SRCS			= 	main.c								\
 					redirections/set_redirections.c		\
 					exit_algorithm/finish_minishell.c	\
 					exit_algorithm/free_algorithm.c		\
+					signals/signals.c					\
+					signals/signals_handler.c			\
 
 OBJS			= ${SRCS:%.c=%.o}
 HEADER			= ./inc/minishell.h
@@ -82,7 +83,7 @@ $(NAME):	 $(LIBFTA) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
 	@printf "$(GR)minishell is Ready!$(RC)\n"
 
 $(OBJS_DIR):
-	@mkdir $(OBJS_DIR) $(OBJS_DIR)/builtins $(OBJS_DIR)/execute $(OBJS_DIR)/exit_algorithm $(OBJS_DIR)/expander $(OBJS_DIR)/hashtable $(OBJS_DIR)/redirections
+	@mkdir $(OBJS_DIR) $(OBJS_DIR)/builtins $(OBJS_DIR)/execute $(OBJS_DIR)/exit_algorithm $(OBJS_DIR)/expander $(OBJS_DIR)/hashtable $(OBJS_DIR)/redirections $(OBJS_DIR)/signals
 
 objs/%.o:	src/%.c
 	@printf "\r$(CY)Generating object "$@
