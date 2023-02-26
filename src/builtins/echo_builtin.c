@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:39:37 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/24 14:08:50 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/25 21:01:50 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_echo_n(char **cmds)
 	while (cmds[i])
 	{
 		cmd = clear_quotes(cmds[i]);
-		if (flag || ft_strncmp(cmd, "-nnnnnnnnn", ft_strlen(cmd)) != 0)
+		if (cmd && (flag || ft_strncmp(cmd, "-nnnnnnnnn", ft_strlen(cmd)) != 0))
 		{
 			flag = 1;
 			ft_putstr_fd(cmd, 1);
