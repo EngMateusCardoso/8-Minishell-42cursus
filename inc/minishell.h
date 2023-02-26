@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:52:56 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/25 21:54:18 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/26 15:38:25 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ void			pwd_builtin(void);
 t_cmd			*expand_command_table(t_cmd *cmd);
 void			expand_cmd_and_args(char **new_cmds, char **cmds);
 void			expand_redirections_and_files(char **new_redir, char **redir);
-void			expand_token(char **new_token, char *token, int *j);
+void			expand_token(char **new_token, char *token, int *j, char *cmd);
 
 // expander_utils.c
 int				count_commands(t_cmd *command_table);

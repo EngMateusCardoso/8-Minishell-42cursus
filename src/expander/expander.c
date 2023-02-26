@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 20:17:37 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/24 09:33:41 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:05:30 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	expand_cmd_and_args(char **new_cmds, char **cmds)
 	while (cmds[i])
 	{
 		if (can_expand(cmds[i]))
-			expand_token(new_cmds, cmds[i], &j);
+			expand_token(new_cmds, cmds[i], &j, cmds[0]);
 		else
 		{
 			new_cmds[j] = ft_strdup(cmds[i]);
@@ -68,7 +68,7 @@ void	expand_redirections_and_files(char **new_redir, char **redir)
 	while (redir[i])
 	{
 		if (can_expand(redir[i]))
-			expand_token(new_redir, redir[i], &j);
+			expand_token(new_redir, redir[i], &j, redir[0]);
 		else
 		{
 			new_redir[j] = ft_strdup(redir[i]);
@@ -80,12 +80,12 @@ void	expand_redirections_and_files(char **new_redir, char **redir)
 	return ;
 }
 
-void	expand_token(char **new_token, char *token, int *j)
+void	expand_token(char **new_token, char *token, int *j, char *cmd)
 {
 	char	*expanded;
 
 	expanded = NULL;
-	if (has_wildcard(token))
+	if (has_wildcard(token) && ft_strncmp(cmd, "export", 6))
 		expand_wildcard(new_token, token, j);
 	else
 	{
