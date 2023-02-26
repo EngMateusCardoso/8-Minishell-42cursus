@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expander_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 10:04:12 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/18 10:52:15 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/26 15:14:21 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	double_mark_case(char *token, char **expanded)
 	i = 0;
 	while (token[++i] && token[i] != '\"')
 	{
-		if (token[i] == '$')
+		if (token[i] == '$' && token[i + 1] && \
+			token[i + 1] != '\"' && token[i + 1] != ' ')
 			i += expand_var(expanded, &token[i + 1]);
 		else
 			*expanded = ft_straddchar(*expanded, token[i]);

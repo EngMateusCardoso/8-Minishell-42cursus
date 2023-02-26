@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/22 22:23:18 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/26 15:24:20 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ LF				= --suppressions=readline.supp \
 
 LIBFT			= ./libraries/libft/
 LIBS			= -L $(LIBFT) -lft  -lreadline
+LIBFTA			= $(LIBFT)libft.a
 
 GR				= \033[32;1m
 RE				= \033[31;1m
@@ -75,7 +76,7 @@ RC				= \033[0m
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT)
+$(NAME):	 $(LIBFTA) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
 	@printf "\r$(CY)Generating minishell executable...                                 $(RC)\n"
 	@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS)) -o $(NAME) $(LIBS)
 	@printf "$(GR)minishell is Ready!$(RC)\n"
@@ -88,7 +89,7 @@ objs/%.o:	src/%.c
 	@$(CC) $(FLAGS) -c -o $@ $<
 	@printf "$(RC)                              "
 
-$(LIBFT):
+$(LIBFTA):
 	@printf "\n$(CY)Generating libft...$(RC)\n"
 	@make bonus -C ./libraries/libft
 	@printf "$(GR)libft ready!$(RC)"
@@ -101,10 +102,12 @@ leaks:		$(NAME)
 
 clean:
 	@$(RM) $(OBJS_DIR) $(LEAKS_FILE)
+	@make clean -C ./libraries/libft
 	@printf "$(RE)minishell objects removed!$(RC)\n"
 
 fclean:		clean
 	@$(RM) $(NAME)
+	@make fclean -C ./libraries/libft
 	@printf "$(RE)minishell removed!$(RC)\n"
 
 re:			fclean all

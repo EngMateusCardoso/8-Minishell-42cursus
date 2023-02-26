@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 19:09:59 by thabeck-          #+#    #+#              #
-#    Updated: 2023/02/14 16:01:28 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/02/26 13:25:16 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,31 +75,31 @@ BONUS_SRCS  = ft_lstnew.c			\
 OBJS 		= $(SRCS:.c=.o)
 BONUS_OBJS 	= $(BONUS_SRCS:.c=.o)
 
-GREEN		=	\e[38;5;118m
-BLUE		=	\e[38;5;75m
-RESET		=	\e[0m
-_SUCCESS	=	[$(GREEN)== SUCCESS ==$(RESET)]
-_INFO		=	[$(BLUE)== INFO ==$(RESET)]
-
+GR				= \033[32;1m
+RE				= \033[31;1m
+CY				= \033[36;1m
+RC				= \033[0m
 
 all:		$(NAME)
 
 $(NAME): 	$(OBJS) $(HDR)
 	@ ar -rcs $(NAME) $(OBJS)
-	@echo "\n$(_SUCCESS) Libft is ready.\n"
 
 bonus:		$(NAME) $(BONUS_OBJS)
+	@printf "\r$(CY)Generating libft executable...                            $(RC)\n"
 	@ ar -rcs $(NAME) $(BONUS_OBJS)
+	@printf "$(GR)libft is Ready!$(RC)\n"
 
 .c.o:
 	@ $(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
 	@ $(RM) $(OBJS) $(BONUS_OBJS)
+	@printf "$(RE)libft objects removed!$(RC)\n"
 
 fclean:		clean
 	@ $(RM) $(NAME)
-	@echo "\n$(_INFO) Libft was removed.\n"
+	@printf "$(RE)libft removed!$(RC)\n"
 
 re :		fclean all
 
