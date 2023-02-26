@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 06:34:38 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/25 00:24:31 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/02/25 22:02:31 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	start_minishell(void)
 
 	while (1)
 	{
+		g_data.not_run = 0;
 		capture_signals(&sint, &squit);
 		prompt = get_prompt();
 		prompt_input = readline(prompt);

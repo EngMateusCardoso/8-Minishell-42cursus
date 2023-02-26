@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:39:01 by matcardo          #+#    #+#             */
-/*   Updated: 2023/02/21 20:30:45 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/02/25 22:06:28 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	init_heredoc(char *stop_str, int n_cmd)
 		open_heredoc(stop_str, n_cmd);
 	waitpid(-1, &wstatus, 0);
 	g_data.exit_code = WEXITSTATUS(wstatus);
+	g_data.not_run = 1;
 }
 
 void	open_heredoc(char *stop_str, int n_cmd)
@@ -94,5 +95,5 @@ void	finish_eof_heredoc(char *stop_str, char *line)
 	finish_free();
 	free(line);
 	eof_msg(stop_str);
-	exit (130);
+	exit (0);
 }
