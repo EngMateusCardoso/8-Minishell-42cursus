@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 02:09:58 by matcardo          #+#    #+#              #
-#    Updated: 2023/02/26 15:24:20 by matcardo         ###   ########.fr        #
+#    Updated: 2023/02/26 15:29:47 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ objs/%.o:	src/%.c
 	@printf "$(RC)                              "
 
 $(LIBFTA):
-	@printf "\n$(CY)Generating libft...$(RC)\n"
+	@printf "$(CY)Generating libft...$(RC)\n"
 	@make bonus -C ./libraries/libft
 	@printf "$(GR)libft ready!$(RC)"
 
